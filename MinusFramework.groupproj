@@ -36,10 +36,10 @@
         <Projects Include="Core\Samples\MinusDemo\MinusDemo.dproj">
             <Dependencies/>
         </Projects>
-        <Projects Include="FeatureFlags\MinusFeatureFlags.dproj">
+        <Projects Include="FeatureFlags\FeatureFlags\MinusFeatureFlags.dproj">
             <Dependencies/>
         </Projects>
-        <Projects Include="FeatureFlags\API\MinusFeatureFlagsAPI.dproj">
+        <Projects Include="FeatureFlags\FeatureFlags\API\MinusFeatureFlagsAPI.dproj">
             <Dependencies/>
         </Projects>
         <Projects Include="Messaging\Packages\MinusMessaging_Design.dproj">
@@ -51,10 +51,10 @@
         <Projects Include="Messaging\Tests\Messaging\Test.MinusMessaging.dproj">
             <Dependencies/>
         </Projects>
-        <Projects Include="FeatureFlags\Tests\FeatureFlags\Test.MinusFeatureFlags.dproj">
+        <Projects Include="FeatureFlags\Tests\Test.MinusFeatureFlags.dproj">
             <Dependencies/>
         </Projects>
-        <Projects Include="Telemetry\Tests\Telemetry\Test.MinusTelemetry.dproj">
+        <Projects Include="Telemetry\Tests\Test.MinusTelemetry.dproj">
             <Dependencies/>
         </Projects>
     </ItemGroup>
