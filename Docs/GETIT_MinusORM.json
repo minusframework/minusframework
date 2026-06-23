@@ -1,0 +1,33 @@
+{
+  "version": "2.0.0",
+  "name": "MinusORM",
+  "title": "Minus ORM Framework",
+  "description": "ORM Delphi moderno com suporte a Firebird, PostgreSQL, SQLite, MySQL, MariaDB, MSSQL, Oracle, DB2. Criteria API, SelectBuilder fluente, Expression type-safe, UnitOfWork, ChangeTracker, IdentityMap, Lazy Loading, Nullable types, Migrations, Cache, SoftDelete, Auditoria, Bulk Operations, Paginacao, JSON serialization, Horse REST integration, Async/await e mais.",
+  "categories": ["ORM", "Database", "CRUD", "Migrations"],
+  "platforms": ["win32", "win64"],
+  "delphi_versions": ["Alexandria", "23.0"],
+  "dependencies": ["FireDAC"],
+  "files": [
+    {
+      "filename": "Packages/MinusFramework_Runtime.bpl",
+      "platform": "win32"
+    },
+    {
+      "filename": "Packages/MinusFramework_Design.bpl",
+      "platform": "win32"
+    },
+    {
+      "filename": "Packages/MinusFramework_Runtime.bpl",
+      "platform": "win64"
+    },
+    {
+      "filename": "Packages/MinusFramework_Design.bpl",
+      "platform": "win64"
+    }
+  ],
+  "readme": "Docs/GUIA_DO_USUARIO.md",
+  "license": "LICENSE",
+  "homepage": "https://github.com/anomalyco/MinusFramework",
+  "author": "Gabriel Anomaly",
+  "email": "gabriel@anomaly.com.br"
+}

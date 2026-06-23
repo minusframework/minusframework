@@ -1,0 +1,78 @@
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+    <PropertyGroup>
+        <ProjectGuid>{1A2B3C4D-5E6F-7890-ABCD-EF1234567890}</ProjectGuid>
+    </PropertyGroup>
+    <ItemGroup>
+        <Projects Include="Telemetry\Packages\MinusTelemetry_Runtime.dproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="Messaging\Packages\MinusMessaging_Runtime.dproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="Core\Packages\MinusFramework_Runtime.dproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="Core\Packages\MinusFramework_Design.dproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="Core\MinusORM.dproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="Migrator\MinusMigrator_DLL.dproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="Migrator\MinusMigrator_CLI.dproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="Migrator\MinusMigrator_GUI.dproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="Migrator\Tests\Test.MinusMigrator.dproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="Core\Tests\ORM\Test.MinusORM.dproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="Core\Samples\MinusDemo\MinusDemo.dproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="FeatureFlags\MinusFeatureFlags.dproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="FeatureFlags\API\MinusFeatureFlagsAPI.dproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="Messaging\Packages\MinusMessaging_Design.dproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="Messaging\MinusMessaging_CLI.dproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="Messaging\Tests\Messaging\Test.MinusMessaging.dproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="FeatureFlags\Tests\FeatureFlags\Test.MinusFeatureFlags.dproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="Telemetry\Tests\Telemetry\Test.MinusTelemetry.dproj">
+            <Dependencies/>
+        </Projects>
+    </ItemGroup>
+    <ProjectExtensions>
+        <Borland.Personality>Default.Personality.12</Borland.Personality>
+        <Borland.ProjectType/>
+        <BorlandProject>
+            <Default.Personality/>
+        </BorlandProject>
+    </ProjectExtensions>
+    <Target Name="Build">
+        <CallTarget Targets="MinusTelemetry_Runtime;MinusMessaging_Runtime;MinusFramework_Runtime;MinusFramework_Design;MinusORM;MinusMigrator_DLL;MinusMigrator_CLI;MinusMigrator_GUI;Test_MinusMigrator;Test_MinusORM;MinusDemo;MinusFeatureFlags;MinusFeatureFlagsAPI;MinusMessaging_Design;MinusMessaging_CLI;Test_MinusMessaging;Test_MinusFeatureFlags;Test_MinusTelemetry"/>
+    </Target>
+    <Target Name="Clean">
+        <CallTarget Targets="MinusTelemetry_Runtime:Clean;MinusMessaging_Runtime:Clean;MinusFramework_Runtime:Clean;MinusFramework_Design:Clean;MinusORM:Clean;MinusMigrator_DLL:Clean;MinusMigrator_CLI:Clean;MinusMigrator_GUI:Clean;Test_MinusMigrator:Clean;Test_MinusORM:Clean;MinusDemo:Clean;MinusFeatureFlags:Clean;MinusFeatureFlagsAPI:Clean;MinusMessaging_Design:Clean;MinusMessaging_CLI:Clean;Test_MinusMessaging:Clean;Test_MinusFeatureFlags:Clean;Test_MinusTelemetry:Clean"/>
+    </Target>
+    <Target Name="Make">
+        <CallTarget Targets="MinusTelemetry_Runtime:Make;MinusMessaging_Runtime:Make;MinusFramework_Runtime:Make;MinusFramework_Design:Make;MinusORM:Make;MinusMigrator_DLL:Make;MinusMigrator_CLI:Make;MinusMigrator_GUI:Make;Test_MinusMigrator:Make;Test_MinusORM:Make;MinusDemo:Make;MinusFeatureFlags:Make;MinusFeatureFlagsAPI:Make;MinusMessaging_Design:Make;MinusMessaging_CLI:Make;Test_MinusMessaging:Make;Test_MinusFeatureFlags:Make;Test_MinusTelemetry:Make"/>
+    </Target>
+    <Import Project="$(BDS)\Bin\CodeGear.Group.Targets" Condition="Exists('$(BDS)\Bin\CodeGear.Group.Targets')"/>
+</Project>

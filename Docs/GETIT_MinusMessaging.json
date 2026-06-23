@@ -1,0 +1,33 @@
+{
+  "version": "1.0.0",
+  "name": "MinusMessaging",
+  "title": "Minus Messaging Framework",
+  "description": "Framework de mensageria para Delphi: filas, pub/sub, DLQ, serializacao binaria/JSON, Redis, RabbitMQ, MQTT providers, Outbox, Saga, Circuit Breaker, RPC, e mais.",
+  "categories": ["Messaging", "Queue", "PubSub", "Integration"],
+  "platforms": ["win32", "win64"],
+  "delphi_versions": ["Alexandria", "23.0"],
+  "dependencies": ["Indy", "MinusORM"],
+  "files": [
+    {
+      "filename": "Packages/MinusMessaging_Runtime.bpl",
+      "platform": "win32"
+    },
+    {
+      "filename": "Packages/MinusMessaging_Design.bpl",
+      "platform": "win32"
+    },
+    {
+      "filename": "Packages/MinusMessaging_Runtime.bpl",
+      "platform": "win64"
+    },
+    {
+      "filename": "Packages/MinusMessaging_Design.bpl",
+      "platform": "win64"
+    }
+  ],
+  "readme": "Docs/GUIA_MENSAGERIA.md",
+  "license": "LICENSE",
+  "homepage": "https://github.com/anomalyco/MinusFramework",
+  "author": "Gabriel Anomaly",
+  "email": "gabriel@anomaly.com.br"
+}
