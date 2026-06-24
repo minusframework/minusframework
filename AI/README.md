@@ -3,7 +3,7 @@
 > Repositório privado — agente e servidor MCP para o ecossistema MinusFrameWork.
 
 Este diretório é um placeholder. O código-fonte está em:
-**https://github.com/GabrielFerreiraMendes/MinusAI**
+**https://github.com/GabrielFerreiraMendes/minusframework-ai**
 
 Para clonar com os submódulos (mantenedores):
 

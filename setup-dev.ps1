@@ -23,7 +23,7 @@ $Repos = @(
     "minusframework-migrator",
     "minusframework-featureflags",
     "minusframework-extensions",
-    "MinusAI"
+    "minusframework-ai"
 )
 
 $DirMap = @{
@@ -34,7 +34,7 @@ $DirMap = @{
     "minusframework-migrator"      = "Migrator"
     "minusframework-featureflags"  = "FeatureFlags"
     "minusframework-extensions"    = "Extensions"
-    "MinusAI"                      = "MinusAI"
+    "minusframework-ai"            = "AI"
 }
 
 $RootDir = Split-Path -Parent $MyInvocation.MyCommand.Path

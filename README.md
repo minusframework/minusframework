@@ -23,7 +23,7 @@ Um ecossistema de bibliotecas Delphi para construir aplicações corporativas mo
 | **MinusMessaging** | Message bus multi-provider com retry, circuit breaker, sagas e outbox | ✅ MIT |
 | **MinusTelemetry** | Tracing e logging estruturado OpenTelemetry-style | ✅ MIT |
 | **MinusExtensions** | Wrappers para Horse, JWT e bibliotecas de terceiros | ✅ MIT |
-| **MinusAI** | Agentes inteligentes e servidor MCP para o ecossistema | ✅ MIT |
+| **MinusAI** (`AI/`) | Agentes inteligentes e servidor MCP para o ecossistema | ✅ MIT |
 
 ---
 
