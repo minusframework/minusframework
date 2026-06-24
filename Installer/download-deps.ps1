@@ -31,8 +31,8 @@ $Repos = @{
     Jhonson     = "https://github.com/HashLoad/jhonson/archive/refs/heads/master.zip"
     HorseCors   = "https://github.com/HashLoad/horse-cors/archive/refs/heads/master.zip"
     HorseJWT    = "https://github.com/HashLoad/horse-jwt/archive/refs/heads/master.zip"
-    HorseLogger = "https://github.com/HashLoad/horse-logger-lumberjack/archive/refs/heads/master.zip"
-    JoseJWT     = "https://github.com/PaoloRossi/delphi-jose-jwt/archive/refs/heads/master.zip"
+    HorseLogger = "https://github.com/HashLoad/horse-logger/archive/refs/heads/lumberjack.zip"
+    JoseJWT     = "https://github.com/paolo-rossi/delphi-jose-jwt/archive/refs/heads/master.zip"
 }
 
 $Selected = @()
