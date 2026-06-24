@@ -4,45 +4,29 @@
 
 ---
 
-## Projetos
+## Módulos
 
-| Projeto | Tipo | Descrição |
-|---------|------|-----------|
-| [MinusFramework_Runtime](02-ORM/README.md) | Package (`.dpk`) | Núcleo do ORM, foundation libraries, extensions |
-| [MinusFramework_Design](08-DesignPackage/README.md) | Package (`.dpk`) | Expert e registro de componentes na IDE |
-| [MinusTelemetry_Runtime](05-Telemetry/README.md) | Package (`.dpk`) | Tracing, logging e métricas (OpenTelemetry-style) |
-| [MinusMessaging_Runtime](06-Messaging/README.md) | Package (`.dpk`) | Message bus, providers, sagas, circuit breaker |
-| [MinusORM](09-StandaloneDLLs/README.md) | DLL | ORM exportado como C-accessible DLL |
-| [MinusMigrator](04-Migrator/README.md) | DLL + CLI + GUI | Migração de schema de banco de dados |
-| [MinusFeatureFlags](07-FeatureFlags/README.md) | EXE + API | Sistema de feature flags com REST API |
-
-## Dependência entre pacotes
-
-```
-MinusTelemetry_Runtime
-  +-- MinusMessaging_Runtime
-  +-- MinusFramework_Runtime
-        +-- MinusFramework_Design
-        +-- MinusORM.dll
-        +-- MinusMigrator (DLL + CLI + GUI)
-```
+| Módulo | Repositório | Descrição |
+|--------|-------------|-----------|
+| **Core** | `minusframework-core` | Foundation libraries, ORM Core, Extensions, Design packages |
+| **ORM** | `minusframework-orm` | DLL standalone do ORM com API C-compatible |
+| **Telemetry** | `minusframework-telemetry` | Tracing, logging e métricas (OpenTelemetry-style) |
+| **Messaging** | `minusframework-messaging` | Message bus, providers, sagas, circuit breaker |
+| **Migrator** | `minusframework-migrator` | Migração de schema de banco de dados |
+| **FeatureFlags** | `minusframework-featureflags` | Sistema de feature flags com REST API |
+| **Extensions** | `minusframework-extensions` | Wrappers para Horse, JWT e bibliotecas de terceiros |
 
 ## Primeiros passos
 
-- [Comece por aqui](guias/quickstart.md)
-- [Configuração](guias/configuration.md)
-- [Exemplo básico de CRUD](exemplos/basic-crud.md)
+- [Comece por aqui — Core](Core/Docs/guias/quickstart.md)
+- [Configuração](Core/Docs/guias/configuration.md)
+- [Exemplo básico de CRUD](Core/Docs/exemplos/basic-crud.md)
 
-## Arquitetura
+## Licenciamento
 
-O framework é dividido em camadas:
+- [MIT](LICENSE) para Community Edition
+- [Comercial / Enterprise](Core/Docs/LICENSE-ENTERPRISE.md)
 
-| Camada | Descrição |
-|--------|-----------|
-| **Foundation** (`Source\Bibliotecas`) | Tipos, conexão, provedores, pool, exceções |
-| **ORM Core** (`Source\Core`) | Mapeamento, repositórios, criteria, Unit of Work |
-| **Extensions** (`Source\Extensions`) | JSON, Horse, soft delete, multitenancy, audit |
-| **Telemetry** (`Source\Telemetry`) | Tracing distribuído, logging estruturado |
-| **Messaging** (`Source\Messaging`) | Message bus, filas, padrões de resiliência |
-| **FeatureFlags** (`Source\FeatureFlags`) | Feature flags, rollout, A/B testing |
-| **Migrator** (`Source\Migrator`) | Migração de schema, changelog, scaffolding |
+## Repositório Meta
+
+Este repositório contém todos os módulos como submodules, além do instalador (`Installer/`) e documentação comum.

@@ -1,0 +1,207 @@
+name: Build and Package Installer
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: self-hosted
+    strategy:
+      matrix:
+        config: [Debug]
+        platform: [Win32]
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          path: meta
+          submodules: recursive
+          token: ${{ secrets.GH_PAT }}
+
+      # ── Telemetry ──────────────────────────────────────────────────────
+      - name: Build Telemetry_Runtime
+        shell: cmd
+        working-directory: meta\Telemetry
+        run: msbuild MinusTelemetry_Runtime.dproj /p:Config=${{ matrix.config }} /p:Platform=${{ matrix.platform }}
+
+      # ── Messaging ──────────────────────────────────────────────────────
+      - name: Build Messaging_Runtime
+        shell: cmd
+        working-directory: meta\Messaging
+        run: msbuild MinusMessaging_Runtime.dproj /p:Config=${{ matrix.config }} /p:Platform=${{ matrix.platform }}
+
+      - name: Build Messaging_Design
+        shell: cmd
+        working-directory: meta\Messaging
+        run: msbuild MinusMessaging_Design.dproj /p:Config=${{ matrix.config }} /p:Platform=${{ matrix.platform }}
+
+      - name: Build Messaging_CLI
+        shell: cmd
+        working-directory: meta\Messaging
+        run: msbuild MinusMessaging_CLI.dproj /p:Config=${{ matrix.config }} /p:Platform=${{ matrix.platform }}
+
+      # ── Core ───────────────────────────────────────────────────────────
+      - name: Build Core_Runtime
+        shell: cmd
+        working-directory: meta\Core\Packages
+        run: msbuild MinusFramework_Runtime.dproj /p:Config=${{ matrix.config }} /p:Platform=${{ matrix.platform }}
+
+      - name: Build Core_Design
+        shell: cmd
+        working-directory: meta\Core\Packages
+        run: msbuild MinusFramework_Design.dproj /p:Config=${{ matrix.config }} /p:Platform=${{ matrix.platform }}
+
+      # ── ORM ────────────────────────────────────────────────────────────
+      - name: Build ORM
+        shell: cmd
+        working-directory: meta\ORM
+        run: msbuild MinusORM.dproj /p:Config=${{ matrix.config }} /p:Platform=${{ matrix.platform }}
+
+      # ── Migrator ───────────────────────────────────────────────────────
+      - name: Build Migrator_DLL
+        shell: cmd
+        working-directory: meta\Migrator
+        run: msbuild MinusMigrator_DLL.dproj /p:Config=${{ matrix.config }} /p:Platform=${{ matrix.platform }}
+
+      - name: Build Migrator_CLI
+        shell: cmd
+        working-directory: meta\Migrator
+        run: msbuild MinusMigrator_CLI.dproj /p:Config=${{ matrix.config }} /p:Platform=${{ matrix.platform }}
+
+      - name: Build Migrator_GUI
+        shell: cmd
+        working-directory: meta\Migrator
+        run: msbuild MinusMigrator_GUI.dproj /p:Config=${{ matrix.config }} /p:Platform=${{ matrix.platform }}
+
+      # ── FeatureFlags ───────────────────────────────────────────────────
+      - name: Build FeatureFlags CLI
+        shell: cmd
+        working-directory: meta\FeatureFlags\FeatureFlags
+        run: msbuild MinusFeatureFlags.dproj /p:Config=${{ matrix.config }} /p:Platform=${{ matrix.platform }}
+
+      - name: Build FeatureFlags API
+        shell: cmd
+        working-directory: meta\FeatureFlags\FeatureFlags\API
+        run: msbuild MinusFeatureFlagsAPI.dproj /p:Config=${{ matrix.config }} /p:Platform=${{ matrix.platform }}
+
+      # ── Stage all artifacts ────────────────────────────────────────────
+      - name: Stage BPLs, DCPs and binaries
+        shell: powershell
+        run: |
+          $bplDir = "$env:PUBLIC\Documents\Embarcadero\Studio\23.0\Bpl"
+          $dcpDir = "$env:PUBLIC\Documents\Embarcadero\Studio\23.0\Dcp"
+          $stage = "meta\artifacts"
+          New-Item -ItemType Directory -Force -Path "$stage\Bpl", "$stage\Dcp", "$stage\Bin" | Out-Null
+
+          # Collect BPLs
+          $bpls = @(
+            "MinusTelemetry_Runtime.bpl",
+            "MinusMessaging_Runtime.bpl", "MinusMessaging_Design.bpl",
+            "MinusFramework_Runtime.bpl", "MinusFramework_Design.bpl"
+          )
+          $dcps = @(
+            "MinusTelemetry_Runtime.dcp",
+            "MinusMessaging_Runtime.dcp", "MinusMessaging_Design.dcp",
+            "MinusFramework_Runtime.dcp", "MinusFramework_Design.dcp"
+          )
+          $missing = @()
+          foreach ($f in $bpls) {
+            $src = "$bplDir\$f"
+            if (Test-Path $src) { Copy-Item $src "$stage\Bpl\" } else { $missing += "Bpl\$f" }
+          }
+          foreach ($f in $dcps) {
+            $src = "$dcpDir\$f"
+            if (Test-Path $src) { Copy-Item $src "$stage\Dcp\" } else { $missing += "Dcp\$f" }
+          }
+
+          # Collect CLI binaries
+          $binMap = @(
+            @{Src="meta\ORM\${{ matrix.platform }}\${{ matrix.config }}\MinusORM.dll"}
+            @{Src="meta\ORM\Samples\MinusDemo\${{ matrix.platform }}\${{ matrix.config }}\MinusDemo.exe"}
+            @{Src="meta\Migrator\${{ matrix.platform }}\${{ matrix.config }}\MinusMigrator_DLL.dll"}
+            @{Src="meta\Migrator\${{ matrix.platform }}\${{ matrix.config }}\MinusMigrator_CLI.exe"}
+            @{Src="meta\Migrator\${{ matrix.platform }}\${{ matrix.config }}\MinusMigrator_GUI.exe"}
+            @{Src="meta\Messaging\${{ matrix.platform }}\${{ matrix.config }}\MinusMessaging_CLI.exe"}
+            @{Src="meta\FeatureFlags\FeatureFlags\${{ matrix.platform }}\${{ matrix.config }}\MinusFeatureFlags.exe"}
+            @{Src="meta\FeatureFlags\FeatureFlags\API\${{ matrix.platform }}\${{ matrix.config }}\MinusFeatureFlagsAPI.exe"}
+          )
+          foreach ($f in $binMap) {
+            if (Test-Path $f.Src) { Copy-Item $f.Src "$stage\Bin\" } else { $missing += (Split-Path $f.Src -Leaf) }
+          }
+
+          if ($missing.Count -gt 0) {
+            Write-Host "Missing artifacts: $($missing -join ', ')" -ForegroundColor Red
+            exit 1
+          }
+          Write-Host "All artifacts verified!" -ForegroundColor Green
+          Get-ChildItem -Recurse "$stage" | Select-Object FullName
+
+      - name: Upload BPLs
+        uses: actions/upload-artifact@v4
+        with:
+          name: bpls-${{ matrix.config }}-${{ matrix.platform }}
+          path: meta\artifacts\Bpl\
+          if-no-files-found: error
+
+      - name: Upload DCPs
+        uses: actions/upload-artifact@v4
+        with:
+          name: dcps-${{ matrix.config }}-${{ matrix.platform }}
+          path: meta\artifacts\Dcp\
+          if-no-files-found: error
+
+      - name: Upload binaries
+        uses: actions/upload-artifact@v4
+        with:
+          name: binaries-${{ matrix.config }}-${{ matrix.platform }}
+          path: meta\artifacts\Bin\
+          if-no-files-found: error
+
+      # ── Generate Installer ─────────────────────────────────────────────
+      - name: Generate Installer
+        shell: powershell
+        working-directory: meta
+        run: |
+          & .\Installer\build-installer.ps1 -Config ${{ matrix.config }} -Platform ${{ matrix.platform }} -SkipBuild
+
+      - name: Upload Installer
+        uses: actions/upload-artifact@v4
+        with:
+          name: installer-${{ matrix.config }}-${{ matrix.platform }}
+          path: meta\Dist\MinusFramework-*.exe
+          if-no-files-found: error
+
+      # ── Run tests ──────────────────────────────────────────────────────
+      - name: Run ORM tests
+        shell: powershell
+        working-directory: meta\ORM
+        run: ./run-tests.ps1 -Config ${{ matrix.config }} -Platform ${{ matrix.platform }} -SkipDocker
+        continue-on-error: true
+
+      - name: Run Migrator tests
+        shell: powershell
+        working-directory: meta\Migrator
+        run: ./run-tests.ps1 -Config ${{ matrix.config }} -Platform ${{ matrix.platform }} -SkipDocker
+        continue-on-error: true
+
+      - name: Run FeatureFlags tests
+        shell: powershell
+        working-directory: meta\FeatureFlags
+        run: ./run-tests.ps1 -Config ${{ matrix.config }} -Platform ${{ matrix.platform }} -SkipDocker
+        continue-on-error: true
+
+      - name: Run Messaging tests
+        shell: powershell
+        working-directory: meta\Messaging
+        run: ./run-tests.ps1 -Config ${{ matrix.config }} -Platform ${{ matrix.platform }} -SkipDocker
+        continue-on-error: true
+
+      - name: Run Telemetry tests
+        shell: powershell
+        working-directory: meta\Telemetry
+        run: ./run-tests.ps1 -Config ${{ matrix.config }} -Platform ${{ matrix.platform }} -SkipDocker
+        continue-on-error: true
