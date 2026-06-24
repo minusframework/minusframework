@@ -1,12 +1,20 @@
 # MinusAI
 
-> ⚠️ Repositório privado — agentes inteligentes e servidor MCP para o ecossistema MinusFrameWork.
+**Agentes inteligentes e servidor MCP para o ecossistema MinusFrameWork.**
 
-Este diretório é um placeholder. O código-fonte está em:
-**https://github.com/GabrielFerreiraMendes/MinusAI**
+## Ferramentas MCP
 
-Para clonar com os submodules (mantenedores):
+| Ferramenta | Descrição |
+|------------|-----------|
+| `explicar_codigo` | Analisa um arquivo `.pas` e explica sua estrutura |
+| `gerar_entidade` | Gera código ORM a partir de uma tabela |
+| `criar_migracao` | Cria arquivo de migração |
+| `executar_consulta` | Executa SQL contra um banco |
+
+## Uso
 
 ```powershell
-.\setup-dev.ps1 -Token SEU_PAT
+MinusAI_MCP.exe
 ```
+
+O servidor lê requisições JSON-RPC 2.0 via **stdin** e responde via **stdout**.

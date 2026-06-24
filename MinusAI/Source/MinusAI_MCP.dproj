@@ -1,0 +1,29 @@
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <ProjectGuid>{MINUS-AI00-0000-0000-000000000000}</ProjectGuid>
+    <MainSource>MinusAI_MCP.dpr</MainSource>
+    <Config Condition="'$(Config)'==''">Release</Config>
+    <Platform Condition="'$(Platform)'==''">Win32</Platform>
+    <DCC_DCCCompiler>DCC32</DCC_DCCCompiler>
+    <DCC_UnitSearchPath>$(DCC_UnitSearchPath);Source\Core;Source\Tools;Source\Agents</DCC_UnitSearchPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Config)'=='Debug'">
+    <DCC_ExeOutput>..\Bin\Debug</DCC_ExeOutput>
+    <DCC_Optimize>false</DCC_Optimize>
+    <DCC_DebugInfoInExe>true</DCC_DebugInfoInExe>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Config)'=='Release'">
+    <DCC_ExeOutput>..\Bin\Release</DCC_ExeOutput>
+    <DCC_Optimize>true</DCC_Optimize>
+    <DCC_DebugInfoInExe>false</DCC_DebugInfoInExe>
+  </PropertyGroup>
+  <ItemGroup>
+    <DCCReference Include="MinusAI_MCP.dpr" />
+    <DCCReference Include="Core\MCP.Types.pas" />
+    <DCCReference Include="Core\MCP.Server.pas" />
+    <DCCReference Include="Tools\AI.ExplicarCodigo.pas" />
+    <DCCReference Include="Tools\AI.GerarEntidade.pas" />
+    <DCCReference Include="Tools\AI.CriarMigracao.pas" />
+    <DCCReference Include="Tools\AI.ExecutarConsulta.pas" />
+  </ItemGroup>
+</Project>

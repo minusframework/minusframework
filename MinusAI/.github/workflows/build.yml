@@ -1,0 +1,29 @@
+name: Build MinusAI
+
+on: [push, pull_request]
+
+jobs:
+  build:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup MSBuild
+        uses: microsoft/setup-msbuild@v2
+
+      - name: Build
+        run: msbuild Source\MinusAI_MCP.dproj /p:Config=Release /p:Platform=Win32
+
+      - name: Stage artifacts
+        run: |
+          New-Item -ItemType Directory -Path artifacts -Force
+          if (Test-Path Bin\Release\MinusAI_MCP.exe) {
+            Copy-Item Bin\Release\MinusAI_MCP.exe artifacts\
+          }
+
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: minusai-win32
+          path: artifacts\
+          if-no-files-found: error

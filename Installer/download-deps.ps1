@@ -15,7 +15,7 @@ $ErrorActionPreference = "Stop"
 $LibsDir = "C:\Libs\Delphi"
 
 Write-Host "========================================" -ForegroundColor Cyan
-Write-Host "  MinusFramework — Download de Dependencias" -ForegroundColor Cyan
+Write-Host "  MinusFramework - Download de Dependencias" -ForegroundColor Cyan
 Write-Host "========================================" -ForegroundColor Cyan
 
 if (-not $All -and -not $Horse -and -not $Jhonson -and -not $HorseCors -and -not $HorseJWT -and -not $HorseLogger -and -not $JoseJWT) {
@@ -57,7 +57,6 @@ foreach ($lib in $Selected) {
     Write-Host "Extraindo..." -ForegroundColor Yellow
     Expand-Archive -Path $zipFile -DestinationPath $extractDir -Force
 
-    # Move to target (Horse repos extract to horse-master/ etc.)
     $extractedFolder = Get-ChildItem $extractDir -Directory | Select-Object -First 1
     $destDir = Join-Path $LibsDir $extractedFolder.Name
 
@@ -66,7 +65,6 @@ foreach ($lib in $Selected) {
     Move-Item $extractedFolder.FullName $destDir -Force
 }
 
-# Cleanup
 Remove-Item -Recurse -Force $TempDir -ErrorAction SilentlyContinue
 
 Write-Host "`nDependencias instaladas em: $LibsDir" -ForegroundColor Green
