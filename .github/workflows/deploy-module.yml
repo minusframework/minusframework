@@ -20,3 +20,12 @@ jobs:
         env:
           GH_PAT: ${{ secrets.GH_PAT }}
         run: meta\ci-setup.ps1 -Token $env:GH_PAT
+
+      - shell: powershell
+        run: |
+          $m = "${{ inputs.repo }}"
+          $t = "${{ inputs.tag }}"
+          $d = switch ($m) {
+            "minusframework-orm" { "ORM" }
+          }
+          echo "Module: $d Tag: $t"
