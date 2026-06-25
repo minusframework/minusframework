@@ -47,6 +47,7 @@ jobs:
       - name: Build
         shell: powershell
         run: |
+          $msbuild = if (Get-Command msbuild -ErrorAction SilentlyContinue) { "msbuild" } else { "C:\Windows\Microsoft.NET\Framework64\v4.0.30319\MSBuild.exe" }
           $module = "${{ inputs.repo }}"
           $dir = switch ($module) {
             "minusframework-core"         { "Core" }
@@ -70,7 +71,7 @@ jobs:
           }
           foreach ($proj in $projects) {
             Write-Host "Building $proj..."
-            msbuild $proj /p:Config=Release /p:Platform=Win32
+            & $msbuild $proj /p:Config=Release /p:Platform=Win32
             if ($LASTEXITCODE -ne 0) { throw "msbuild failed for $proj" }
           }
 
