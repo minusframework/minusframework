@@ -1,0 +1,14 @@
+name: Deploy Module
+
+on:
+  workflow_dispatch:
+    inputs:
+      repo:
+        required: true
+      tag:
+        required: true
+jobs:
+  build:
+    runs-on: self-hosted
+    steps:
+      - run: echo "repo=${{ inputs.repo }} tag=${{ inputs.tag }}"
