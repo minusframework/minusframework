@@ -78,7 +78,7 @@ Dúvidas, sugestões ou orçamentos para planos Pro/Enterprise:
 
 Se o MinusFrameWork é útil para você, considere apoiar o projeto com uma doação via PIX.
 
-**Chave PIX:** `vinheriaaquino@gmail.com`
+**Chave PIX:** `4214aaa8-d6d1-4d01-81c1-7a0835fdc5b2`
 
 ---
 
