@@ -38,8 +38,8 @@ jobs:
             "minusframework-extensions"   { "Extensions" }
             "minusframework-ai"           { "AI" }
           }
-          git -C "meta\$dir" fetch origin tag "$tag"
-          git -C "meta\$dir" checkout "tags/$tag"
+          git -C "meta\$dir" fetch origin tag "$tag" 2>&1
+          git -C "meta\$dir" checkout "tags/$tag" 2>&1
 
       - name: Build
         shell: powershell
