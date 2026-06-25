@@ -2,7 +2,7 @@ param([string]$Token)
 
 $ErrorActionPreference = "Stop"
 $Root = $PSScriptRoot
-$Auth = if ($Token) { "https://GabrielFerreiraMendes:$Token@github.com/GabrielFerreiraMendes" } else { "https://github.com/GabrielFerreiraMendes" }
+$AuthUrl = "https://github.com/GabrielFerreiraMendes"
 
 $Repos = @(
     "minusframework-telemetry",
@@ -26,14 +26,19 @@ $RepoDirs = @{
     "minusframework-ai"           = "AI"
 }
 
+$gitOpts = if ($Token) { @("-c", "http.extraheader=AUTHORIZATION: bearer $Token") } else { @() }
+
 foreach ($repo in $Repos) {
     $dest = Join-Path $Root $RepoDirs[$repo]
     if (-not (Test-Path $dest)) {
         Write-Host "Cloning $repo..."
-        git clone "$Auth/$repo.git" $dest 2>&1 | Out-Null
+        & git @gitOpts clone "$AuthUrl/$repo.git" $dest 2>&1
+        if ($LASTEXITCODE -ne 0) { throw "git clone failed for $repo" }
     } else {
         Write-Host "Updating $repo..."
-        git -C $dest fetch origin 2>&1 | Out-Null
-        git -C $dest reset --hard origin/main 2>&1 | Out-Null
+        & git @gitOpts -C $dest fetch origin 2>&1
+        if ($LASTEXITCODE -ne 0) { throw "git fetch failed for $repo" }
+        git -C $dest reset --hard origin/main 2>&1
+        if ($LASTEXITCODE -ne 0) { throw "git reset failed for $repo" }
     }
 }
