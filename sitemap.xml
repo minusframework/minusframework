@@ -5,11 +5,27 @@
          <lastmod>2026-06-29</lastmod>
     </url>
     <url>
+         <loc>https://minusframework.com.br/about/</loc>
+         <lastmod>2026-06-29</lastmod>
+    </url>
+    <url>
          <loc>https://minusframework.com.br/getting-started/</loc>
          <lastmod>2026-06-29</lastmod>
     </url>
     <url>
+         <loc>https://minusframework.com.br/licensing/</loc>
+         <lastmod>2026-06-29</lastmod>
+    </url>
+    <url>
          <loc>https://minusframework.com.br/ai/</loc>
+         <lastmod>2026-06-29</lastmod>
+    </url>
+    <url>
+         <loc>https://minusframework.com.br/ai/mcp-server/</loc>
+         <lastmod>2026-06-29</lastmod>
+    </url>
+    <url>
+         <loc>https://minusframework.com.br/ai/tools/</loc>
          <lastmod>2026-06-29</lastmod>
     </url>
     <url>
@@ -21,7 +37,27 @@
          <lastmod>2026-06-29</lastmod>
     </url>
     <url>
+         <loc>https://minusframework.com.br/cli/make-entity/</loc>
+         <lastmod>2026-06-29</lastmod>
+    </url>
+    <url>
+         <loc>https://minusframework.com.br/cli/new-api/</loc>
+         <lastmod>2026-06-29</lastmod>
+    </url>
+    <url>
          <loc>https://minusframework.com.br/extensions/</loc>
+         <lastmod>2026-06-29</lastmod>
+    </url>
+    <url>
+         <loc>https://minusframework.com.br/extensions/audit/</loc>
+         <lastmod>2026-06-29</lastmod>
+    </url>
+    <url>
+         <loc>https://minusframework.com.br/extensions/cache/</loc>
+         <lastmod>2026-06-29</lastmod>
+    </url>
+    <url>
+         <loc>https://minusframework.com.br/extensions/soft-delete/</loc>
          <lastmod>2026-06-29</lastmod>
     </url>
     <url>
@@ -29,7 +65,23 @@
          <lastmod>2026-06-29</lastmod>
     </url>
     <url>
+         <loc>https://minusframework.com.br/messaging/config/</loc>
+         <lastmod>2026-06-29</lastmod>
+    </url>
+    <url>
+         <loc>https://minusframework.com.br/messaging/sagas/</loc>
+         <lastmod>2026-06-29</lastmod>
+    </url>
+    <url>
          <loc>https://minusframework.com.br/migrator/</loc>
+         <lastmod>2026-06-29</lastmod>
+    </url>
+    <url>
+         <loc>https://minusframework.com.br/migrator/cli/</loc>
+         <lastmod>2026-06-29</lastmod>
+    </url>
+    <url>
+         <loc>https://minusframework.com.br/migrator/dll/</loc>
          <lastmod>2026-06-29</lastmod>
     </url>
     <url>
@@ -37,7 +89,23 @@
          <lastmod>2026-06-29</lastmod>
     </url>
     <url>
+         <loc>https://minusframework.com.br/orm/criteria/</loc>
+         <lastmod>2026-06-29</lastmod>
+    </url>
+    <url>
          <loc>https://minusframework.com.br/orm/crud/</loc>
+         <lastmod>2026-06-29</lastmod>
+    </url>
+    <url>
+         <loc>https://minusframework.com.br/orm/entities/</loc>
+         <lastmod>2026-06-29</lastmod>
+    </url>
+    <url>
+         <loc>https://minusframework.com.br/orm/providers/</loc>
+         <lastmod>2026-06-29</lastmod>
+    </url>
+    <url>
+         <loc>https://minusframework.com.br/orm/unit-of-work/</loc>
          <lastmod>2026-06-29</lastmod>
     </url>
     <url>
