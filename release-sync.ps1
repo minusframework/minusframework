@@ -57,10 +57,12 @@ function Invoke-Git {
         Write-Host "  [DRY-RUN] git -C $Dir $($GitArgs -join ' ')" -ForegroundColor DarkYellow
         return $true
     }
-    $output = git -C $Dir @GitArgs 2>&1
-    $exitCode = $LASTEXITCODE
-    if ($exitCode -ne 0) {
-        Write-Host "    FALHA: $output" -ForegroundColor Red
+    $output = & {
+        $ErrorActionPreference = 'SilentlyContinue'
+        git -C $Dir @GitArgs
+    } 2>&1
+    if ($LASTEXITCODE -ne 0) {
+        Write-Host "    FALHA: $($output | Out-String)" -ForegroundColor Red
         return $false
     }
     return $true
@@ -93,6 +95,11 @@ foreach ($repo in $Repos) {
         } else {
             Write-Host "  [DRY-RUN] git clone $repoUrl $dest" -ForegroundColor DarkYellow
         }
+    }
+
+    # Garantir que a origin tenha o token para fetch/push
+    if ($Token -and (-not $DryRun)) {
+        git -C $dest remote set-url origin $repoUrl 2>$null
     }
 
     if (-not (Invoke-Git -Dir $dest -GitArgs @("fetch", "origin"))) {
@@ -134,9 +141,13 @@ Write-Step "[meta-repo] Atualizando meta-repositório..."
 if (-not $DryRun) {
     $dirtyFiles = git -C $Root status --porcelain 2>$null
     if ($dirtyFiles) {
-        git -C $Root add -A
-        git -C $Root commit -m "Release $TagName"
-        Write-Host "  Meta-repo commitado." -ForegroundColor Green
+        try {
+            git -C $Root add -A 2>$null
+            git -C $Root commit -m "Release $TagName" 2>$null
+            Write-Host "  Meta-repo commitado." -ForegroundColor Green
+        } catch {
+            Write-Host "    FALHA ao commitar meta-repo: $_" -ForegroundColor Red
+        }
     } else {
         Write-Host "  Meta-repo limpo, sem mudanças para commitar." -ForegroundColor DarkYellow
     }
@@ -157,8 +168,12 @@ if ($metaTag) {
 
 if (-not $DryRun) {
     Write-Step "[push] Enviando meta-repo e tags..."
-    git -C $Root push origin $Branch 2>&1 | Out-Null
-    git -C $Root push origin $TagName 2>&1 | Out-Null
+    try {
+        git -C $Root push origin $Branch 2>$null
+        git -C $Root push origin $TagName 2>$null
+    } catch {
+        Write-Host "    AVISO no push: $_" -ForegroundColor Yellow
+    }
 } else {
     Write-Host "  [DRY-RUN] git push origin $Branch" -ForegroundColor DarkYellow
     Write-Host "  [DRY-RUN] git push origin $TagName" -ForegroundColor DarkYellow

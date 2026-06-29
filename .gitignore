@@ -7,3 +7,4 @@ __recovery/
 *.dsk
 *.exe
 Dist/
+site/

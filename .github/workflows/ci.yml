@@ -1,0 +1,80 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+    tags: ['v*']
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  docs:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install MkDocs
+        run: |
+          pip install mkdocs mkdocs-material
+      - name: Build docs
+        run: mkdocs build --strict
+      - name: Deploy to GitHub Pages
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+        run: mkdocs gh-deploy --force
+
+  wiki:
+    runs-on: ubuntu-latest
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Deploy Wiki
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          if (Test-Path "deploy-wiki.ps1") {
+            pwsh ./deploy-wiki.ps1 -Token "$env:GH_TOKEN"
+          }
+
+  release-sync:
+    runs-on: ubuntu-latest
+    if: startsWith(github.ref, 'refs/tags/v')
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          submodules: recursive
+          token: ${{ secrets.GH_PAT }}
+      - name: Sync releases across submodules
+        env:
+          TOKEN: ${{ secrets.GH_PAT }}
+        run: |
+          $tag = "${{ github.ref_name }}"
+          pwsh ./release-sync.ps1 -Version $tag -Token "$env:TOKEN"
+
+  build:
+    runs-on: [self-hosted, windows, delphi]
+    if: false
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: recursive
+          token: ${{ secrets.GH_PAT }}
+      - name: Setup
+        run: pwsh ./ci-setup.ps1
+      - name: Build
+        run: |
+          & "C:\Program Files (x86)\Embarcadero\Studio\23.0\bin\bds.exe" `
+            -p Win64 -r "MinusFramework_Runtime.dproj" -b `
+            --Define:COMMUNITY
+      - name: Run tests
+        run: |
+          Get-ChildItem -Recurse -Filter "run-tests.ps1" | ForEach-Object {
+            & $_.FullName
+          }
