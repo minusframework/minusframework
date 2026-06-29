@@ -16,7 +16,8 @@ $Repos = @(
     "minusframework-migrator",
     "minusframework-featureflags",
     "minusframework-extensions",
-    "minusframework-ai"
+    "minusframework-ai",
+    "minusframework-cli"
 )
 
 $RepoDirs = @{
@@ -28,6 +29,7 @@ $RepoDirs = @{
     "minusframework-featureflags" = "FeatureFlags"
     "minusframework-extensions"   = "Extensions"
     "minusframework-ai"           = "AI"
+    "minusframework-cli"          = "Cli"
 }
 
 Write-Host "============================================" -ForegroundColor Cyan
