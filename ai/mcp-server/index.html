@@ -1414,6 +1414,24 @@
         
       
       
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MCP Server
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
       <a href="./" class="md-nav__link md-nav__link--active">
         
   
@@ -1430,6 +1448,58 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Índice">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Índice
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#inicializacao" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Inicialização
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#conexao-com-banco-de-dados" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Conexão com Banco de Dados
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ferramentas" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ferramentas
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
       
     </li>
   
@@ -1795,6 +1865,47 @@
     
   
   
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Índice
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#inicializacao" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Inicialização
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#conexao-com-banco-de-dados" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Conexão com Banco de Dados
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ferramentas" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ferramentas
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -1814,10 +1925,56 @@
 
 
 <h1 id="mcp-server">MCP Server<a class="headerlink" href="#mcp-server" title="Permanent link">&para;</a></h1>
-<p>Model Context Protocol server exposing MinusFrameWork metadata and tools to AI assistants. Servidor MCP que expoe metadados e ferramentas do framework para assistentes de IA.</p>
-<blockquote>
-<p>Consulte o <a href="https://github.com/GabrielFerreiraMendes/minusframework-meta/wiki">GitHub Wiki</a> para documentacao completa.</p>
-</blockquote>
+<p>O servidor MCP (Model Context Protocol) expõe ferramentas de IA para consulta e geração de código Delphi, seguindo o padrão JSON-RPC 2.0 sobre stdio.</p>
+<h2 id="inicializacao">Inicialização<a class="headerlink" href="#inicializacao" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>MinusAIServer.exe
+</code></pre></div>
+<p>O servidor lê comandos JSON-RPC da entrada padrão e escreve respostas na saída padrão — integra-se nativamente com IDEs e LLMs que suportam MCP.</p>
+<h2 id="conexao-com-banco-de-dados">Conexão com Banco de Dados<a class="headerlink" href="#conexao-com-banco-de-dados" title="Permanent link">&para;</a></h2>
+<p>Opcionalmente, o servidor pode se conectar a um banco de dados real via FireDAC para enriquecer as ferramentas com schema information:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="k">var</span>
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="w">  </span><span class="n">LConnector</span><span class="o">:</span><span class="w"> </span><span class="n">TMCPSQLConnector</span><span class="o">;</span>
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="k">begin</span>
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="w">  </span><span class="n">LConnector</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="n">TMCPSQLConnector</span><span class="o">.</span><span class="n">Create</span><span class="o">;</span>
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="w">  </span><span class="n">LConnector</span><span class="o">.</span><span class="n">Driver</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="s">&#39;PostgreSQL&#39;</span><span class="o">;</span>
+<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="w">  </span><span class="n">LConnector</span><span class="o">.</span><span class="n">Host</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="s">&#39;localhost&#39;</span><span class="o">;</span>
+<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a><span class="w">  </span><span class="n">LConnector</span><span class="o">.</span><span class="n">Database</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="s">&#39;meudb&#39;</span><span class="o">;</span>
+<a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a><span class="w">  </span><span class="n">LConnector</span><span class="o">.</span><span class="n">Connect</span><span class="o">;</span>
+<a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a><span class="k">end</span><span class="o">;</span>
+</code></pre></div>
+<p>Variáveis de ambiente: <code>MCP_DB_DRIVER</code>, <code>MCP_DB_HOST</code>, <code>MCP_DB_PORT</code>, <code>MCP_DB_DATABASE</code>, <code>MCP_DB_USER</code>, <code>MCP_DB_PASSWORD</code>.</p>
+<h2 id="ferramentas">Ferramentas<a class="headerlink" href="#ferramentas" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Ferramenta</th>
+<th>Descrição</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>explicar_codigo</code></td>
+<td>Explica um trecho de código Delphi</td>
+</tr>
+<tr>
+<td><code>gerar_entidade</code></td>
+<td>Gera entidade ORM a partir de uma descrição</td>
+</tr>
+<tr>
+<td><code>criar_migracao</code></td>
+<td>Gera migration SQL a partir do schema de uma tabela</td>
+</tr>
+<tr>
+<td><code>executar_consulta</code></td>
+<td>Executa consulta SQL e retorna resultado</td>
+</tr>
+<tr>
+<td><code>listar_tabelas</code></td>
+<td>Lista tabelas do banco configurado</td>
+</tr>
+</tbody>
+</table>
+<p>Consulte a página <a href="../tools/">Ferramentas</a> para detalhes de cada uma.</p>
 
 
 

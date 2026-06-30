@@ -752,6 +752,24 @@
         
       
       
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Unit of Work
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
       <a href="./" class="md-nav__link md-nav__link--active">
         
   
@@ -768,6 +786,91 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Índice">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Índice
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#conceitos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Conceitos
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#uso-basico" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Uso Básico
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#detectando-mudancas" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Detectando Mudanças
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#salvamento-automatico" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Salvamento Automático
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#escopo-com-using" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Escopo com using
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#boas-praticas" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Boas Práticas
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
       
     </li>
   
@@ -1795,6 +1898,80 @@
     
   
   
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Índice
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#conceitos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Conceitos
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#uso-basico" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Uso Básico
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#detectando-mudancas" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Detectando Mudanças
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#salvamento-automatico" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Salvamento Automático
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#escopo-com-using" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Escopo com using
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#boas-praticas" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Boas Práticas
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -1814,10 +1991,62 @@
 
 
 <h1 id="unit-of-work">Unit of Work<a class="headerlink" href="#unit-of-work" title="Permanent link">&para;</a></h1>
-<p>Manage transactions and track changes across multiple repositories in a single business operation. Gerenciamento de transacoes e rastreamento de alteracoes.</p>
-<blockquote>
-<p>Consulte o <a href="https://github.com/GabrielFerreiraMendes/minusframework-meta/wiki">GitHub Wiki</a> para documentacao completa.</p>
-</blockquote>
+<p>Gerencia transações, change tracking e identity map para garantir consistência.</p>
+<h2 id="conceitos">Conceitos<a class="headerlink" href="#conceitos" title="Permanent link">&para;</a></h2>
+<ul>
+<li><strong>Change Tracking</strong> — monitora mudanças nas entidades desde o momento da busca</li>
+<li><strong>Identity Map</strong> — garante que cada registro do banco seja representado por uma única instância em memória</li>
+<li><strong>Transação</strong> — agrupa operações em uma unidade atômica</li>
+</ul>
+<h2 id="uso-basico">Uso Básico<a class="headerlink" href="#uso-basico" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="k">var</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="w">  </span><span class="n">LUoW</span><span class="o">:</span><span class="w"> </span><span class="n">IUnitOfWork</span><span class="o">;</span>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="k">begin</span>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="w">  </span><span class="n">LUoW</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="n">FConexao</span><span class="o">.</span><span class="n">CriarUnitOfWork</span><span class="o">;</span>
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="w">  </span><span class="k">try</span>
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="w">    </span><span class="n">LUoW</span><span class="o">.</span><span class="n">IniciarTransacao</span><span class="o">;</span>
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="w">    </span><span class="k">try</span>
+<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="w">      </span><span class="n">Repos</span><span class="o">.</span><span class="n">Salvar</span><span class="p">(</span><span class="n">Pessoa1</span><span class="p">)</span><span class="o">;</span>
+<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a><span class="w">      </span><span class="n">Repos</span><span class="o">.</span><span class="n">Salvar</span><span class="p">(</span><span class="n">Pessoa2</span><span class="p">)</span><span class="o">;</span>
+<a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a><span class="w">      </span><span class="n">Repos</span><span class="o">.</span><span class="n">Deletar</span><span class="p">(</span><span class="n">Pessoa3</span><span class="p">)</span><span class="o">;</span>
+<a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a><span class="w">      </span><span class="n">LUoW</span><span class="o">.</span><span class="n">Commit</span><span class="o">;</span>
+<a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a><span class="w">    </span><span class="k">except</span>
+<a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a><span class="w">      </span><span class="n">LUoW</span><span class="o">.</span><span class="n">Rollback</span><span class="o">;</span>
+<a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a><span class="w">      </span><span class="k">raise</span><span class="o">;</span>
+<a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a><span class="w">    </span><span class="k">end</span><span class="o">;</span>
+<a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a><span class="w">  </span><span class="k">finally</span>
+<a id="__codelineno-0-17" name="__codelineno-0-17" href="#__codelineno-0-17"></a><span class="w">    </span><span class="n">LUoW</span><span class="o">.</span><span class="n">Free</span><span class="o">;</span>
+<a id="__codelineno-0-18" name="__codelineno-0-18" href="#__codelineno-0-18"></a><span class="w">  </span><span class="k">end</span><span class="o">;</span>
+<a id="__codelineno-0-19" name="__codelineno-0-19" href="#__codelineno-0-19"></a><span class="k">end</span><span class="o">;</span>
+</code></pre></div>
+<h2 id="detectando-mudancas">Detectando Mudanças<a class="headerlink" href="#detectando-mudancas" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="k">if</span><span class="w"> </span><span class="n">LUoW</span><span class="o">.</span><span class="n">TemMudancas</span><span class="w"> </span><span class="k">then</span>
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="w">  </span><span class="nb">WriteLn</span><span class="p">(</span><span class="s">&#39;Há &#39;</span><span class="o">,</span><span class="w"> </span><span class="n">LUoW</span><span class="o">.</span><span class="n">Mudancas</span><span class="o">.</span><span class="n">Count</span><span class="o">,</span><span class="w"> </span><span class="s">&#39; alterações pendentes&#39;</span><span class="p">)</span><span class="o">;</span>
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="k">for</span><span class="w"> </span><span class="k">var</span><span class="w"> </span><span class="n">LMudanca</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="n">LUoW</span><span class="o">.</span><span class="n">Mudancas</span><span class="w"> </span><span class="k">do</span>
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="k">begin</span>
+<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="w">  </span><span class="nb">WriteLn</span><span class="p">(</span><span class="n">LMudanca</span><span class="o">.</span><span class="n">Entidade</span><span class="o">.</span><span class="n">ClassName</span><span class="o">,</span><span class="w"> </span><span class="s">&#39; - &#39;</span><span class="o">,</span><span class="w"> </span><span class="n">LMudanca</span><span class="o">.</span><span class="n">Tipo</span><span class="p">)</span><span class="o">;</span>
+<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a><span class="w">  </span><span class="c1">// LMudanca.Tipo: mtInserido, mtAlterado, mtDeletado</span>
+<a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a><span class="k">end</span><span class="o">;</span>
+</code></pre></div>
+<h2 id="salvamento-automatico">Salvamento Automático<a class="headerlink" href="#salvamento-automatico" title="Permanent link">&para;</a></h2>
+<p>Com <code>AutoFlush</code>, as alterações são persistidas automaticamente ao final do escopo:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="n">LUoW</span><span class="o">.</span><span class="n">AutoFlush</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="k">True</span><span class="o">;</span>
+</code></pre></div>
+<h2 id="escopo-com-using">Escopo com <code>using</code><a class="headerlink" href="#escopo-com-using" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="n">LUoW</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="n">FConexao</span><span class="o">.</span><span class="n">CriarUnitOfWork</span><span class="o">;</span>
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="n">Luow</span><span class="o">.</span><span class="n">IniciarTransacao</span><span class="o">;</span>
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="n">LUoW</span><span class="o">.</span><span class="n">Salvar</span><span class="o">&lt;</span><span class="n">TCliente</span><span class="o">&gt;</span><span class="p">(</span><span class="n">Cliente</span><span class="p">)</span><span class="o">;</span>
+<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="n">LUoW</span><span class="o">.</span><span class="n">Salvar</span><span class="o">&lt;</span><span class="n">TPedido</span><span class="o">&gt;</span><span class="p">(</span><span class="n">Pedido</span><span class="p">)</span><span class="o">;</span>
+<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="n">LUoW</span><span class="o">.</span><span class="n">Commit</span><span class="o">;</span>
+</code></pre></div>
+<h2 id="boas-praticas">Boas Práticas<a class="headerlink" href="#boas-praticas" title="Permanent link">&para;</a></h2>
+<ol>
+<li>Uma Unit of Work por requisição (Web) ou por operação (Desktop)</li>
+<li>Mantenha as transações curtas</li>
+<li>Sempre use <code>try/except</code> com <code>Rollback</code></li>
+<li>Evite <code>AutoFlush</code> em operações em lote — prefira controle explícito</li>
+</ol>
 
 
 

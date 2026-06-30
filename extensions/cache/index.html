@@ -1610,6 +1610,24 @@
         
       
       
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Cache
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
       <a href="./" class="md-nav__link md-nav__link--active">
         
   
@@ -1626,6 +1644,97 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Índice">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Índice
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#cache-l1-identity-map" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cache L1 — Identity Map
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cache-l2-distribuido" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cache L2 — Distribuído
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Cache L2 — Distribuído">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#redis" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Redis
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#memory-padrao" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Memory (padrão)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#invalidar-cache-manualmente" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Invalidar Cache Manualmente
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#como-funciona" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Como Funciona
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
       
     </li>
   
@@ -1795,6 +1904,86 @@
     
   
   
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Índice
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#cache-l1-identity-map" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cache L1 — Identity Map
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cache-l2-distribuido" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cache L2 — Distribuído
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Cache L2 — Distribuído">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#redis" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Redis
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#memory-padrao" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Memory (padrão)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#invalidar-cache-manualmente" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Invalidar Cache Manualmente
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#como-funciona" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Como Funciona
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -1814,10 +2003,42 @@
 
 
 <h1 id="cache">Cache<a class="headerlink" href="#cache" title="Permanent link">&para;</a></h1>
-<p>In-memory and distributed caching layer to improve application performance. Camada de cache em memoria e distribuido para melhoria de desempenho.</p>
-<blockquote>
-<p>Consulte o <a href="https://github.com/GabrielFerreiraMendes/minusframework-meta/wiki">GitHub Wiki</a> para documentacao completa.</p>
-</blockquote>
+<p>Sistema de cache em dois níveis: L1 (identity map) e L2 (cache distribuído opcional).</p>
+<h2 id="cache-l1-identity-map">Cache L1 — Identity Map<a class="headerlink" href="#cache-l1-identity-map" title="Permanent link">&para;</a></h2>
+<p>Ativo por padrão no repositório. Garante que uma mesma entidade buscada duas vezes retorne a mesma instância em memória:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="k">var</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="w">  </span><span class="n">A</span><span class="o">,</span><span class="w"> </span><span class="n">B</span><span class="o">:</span><span class="w"> </span><span class="n">TPessoa</span><span class="o">;</span>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="k">begin</span>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="w">  </span><span class="n">A</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="n">Repos</span><span class="o">.</span><span class="n">BuscarPorId</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="o">;</span><span class="w">  </span><span class="c1">// busca no banco</span>
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="w">  </span><span class="n">B</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="n">Repos</span><span class="o">.</span><span class="n">BuscarPorId</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="o">;</span><span class="w">  </span><span class="c1">// retorna da memória (mesma instância)</span>
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="w">  </span><span class="c1">// A = B (mesmo objeto)</span>
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="k">end</span><span class="o">;</span>
+</code></pre></div>
+<h2 id="cache-l2-distribuido">Cache L2 — Distribuído<a class="headerlink" href="#cache-l2-distribuido" title="Permanent link">&para;</a></h2>
+<h3 id="redis">Redis<a class="headerlink" href="#redis" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="n">Repos</span><span class="o">.</span><span class="n">Cache</span>
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="w">  </span><span class="o">.</span><span class="n">Provider</span><span class="p">(</span><span class="n">cpRedis</span><span class="p">)</span>
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="w">  </span><span class="o">.</span><span class="n">Host</span><span class="p">(</span><span class="s">&#39;localhost:6379&#39;</span><span class="p">)</span>
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="w">  </span><span class="o">.</span><span class="n">Ttl</span><span class="p">(</span><span class="mi">300</span><span class="p">)</span><span class="w">  </span><span class="c1">// 5 minutos</span>
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="w">  </span><span class="o">.</span><span class="n">Ativar</span><span class="o">;</span>
+</code></pre></div>
+<h3 id="memory-padrao">Memory (padrão)<a class="headerlink" href="#memory-padrao" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="n">Repos</span><span class="o">.</span><span class="n">Cache</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="w">  </span><span class="o">.</span><span class="n">Provider</span><span class="p">(</span><span class="n">cpMemory</span><span class="p">)</span>
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="w">  </span><span class="o">.</span><span class="n">Ttl</span><span class="p">(</span><span class="mi">60</span><span class="p">)</span>
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="w">  </span><span class="o">.</span><span class="n">Ativar</span><span class="o">;</span>
+</code></pre></div>
+<h2 id="invalidar-cache-manualmente">Invalidar Cache Manualmente<a class="headerlink" href="#invalidar-cache-manualmente" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="n">Repos</span><span class="o">.</span><span class="n">Cache</span><span class="o">.</span><span class="n">Limpar</span><span class="o">;</span><span class="w">           </span><span class="c1">// limpa cache da entidade</span>
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="n">Repos</span><span class="o">.</span><span class="n">Cache</span><span class="o">.</span><span class="n">LimparTodos</span><span class="o">;</span><span class="w">      </span><span class="c1">// limpa cache de todas as entidades</span>
+</code></pre></div>
+<h2 id="como-funciona">Como Funciona<a class="headerlink" href="#como-funciona" title="Permanent link">&para;</a></h2>
+<ol>
+<li>Ao buscar por ID, o repositório consulta o cache primeiro</li>
+<li>Se não encontrar, busca no banco e armazena</li>
+<li>Ao salvar ou deletar, invalida as entradas afetadas</li>
+<li>O cache L2 é opcional e configurável por entidade</li>
+</ol>
 
 
 

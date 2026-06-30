@@ -82,7 +82,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#orm-entity-mapping" class="md-skip">
+        <a href="#mapeamento-de-entidades" class="md-skip">
           Pular para conteúdo
         </a>
       
@@ -696,6 +696,24 @@
         
       
       
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Mapeamento de Entidades
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
       <a href="./" class="md-nav__link md-nav__link--active">
         
   
@@ -712,6 +730,69 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Índice">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Índice
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#atributos-de-mapeamento" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Atributos de Mapeamento
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#exemplo-completo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exemplo Completo
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tipos-suportados" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Tipos Suportados
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#heranca" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Herança
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
       
     </li>
   
@@ -1795,6 +1876,58 @@
     
   
   
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Índice
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#atributos-de-mapeamento" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Atributos de Mapeamento
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#exemplo-completo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exemplo Completo
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tipos-suportados" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Tipos Suportados
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#heranca" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Herança
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -1813,11 +1946,179 @@
   
 
 
-<h1 id="orm-entity-mapping">ORM Entity Mapping<a class="headerlink" href="#orm-entity-mapping" title="Permanent link">&para;</a></h1>
-<p>Define and map entities to database tables using attributes or fluent configuration. Mapeamento de entidades para tabelas do banco de dados.</p>
-<blockquote>
-<p>Consulte o <a href="https://github.com/GabrielFerreiraMendes/minusframework-meta/wiki">GitHub Wiki</a> para documentacao completa.</p>
-</blockquote>
+<h1 id="mapeamento-de-entidades">Mapeamento de Entidades<a class="headerlink" href="#mapeamento-de-entidades" title="Permanent link">&para;</a></h1>
+<h2 id="atributos-de-mapeamento">Atributos de Mapeamento<a class="headerlink" href="#atributos-de-mapeamento" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Atributo</th>
+<th>Alvo</th>
+<th>Descrição</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>[Tabela('NOME')]</code></td>
+<td>Classe</td>
+<td>Nome da tabela no banco</td>
+</tr>
+<tr>
+<td><code>[ChavePrimaria]</code></td>
+<td>Propriedade</td>
+<td>Campo de chave primária</td>
+</tr>
+<tr>
+<td><code>[AutoIncremento]</code></td>
+<td>Propriedade</td>
+<td>Geração automática de ID</td>
+</tr>
+<tr>
+<td><code>[Campo('NOME', 100)]</code></td>
+<td>Propriedade</td>
+<td>Nome da coluna e tamanho opcional</td>
+</tr>
+<tr>
+<td><code>[Nullable]</code></td>
+<td>Propriedade</td>
+<td>Campo aceita nulo</td>
+</tr>
+<tr>
+<td><code>[Unico]</code></td>
+<td>Propriedade</td>
+<td>Unique constraint</td>
+</tr>
+<tr>
+<td><code>[Indice]</code></td>
+<td>Propriedade</td>
+<td>Índice na coluna</td>
+</tr>
+<tr>
+<td><code>[Default('valor')]</code></td>
+<td>Propriedade</td>
+<td>Valor padrão</td>
+</tr>
+<tr>
+<td><code>[Ignorar]</code></td>
+<td>Propriedade</td>
+<td>Campo não mapeado</td>
+</tr>
+<tr>
+<td><code>[ForeignKey]</code></td>
+<td>Propriedade</td>
+<td>Chave estrangeira</td>
+</tr>
+</tbody>
+</table>
+<h2 id="exemplo-completo">Exemplo Completo<a class="headerlink" href="#exemplo-completo" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="k">type</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="w">  </span><span class="p">[</span><span class="n">Tabela</span><span class="p">(</span><span class="s">&#39;PRODUTO&#39;</span><span class="p">)]</span>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="w">  </span><span class="n">TProduto</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">class</span><span class="p">(</span><span class="n">TMFEntity</span><span class="p">)</span>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="w">  </span><span class="kp">private</span>
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="w">    </span><span class="n">FId</span><span class="o">:</span><span class="w"> </span><span class="kt">Integer</span><span class="o">;</span>
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="w">    </span><span class="n">FNome</span><span class="o">:</span><span class="w"> </span><span class="k">string</span><span class="o">;</span>
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="w">    </span><span class="n">FDescricao</span><span class="o">:</span><span class="w"> </span><span class="k">string</span><span class="o">;</span>
+<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="w">    </span><span class="n">FPreco</span><span class="o">:</span><span class="w"> </span><span class="kt">Currency</span><span class="o">;</span>
+<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a><span class="w">    </span><span class="n">FAtivo</span><span class="o">:</span><span class="w"> </span><span class="kt">Boolean</span><span class="o">;</span>
+<a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a><span class="w">    </span><span class="n">FCategoriaId</span><span class="o">:</span><span class="w"> </span><span class="kt">Integer</span><span class="o">;</span>
+<a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a><span class="w">    </span><span class="n">FCriadoEm</span><span class="o">:</span><span class="w"> </span><span class="kt">TDateTime</span><span class="o">;</span>
+<a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a><span class="w">  </span><span class="kp">public</span>
+<a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a><span class="w">    </span><span class="p">[</span><span class="n">ChavePrimaria</span><span class="p">]</span>
+<a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a><span class="w">    </span><span class="p">[</span><span class="n">AutoIncremento</span><span class="p">]</span>
+<a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a><span class="w">    </span><span class="p">[</span><span class="n">Campo</span><span class="p">(</span><span class="s">&#39;ID&#39;</span><span class="p">)]</span>
+<a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a><span class="w">    </span><span class="k">property</span><span class="w"> </span><span class="py">Id</span><span class="o">:</span><span class="w"> </span><span class="kt">Integer</span><span class="w"> </span><span class="kp">read</span><span class="w"> </span><span class="nf">FId</span><span class="w"> </span><span class="kp">write</span><span class="w"> </span><span class="nf">FId</span><span class="o">;</span>
+<a id="__codelineno-0-17" name="__codelineno-0-17" href="#__codelineno-0-17"></a>
+<a id="__codelineno-0-18" name="__codelineno-0-18" href="#__codelineno-0-18"></a><span class="w">    </span><span class="p">[</span><span class="n">Campo</span><span class="p">(</span><span class="s">&#39;NOME&#39;</span><span class="o">,</span><span class="w"> </span><span class="mi">200</span><span class="p">)]</span>
+<a id="__codelineno-0-19" name="__codelineno-0-19" href="#__codelineno-0-19"></a><span class="w">    </span><span class="p">[</span><span class="n">Unico</span><span class="p">]</span>
+<a id="__codelineno-0-20" name="__codelineno-0-20" href="#__codelineno-0-20"></a><span class="w">    </span><span class="k">property</span><span class="w"> </span><span class="py">Nome</span><span class="o">:</span><span class="w"> </span><span class="k">string</span><span class="w"> </span><span class="kp">read</span><span class="w"> </span><span class="nf">FNome</span><span class="w"> </span><span class="kp">write</span><span class="w"> </span><span class="nf">FNome</span><span class="o">;</span>
+<a id="__codelineno-0-21" name="__codelineno-0-21" href="#__codelineno-0-21"></a>
+<a id="__codelineno-0-22" name="__codelineno-0-22" href="#__codelineno-0-22"></a><span class="w">    </span><span class="p">[</span><span class="n">Campo</span><span class="p">(</span><span class="s">&#39;DESCRICAO&#39;</span><span class="o">,</span><span class="w"> </span><span class="mi">500</span><span class="p">)]</span>
+<a id="__codelineno-0-23" name="__codelineno-0-23" href="#__codelineno-0-23"></a><span class="w">    </span><span class="p">[</span><span class="n">Nullable</span><span class="p">]</span>
+<a id="__codelineno-0-24" name="__codelineno-0-24" href="#__codelineno-0-24"></a><span class="w">    </span><span class="k">property</span><span class="w"> </span><span class="py">Descricao</span><span class="o">:</span><span class="w"> </span><span class="k">string</span><span class="w"> </span><span class="kp">read</span><span class="w"> </span><span class="nf">FDescricao</span><span class="w"> </span><span class="kp">write</span><span class="w"> </span><span class="nf">FDescricao</span><span class="o">;</span>
+<a id="__codelineno-0-25" name="__codelineno-0-25" href="#__codelineno-0-25"></a>
+<a id="__codelineno-0-26" name="__codelineno-0-26" href="#__codelineno-0-26"></a><span class="w">    </span><span class="p">[</span><span class="n">Campo</span><span class="p">(</span><span class="s">&#39;PRECO&#39;</span><span class="p">)]</span>
+<a id="__codelineno-0-27" name="__codelineno-0-27" href="#__codelineno-0-27"></a><span class="w">    </span><span class="p">[</span><span class="kp">Default</span><span class="p">(</span><span class="s">&#39;0&#39;</span><span class="p">)]</span>
+<a id="__codelineno-0-28" name="__codelineno-0-28" href="#__codelineno-0-28"></a><span class="w">    </span><span class="k">property</span><span class="w"> </span><span class="py">Preco</span><span class="o">:</span><span class="w"> </span><span class="kt">Currency</span><span class="w"> </span><span class="kp">read</span><span class="w"> </span><span class="nf">FPreco</span><span class="w"> </span><span class="kp">write</span><span class="w"> </span><span class="nf">FPreco</span><span class="o">;</span>
+<a id="__codelineno-0-29" name="__codelineno-0-29" href="#__codelineno-0-29"></a>
+<a id="__codelineno-0-30" name="__codelineno-0-30" href="#__codelineno-0-30"></a><span class="w">    </span><span class="p">[</span><span class="n">Campo</span><span class="p">(</span><span class="s">&#39;ATIVO&#39;</span><span class="p">)]</span>
+<a id="__codelineno-0-31" name="__codelineno-0-31" href="#__codelineno-0-31"></a><span class="w">    </span><span class="k">property</span><span class="w"> </span><span class="py">Ativo</span><span class="o">:</span><span class="w"> </span><span class="kt">Boolean</span><span class="w"> </span><span class="kp">read</span><span class="w"> </span><span class="nf">FAtivo</span><span class="w"> </span><span class="kp">write</span><span class="w"> </span><span class="nf">FAtivo</span><span class="o">;</span>
+<a id="__codelineno-0-32" name="__codelineno-0-32" href="#__codelineno-0-32"></a>
+<a id="__codelineno-0-33" name="__codelineno-0-33" href="#__codelineno-0-33"></a><span class="w">    </span><span class="p">[</span><span class="n">Campo</span><span class="p">(</span><span class="s">&#39;CATEGORIA_ID&#39;</span><span class="p">)]</span>
+<a id="__codelineno-0-34" name="__codelineno-0-34" href="#__codelineno-0-34"></a><span class="w">    </span><span class="p">[</span><span class="n">ForeignKey</span><span class="p">(</span><span class="s">&#39;CATEGORIA&#39;</span><span class="o">,</span><span class="w"> </span><span class="s">&#39;ID&#39;</span><span class="p">)]</span>
+<a id="__codelineno-0-35" name="__codelineno-0-35" href="#__codelineno-0-35"></a><span class="w">    </span><span class="k">property</span><span class="w"> </span><span class="py">CategoriaId</span><span class="o">:</span><span class="w"> </span><span class="kt">Integer</span><span class="w"> </span><span class="kp">read</span><span class="w"> </span><span class="nf">FCategoriaId</span><span class="w"> </span><span class="kp">write</span><span class="w"> </span><span class="nf">FCategoriaId</span><span class="o">;</span>
+<a id="__codelineno-0-36" name="__codelineno-0-36" href="#__codelineno-0-36"></a>
+<a id="__codelineno-0-37" name="__codelineno-0-37" href="#__codelineno-0-37"></a><span class="w">    </span><span class="p">[</span><span class="n">Campo</span><span class="p">(</span><span class="s">&#39;CRIADO_EM&#39;</span><span class="p">)]</span>
+<a id="__codelineno-0-38" name="__codelineno-0-38" href="#__codelineno-0-38"></a><span class="w">    </span><span class="k">property</span><span class="w"> </span><span class="py">CriadoEm</span><span class="o">:</span><span class="w"> </span><span class="kt">TDateTime</span><span class="w"> </span><span class="kp">read</span><span class="w"> </span><span class="nf">FCriadoEm</span><span class="w"> </span><span class="kp">write</span><span class="w"> </span><span class="nf">FCriadoEm</span><span class="o">;</span>
+<a id="__codelineno-0-39" name="__codelineno-0-39" href="#__codelineno-0-39"></a><span class="w">  </span><span class="k">end</span><span class="o">;</span>
+</code></pre></div>
+<h2 id="tipos-suportados">Tipos Suportados<a class="headerlink" href="#tipos-suportados" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Tipo Delphi</th>
+<th>Tipo SQL</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Integer</code></td>
+<td><code>INTEGER</code></td>
+</tr>
+<tr>
+<td><code>Int64</code></td>
+<td><code>BIGINT</code></td>
+</tr>
+<tr>
+<td><code>Double</code></td>
+<td><code>DOUBLE PRECISION</code></td>
+</tr>
+<tr>
+<td><code>Currency</code></td>
+<td><code>NUMERIC(15,2)</code></td>
+</tr>
+<tr>
+<td><code>string</code></td>
+<td><code>VARCHAR(n)</code></td>
+</tr>
+<tr>
+<td><code>TDateTime</code></td>
+<td><code>TIMESTAMP</code></td>
+</tr>
+<tr>
+<td><code>Boolean</code></td>
+<td><code>BOOLEAN</code> / <code>SMALLINT</code></td>
+</tr>
+<tr>
+<td><code>TBytes</code></td>
+<td><code>BLOB</code></td>
+</tr>
+<tr>
+<td><code>TStream</code></td>
+<td><code>BLOB</code></td>
+</tr>
+<tr>
+<td><code>TGuid</code></td>
+<td><code>VARCHAR(38)</code></td>
+</tr>
+</tbody>
+</table>
+<h2 id="heranca">Herança<a class="headerlink" href="#heranca" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="k">type</span>
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="w">  </span><span class="n">TEntidadeBase</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">class</span><span class="p">(</span><span class="n">TMFEntity</span><span class="p">)</span>
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="w">    </span><span class="p">[</span><span class="n">ChavePrimaria</span><span class="p">]</span>
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="w">    </span><span class="p">[</span><span class="n">AutoIncremento</span><span class="p">]</span>
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="w">    </span><span class="p">[</span><span class="n">Campo</span><span class="p">(</span><span class="s">&#39;ID&#39;</span><span class="p">)]</span>
+<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="w">    </span><span class="k">property</span><span class="w"> </span><span class="py">Id</span><span class="o">:</span><span class="w"> </span><span class="kt">Integer</span><span class="w"> </span><span class="kp">read</span><span class="w"> </span><span class="nf">FId</span><span class="w"> </span><span class="kp">write</span><span class="w"> </span><span class="nf">FId</span><span class="o">;</span>
+<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>
+<a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a><span class="w">    </span><span class="p">[</span><span class="n">Campo</span><span class="p">(</span><span class="s">&#39;CRIADO_EM&#39;</span><span class="p">)]</span>
+<a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a><span class="w">    </span><span class="k">property</span><span class="w"> </span><span class="py">CriadoEm</span><span class="o">:</span><span class="w"> </span><span class="kt">TDateTime</span><span class="w"> </span><span class="kp">read</span><span class="w"> </span><span class="nf">FCriadoEm</span><span class="w"> </span><span class="kp">write</span><span class="w"> </span><span class="nf">FCriadoEm</span><span class="o">;</span>
+<a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a><span class="w">  </span><span class="k">end</span><span class="o">;</span>
+<a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a>
+<a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a><span class="w">  </span><span class="p">[</span><span class="n">Tabela</span><span class="p">(</span><span class="s">&#39;CLIENTE&#39;</span><span class="p">)]</span>
+<a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a><span class="w">  </span><span class="n">TCliente</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">class</span><span class="p">(</span><span class="n">TEntidadeBase</span><span class="p">)</span>
+<a id="__codelineno-1-14" name="__codelineno-1-14" href="#__codelineno-1-14"></a><span class="w">    </span><span class="p">[</span><span class="n">Campo</span><span class="p">(</span><span class="s">&#39;NOME&#39;</span><span class="p">)]</span>
+<a id="__codelineno-1-15" name="__codelineno-1-15" href="#__codelineno-1-15"></a><span class="w">    </span><span class="k">property</span><span class="w"> </span><span class="py">Nome</span><span class="o">:</span><span class="w"> </span><span class="k">string</span><span class="w"> </span><span class="kp">read</span><span class="w"> </span><span class="nf">FNome</span><span class="w"> </span><span class="kp">write</span><span class="w"> </span><span class="nf">FNome</span><span class="o">;</span>
+<a id="__codelineno-1-16" name="__codelineno-1-16" href="#__codelineno-1-16"></a><span class="w">  </span><span class="k">end</span><span class="o">;</span>
+</code></pre></div>
 
 
 

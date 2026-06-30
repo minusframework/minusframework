@@ -724,6 +724,24 @@
         
       
       
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Criteria API
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
       <a href="./" class="md-nav__link md-nav__link--active">
         
   
@@ -740,6 +758,102 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Índice">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Índice
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#estrutura-basica" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Estrutura Básica
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#operadores" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Operadores
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#combinando-expressoes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Combinando Expressões
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ordenacao" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ordenação
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#paginacao" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Paginação
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#projecao-campos-especificos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Projeção (campos específicos)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#exemplo-completo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exemplo Completo
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
       
     </li>
   
@@ -1795,6 +1909,91 @@
     
   
   
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Índice
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#estrutura-basica" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Estrutura Básica
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#operadores" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Operadores
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#combinando-expressoes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Combinando Expressões
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ordenacao" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ordenação
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#paginacao" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Paginação
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#projecao-campos-especificos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Projeção (campos específicos)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#exemplo-completo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exemplo Completo
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -1814,10 +2013,124 @@
 
 
 <h1 id="criteria-api">Criteria API<a class="headerlink" href="#criteria-api" title="Permanent link">&para;</a></h1>
-<p>Build type-safe, dynamic queries programmatically without raw SQL strings. Construcao de consultas tipo-seguras e dinamicas.</p>
-<blockquote>
-<p>Consulte o <a href="https://github.com/GabrielFerreiraMendes/minusframework-meta/wiki">GitHub Wiki</a> para documentacao completa.</p>
-</blockquote>
+<p>Consulta type-safe fluente sem escrever SQL manualmente.</p>
+<h2 id="estrutura-basica">Estrutura Básica<a class="headerlink" href="#estrutura-basica" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="n">TCriteria</span><span class="o">.</span><span class="n">Create</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="w">  </span><span class="o">.</span><span class="n">Adicionar</span><span class="p">(</span><span class="n">TExpression</span><span class="o">.</span><span class="n">Propriedade</span><span class="p">(</span><span class="s">&#39;Nome&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">Igual</span><span class="p">(</span><span class="s">&#39;Maria&#39;</span><span class="p">))</span>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="w">  </span><span class="o">.</span><span class="n">Adicionar</span><span class="p">(</span><span class="n">TExpression</span><span class="o">.</span><span class="n">Propriedade</span><span class="p">(</span><span class="s">&#39;Ativo&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">Igual</span><span class="p">(</span><span class="k">True</span><span class="p">))</span><span class="o">;</span>
+</code></pre></div>
+<h2 id="operadores">Operadores<a class="headerlink" href="#operadores" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Método</th>
+<th>SQL Gerado</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>.Igual(valor)</code></td>
+<td><code>= ?</code></td>
+</tr>
+<tr>
+<td><code>.Diferente(valor)</code></td>
+<td><code>&lt;&gt; ?</code></td>
+</tr>
+<tr>
+<td><code>.MaiorQue(valor)</code></td>
+<td><code>&gt; ?</code></td>
+</tr>
+<tr>
+<td><code>.MenorQue(valor)</code></td>
+<td><code>&lt; ?</code></td>
+</tr>
+<tr>
+<td><code>.MaiorOuIgual(valor)</code></td>
+<td><code>&gt;= ?</code></td>
+</tr>
+<tr>
+<td><code>.MenorOuIgual(valor)</code></td>
+<td><code>&lt;= ?</code></td>
+</tr>
+<tr>
+<td><code>.Contem(valor)</code></td>
+<td><code>LIKE '%valor%'</code></td>
+</tr>
+<tr>
+<td><code>.IniciaCom(valor)</code></td>
+<td><code>LIKE 'valor%'</code></td>
+</tr>
+<tr>
+<td><code>.TerminaCom(valor)</code></td>
+<td><code>LIKE '%valor'</code></td>
+</tr>
+<tr>
+<td><code>.Entre(v1, v2)</code></td>
+<td><code>BETWEEN ? AND ?</code></td>
+</tr>
+<tr>
+<td><code>.Em(valores)</code></td>
+<td><code>IN (?, ?, ...)</code></td>
+</tr>
+<tr>
+<td><code>.Nulo</code></td>
+<td><code>IS NULL</code></td>
+</tr>
+<tr>
+<td><code>.NaoNulo</code></td>
+<td><code>IS NOT NULL</code></td>
+</tr>
+</tbody>
+</table>
+<h2 id="combinando-expressoes">Combinando Expressões<a class="headerlink" href="#combinando-expressoes" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="k">var</span>
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="w">  </span><span class="n">LCriteria</span><span class="o">:</span><span class="w"> </span><span class="n">TCriteria</span><span class="o">;</span>
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="k">begin</span>
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="w">  </span><span class="n">LCriteria</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="n">TCriteria</span><span class="o">.</span><span class="n">Create</span><span class="o">;</span>
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="w">  </span><span class="n">LCriteria</span>
+<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="w">    </span><span class="o">.</span><span class="n">Adicionar</span><span class="p">(</span>
+<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a><span class="w">      </span><span class="n">TExpression</span><span class="o">.</span><span class="n">Propriedade</span><span class="p">(</span><span class="s">&#39;Status&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">Igual</span><span class="p">(</span><span class="s">&#39;ATIVO&#39;</span><span class="p">)</span>
+<a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a><span class="w">        </span><span class="o">.</span><span class="n">E</span><span class="p">(</span><span class="n">TExpression</span><span class="o">.</span><span class="n">Propriedade</span><span class="p">(</span><span class="s">&#39;Valor&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">MaiorQue</span><span class="p">(</span><span class="mi">100</span><span class="p">))</span>
+<a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a><span class="w">    </span><span class="p">)</span>
+<a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a><span class="w">    </span><span class="o">.</span><span class="n">Adicionar</span><span class="p">(</span>
+<a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a><span class="w">      </span><span class="n">TExpression</span><span class="o">.</span><span class="n">Propriedade</span><span class="p">(</span><span class="s">&#39;Categoria&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">Igual</span><span class="p">(</span><span class="s">&#39;PREMIUM&#39;</span><span class="p">)</span>
+<a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a><span class="w">        </span><span class="o">.</span><span class="n">Ou</span><span class="p">(</span><span class="n">TExpression</span><span class="o">.</span><span class="n">Propriedade</span><span class="p">(</span><span class="s">&#39;Vip&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">Igual</span><span class="p">(</span><span class="k">True</span><span class="p">))</span>
+<a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a><span class="w">    </span><span class="p">)</span><span class="o">;</span>
+<a id="__codelineno-1-14" name="__codelineno-1-14" href="#__codelineno-1-14"></a><span class="k">end</span><span class="o">;</span>
+</code></pre></div>
+<h2 id="ordenacao">Ordenação<a class="headerlink" href="#ordenacao" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="n">LCriteria</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="w">  </span><span class="o">.</span><span class="n">OrderBy</span><span class="p">(</span><span class="s">&#39;Nome&#39;</span><span class="o">,</span><span class="w"> </span><span class="n">soAsc</span><span class="p">)</span>
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="w">  </span><span class="o">.</span><span class="n">OrderBy</span><span class="p">(</span><span class="s">&#39;Data&#39;</span><span class="o">,</span><span class="w"> </span><span class="n">soDesc</span><span class="p">)</span><span class="o">;</span>
+</code></pre></div>
+<h2 id="paginacao">Paginação<a class="headerlink" href="#paginacao" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="n">LCriteria</span>
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="w">  </span><span class="o">.</span><span class="n">Paginar</span><span class="p">(</span><span class="mi">1</span><span class="o">,</span><span class="w"> </span><span class="mi">20</span><span class="p">)</span><span class="o">;</span><span class="w">  </span><span class="c1">// página 1, 20 itens por página</span>
+</code></pre></div>
+<h2 id="projecao-campos-especificos">Projeção (campos específicos)<a class="headerlink" href="#projecao-campos-especificos" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="n">LCriteria</span>
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="w">  </span><span class="o">.</span><span class="n">Selecionar</span><span class="p">([</span><span class="s">&#39;Id&#39;</span><span class="o">,</span><span class="w"> </span><span class="s">&#39;Nome&#39;</span><span class="o">,</span><span class="w"> </span><span class="s">&#39;Email&#39;</span><span class="p">])</span><span class="o">;</span>
+</code></pre></div>
+<h2 id="exemplo-completo">Exemplo Completo<a class="headerlink" href="#exemplo-completo" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="k">var</span>
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="w">  </span><span class="n">LResultado</span><span class="o">:</span><span class="w"> </span><span class="n">TArray</span><span class="o">&lt;</span><span class="n">TPessoa</span><span class="o">&gt;;</span>
+<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="w">  </span><span class="n">LTotal</span><span class="o">:</span><span class="w"> </span><span class="kt">Integer</span><span class="o">;</span>
+<a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a><span class="k">begin</span>
+<a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a><span class="w">  </span><span class="n">LResultado</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="n">Repos</span><span class="o">.</span><span class="n">BuscarPorCriteria</span><span class="p">(</span>
+<a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a><span class="w">    </span><span class="n">TCriteria</span><span class="o">.</span><span class="n">Create</span>
+<a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a><span class="w">      </span><span class="o">.</span><span class="n">Adicionar</span><span class="p">(</span><span class="n">TExpression</span><span class="o">.</span><span class="n">Propriedade</span><span class="p">(</span><span class="s">&#39;Ativo&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">Igual</span><span class="p">(</span><span class="k">True</span><span class="p">))</span>
+<a id="__codelineno-5-8" name="__codelineno-5-8" href="#__codelineno-5-8"></a><span class="w">      </span><span class="o">.</span><span class="n">Adicionar</span><span class="p">(</span><span class="n">TExpression</span><span class="o">.</span><span class="n">Propriedade</span><span class="p">(</span><span class="s">&#39;Nome&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">Contem</span><span class="p">(</span><span class="s">&#39;Silva&#39;</span><span class="p">))</span>
+<a id="__codelineno-5-9" name="__codelineno-5-9" href="#__codelineno-5-9"></a><span class="w">      </span><span class="o">.</span><span class="n">OrderBy</span><span class="p">(</span><span class="s">&#39;Nome&#39;</span><span class="o">,</span><span class="w"> </span><span class="n">soAsc</span><span class="p">)</span>
+<a id="__codelineno-5-10" name="__codelineno-5-10" href="#__codelineno-5-10"></a><span class="w">      </span><span class="o">.</span><span class="n">OrderBy</span><span class="p">(</span><span class="s">&#39;Id&#39;</span><span class="o">,</span><span class="w"> </span><span class="n">soDesc</span><span class="p">)</span>
+<a id="__codelineno-5-11" name="__codelineno-5-11" href="#__codelineno-5-11"></a><span class="w">      </span><span class="o">.</span><span class="n">Paginar</span><span class="p">(</span><span class="mi">1</span><span class="o">,</span><span class="w"> </span><span class="mi">20</span><span class="p">)</span>
+<a id="__codelineno-5-12" name="__codelineno-5-12" href="#__codelineno-5-12"></a><span class="w">  </span><span class="p">)</span><span class="o">;</span>
+<a id="__codelineno-5-13" name="__codelineno-5-13" href="#__codelineno-5-13"></a>
+<a id="__codelineno-5-14" name="__codelineno-5-14" href="#__codelineno-5-14"></a><span class="w">  </span><span class="n">LTotal</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="n">Repos</span><span class="o">.</span><span class="n">ContarPorCriteria</span><span class="p">(</span>
+<a id="__codelineno-5-15" name="__codelineno-5-15" href="#__codelineno-5-15"></a><span class="w">    </span><span class="n">TCriteria</span><span class="o">.</span><span class="n">Create</span>
+<a id="__codelineno-5-16" name="__codelineno-5-16" href="#__codelineno-5-16"></a><span class="w">      </span><span class="o">.</span><span class="n">Adicionar</span><span class="p">(</span><span class="n">TExpression</span><span class="o">.</span><span class="n">Propriedade</span><span class="p">(</span><span class="s">&#39;Ativo&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">Igual</span><span class="p">(</span><span class="k">True</span><span class="p">))</span>
+<a id="__codelineno-5-17" name="__codelineno-5-17" href="#__codelineno-5-17"></a><span class="w">  </span><span class="p">)</span><span class="o">;</span>
+<a id="__codelineno-5-18" name="__codelineno-5-18" href="#__codelineno-5-18"></a><span class="k">end</span><span class="o">;</span>
+</code></pre></div>
 
 
 

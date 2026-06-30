@@ -82,7 +82,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#migrator-cli-reference" class="md-skip">
+        <a href="#cli-minusmigrator" class="md-skip">
           Pular para conteúdo
         </a>
       
@@ -1084,6 +1084,24 @@
         
       
       
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CLI Reference
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
       <a href="./" class="md-nav__link md-nav__link--active">
         
   
@@ -1100,6 +1118,119 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Índice">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Índice
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#uso" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Uso
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#comandos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Comandos
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Comandos">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#create" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        create
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#up" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        up
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#down" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        down
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#status" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        status
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#generate" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        generate
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#exemplo-de-migration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exemplo de Migration
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
       
     </li>
   
@@ -1795,6 +1926,108 @@
     
   
   
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Índice
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#uso" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Uso
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#comandos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Comandos
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Comandos">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#create" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        create
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#up" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        up
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#down" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        down
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#status" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        status
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#generate" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        generate
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#exemplo-de-migration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exemplo de Migration
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -1813,11 +2046,93 @@
   
 
 
-<h1 id="migrator-cli-reference">Migrator CLI Reference<a class="headerlink" href="#migrator-cli-reference" title="Permanent link">&para;</a></h1>
-<p>Command-line interface for creating, running, and rolling back database migrations. Interface de linha de comando para gerenciamento de migracoes.</p>
-<blockquote>
-<p>Consulte o <a href="https://github.com/GabrielFerreiraMendes/minusframework-meta/wiki">GitHub Wiki</a> para documentacao completa.</p>
-</blockquote>
+<h1 id="cli-minusmigrator">CLI — MinusMigrator<a class="headerlink" href="#cli-minusmigrator" title="Permanent link">&para;</a></h1>
+<p>A ferramenta de linha de comando para gerenciar migrações de banco de dados.</p>
+<h2 id="uso">Uso<a class="headerlink" href="#uso" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>MinusMigrator.exe<span class="w"> </span>&lt;comando&gt;<span class="w"> </span><span class="o">[</span>argumentos<span class="o">]</span>
+</code></pre></div>
+<h2 id="comandos">Comandos<a class="headerlink" href="#comandos" title="Permanent link">&para;</a></h2>
+<h3 id="create"><code>create</code><a class="headerlink" href="#create" title="Permanent link">&para;</a></h3>
+<p>Cria um novo arquivo de migração.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>MinusMigrator.exe<span class="w"> </span>create<span class="w"> </span><span class="s2">&quot;criar_tabela_pedidos&quot;</span>
+</code></pre></div>
+<p>Gera <code>src/Migrations/20260630_123456_criar_tabela_pedidos.pas</code>.</p>
+<h3 id="up"><code>up</code><a class="headerlink" href="#up" title="Permanent link">&para;</a></h3>
+<p>Aplica migrações pendentes.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>MinusMigrator.exe<span class="w"> </span>up<span class="w"> </span>--connection<span class="o">=</span>MinhaConexao
+</code></pre></div>
+<p>Opções:</p>
+<table>
+<thead>
+<tr>
+<th>Flag</th>
+<th>Descrição</th>
+<th>Padrão</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>--connection</code></td>
+<td>Nome da conexão FireDAC</td>
+<td>obrigatório</td>
+</tr>
+<tr>
+<td><code>--steps</code></td>
+<td>Número de migrações a aplicar</td>
+<td>todas</td>
+</tr>
+</tbody>
+</table>
+<h3 id="down"><code>down</code><a class="headerlink" href="#down" title="Permanent link">&para;</a></h3>
+<p>Reverte a última migração.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>MinusMigrator.exe<span class="w"> </span>down<span class="w"> </span>--connection<span class="o">=</span>MinhaConexao<span class="w"> </span>--steps<span class="o">=</span><span class="m">1</span>
+</code></pre></div>
+<h3 id="status"><code>status</code><a class="headerlink" href="#status" title="Permanent link">&para;</a></h3>
+<p>Lista migrações aplicadas e pendentes.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>MinusMigrator.exe<span class="w"> </span>status<span class="w"> </span>--connection<span class="o">=</span>MinhaConexao
+</code></pre></div>
+<h3 id="generate"><code>generate</code><a class="headerlink" href="#generate" title="Permanent link">&para;</a></h3>
+<p>Gera uma migration a partir de uma tabela existente.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>MinusMigrator.exe<span class="w"> </span>generate<span class="w"> </span>--connection<span class="o">=</span>MinhaConexao<span class="w"> </span>--table<span class="o">=</span>PEDIDO
+</code></pre></div>
+<h2 id="exemplo-de-migration">Exemplo de Migration<a class="headerlink" href="#exemplo-de-migration" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="k">unit</span><span class="w"> </span><span class="n">Migration_20260630_CriarTabelaPedidos</span><span class="o">;</span>
+<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>
+<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a><span class="k">interface</span>
+<a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a>
+<a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a><span class="k">uses</span>
+<a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a><span class="w">  </span><span class="n">MF</span><span class="o">.</span><span class="n">Migrator</span><span class="o">;</span>
+<a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a>
+<a id="__codelineno-6-8" name="__codelineno-6-8" href="#__codelineno-6-8"></a><span class="k">type</span>
+<a id="__codelineno-6-9" name="__codelineno-6-9" href="#__codelineno-6-9"></a><span class="w">  </span><span class="p">[</span><span class="n">Migration</span><span class="p">(</span><span class="s">&#39;20260630123456&#39;</span><span class="p">)]</span>
+<a id="__codelineno-6-10" name="__codelineno-6-10" href="#__codelineno-6-10"></a><span class="w">  </span><span class="n">TCriarTabelaPedidos</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">class</span><span class="p">(</span><span class="n">TMigration</span><span class="p">)</span>
+<a id="__codelineno-6-11" name="__codelineno-6-11" href="#__codelineno-6-11"></a><span class="w">  </span><span class="kp">public</span>
+<a id="__codelineno-6-12" name="__codelineno-6-12" href="#__codelineno-6-12"></a><span class="w">    </span><span class="k">procedure</span><span class="w"> </span><span class="nf">Up</span><span class="o">;</span><span class="w"> </span><span class="kp">override</span><span class="o">;</span>
+<a id="__codelineno-6-13" name="__codelineno-6-13" href="#__codelineno-6-13"></a><span class="w">    </span><span class="k">procedure</span><span class="w"> </span><span class="nf">Down</span><span class="o">;</span><span class="w"> </span><span class="kp">override</span><span class="o">;</span>
+<a id="__codelineno-6-14" name="__codelineno-6-14" href="#__codelineno-6-14"></a><span class="w">  </span><span class="k">end</span><span class="o">;</span>
+<a id="__codelineno-6-15" name="__codelineno-6-15" href="#__codelineno-6-15"></a>
+<a id="__codelineno-6-16" name="__codelineno-6-16" href="#__codelineno-6-16"></a><span class="k">implementation</span>
+<a id="__codelineno-6-17" name="__codelineno-6-17" href="#__codelineno-6-17"></a>
+<a id="__codelineno-6-18" name="__codelineno-6-18" href="#__codelineno-6-18"></a><span class="k">procedure</span><span class="w"> </span><span class="nc">TCriarTabelaPedidos</span><span class="o">.</span><span class="nf">Up</span><span class="o">;</span>
+<a id="__codelineno-6-19" name="__codelineno-6-19" href="#__codelineno-6-19"></a><span class="k">begin</span>
+<a id="__codelineno-6-20" name="__codelineno-6-20" href="#__codelineno-6-20"></a><span class="w">  </span><span class="n">ExecutarSQL</span><span class="p">(</span>
+<a id="__codelineno-6-21" name="__codelineno-6-21" href="#__codelineno-6-21"></a><span class="w">    </span><span class="s">&#39;CREATE TABLE PEDIDO (&#39;</span><span class="w"> </span><span class="o">+</span>
+<a id="__codelineno-6-22" name="__codelineno-6-22" href="#__codelineno-6-22"></a><span class="w">    </span><span class="s">&#39;  ID INTEGER PRIMARY KEY AUTOINCREMENT,&#39;</span><span class="w"> </span><span class="o">+</span>
+<a id="__codelineno-6-23" name="__codelineno-6-23" href="#__codelineno-6-23"></a><span class="w">    </span><span class="s">&#39;  CLIENTE_ID INTEGER NOT NULL,&#39;</span><span class="w"> </span><span class="o">+</span>
+<a id="__codelineno-6-24" name="__codelineno-6-24" href="#__codelineno-6-24"></a><span class="w">    </span><span class="s">&#39;  VALOR NUMERIC(15,2) NOT NULL,&#39;</span><span class="w"> </span><span class="o">+</span>
+<a id="__codelineno-6-25" name="__codelineno-6-25" href="#__codelineno-6-25"></a><span class="w">    </span><span class="s">&#39;  STATUS VARCHAR(20) DEFAULT </span><span class="se">&#39;&#39;</span><span class="s">PENDENTE</span><span class="se">&#39;&#39;</span><span class="s">,&#39;</span><span class="w"> </span><span class="o">+</span>
+<a id="__codelineno-6-26" name="__codelineno-6-26" href="#__codelineno-6-26"></a><span class="w">    </span><span class="s">&#39;  CRIADO_EM TIMESTAMP DEFAULT CURRENT_TIMESTAMP&#39;</span><span class="w"> </span><span class="o">+</span>
+<a id="__codelineno-6-27" name="__codelineno-6-27" href="#__codelineno-6-27"></a><span class="w">    </span><span class="s">&#39;)&#39;</span>
+<a id="__codelineno-6-28" name="__codelineno-6-28" href="#__codelineno-6-28"></a><span class="w">  </span><span class="p">)</span><span class="o">;</span>
+<a id="__codelineno-6-29" name="__codelineno-6-29" href="#__codelineno-6-29"></a><span class="k">end</span><span class="o">;</span>
+<a id="__codelineno-6-30" name="__codelineno-6-30" href="#__codelineno-6-30"></a>
+<a id="__codelineno-6-31" name="__codelineno-6-31" href="#__codelineno-6-31"></a><span class="k">procedure</span><span class="w"> </span><span class="nc">TCriarTabelaPedidos</span><span class="o">.</span><span class="nf">Down</span><span class="o">;</span>
+<a id="__codelineno-6-32" name="__codelineno-6-32" href="#__codelineno-6-32"></a><span class="k">begin</span>
+<a id="__codelineno-6-33" name="__codelineno-6-33" href="#__codelineno-6-33"></a><span class="w">  </span><span class="n">ExecutarSQL</span><span class="p">(</span><span class="s">&#39;DROP TABLE IF EXISTS PEDIDO&#39;</span><span class="p">)</span><span class="o">;</span>
+<a id="__codelineno-6-34" name="__codelineno-6-34" href="#__codelineno-6-34"></a><span class="k">end</span><span class="o">;</span>
+<a id="__codelineno-6-35" name="__codelineno-6-35" href="#__codelineno-6-35"></a>
+<a id="__codelineno-6-36" name="__codelineno-6-36" href="#__codelineno-6-36"></a><span class="k">end</span><span class="o">.</span>
+</code></pre></div>
 
 
 

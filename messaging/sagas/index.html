@@ -1278,6 +1278,24 @@
         
       
       
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Sagas
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
       <a href="./" class="md-nav__link md-nav__link--active">
         
   
@@ -1294,6 +1312,58 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Índice">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Índice
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#conceito" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Conceito
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#exemplo-pedido-pagamento-estoque" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exemplo: Pedido + Pagamento + Estoque
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#padrao-coreografado-vs-orquestrado" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Padrão Coreografado vs Orquestrado
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
       
     </li>
   
@@ -1795,6 +1865,47 @@
     
   
   
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Índice
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#conceito" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Conceito
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#exemplo-pedido-pagamento-estoque" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exemplo: Pedido + Pagamento + Estoque
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#padrao-coreografado-vs-orquestrado" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Padrão Coreografado vs Orquestrado
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -1814,10 +1925,92 @@
 
 
 <h1 id="sagas">Sagas<a class="headerlink" href="#sagas" title="Permanent link">&para;</a></h1>
-<p>Long-running transactional workflows with compensation logic for distributed systems. Fluxos de trabalho transacionais de longa duracao com logica de compensacao.</p>
-<blockquote>
-<p>Consulte o <a href="https://github.com/GabrielFerreiraMendes/minusframework-meta/wiki">GitHub Wiki</a> para documentacao completa.</p>
-</blockquote>
+<p>Sagas são fluxos de trabalho transacionais de longa duração com lógica de compensação para sistemas distribuídos.</p>
+<h2 id="conceito">Conceito<a class="headerlink" href="#conceito" title="Permanent link">&para;</a></h2>
+<p>Uma saga é uma sequência de passos onde cada passo possui uma <strong>ação</strong> e uma <strong>compensação</strong> (rollback). Se um passo falha, a saga executa as compensações de todos os passos anteriores.</p>
+<h2 id="exemplo-pedido-pagamento-estoque">Exemplo: Pedido + Pagamento + Estoque<a class="headerlink" href="#exemplo-pedido-pagamento-estoque" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="k">var</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="w">  </span><span class="n">LSaga</span><span class="o">:</span><span class="w"> </span><span class="n">ISaga</span><span class="o">;</span>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="k">begin</span>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="w">  </span><span class="n">LSaga</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="n">TSagaFactory</span><span class="o">.</span><span class="n">Criar</span><span class="p">(</span><span class="s">&#39;FecharPedido&#39;</span><span class="p">)</span><span class="o">;</span>
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="w">  </span><span class="n">LSaga</span><span class="o">.</span><span class="n">Passo</span>
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="w">    </span><span class="o">.</span><span class="n">Nome</span><span class="p">(</span><span class="s">&#39;ReservarEstoque&#39;</span><span class="p">)</span>
+<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="w">    </span><span class="o">.</span><span class="n">Executar</span><span class="p">(</span>
+<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a><span class="w">      </span><span class="k">procedure</span>
+<a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a><span class="w">      </span><span class="k">begin</span>
+<a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a><span class="w">        </span><span class="nc">repositorio</span><span class="o">.</span><span class="nf">Salvar</span><span class="p">(</span><span class="n">reserva</span><span class="p">)</span><span class="o">;</span>
+<a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a><span class="w">      </span><span class="k">end</span><span class="p">)</span>
+<a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a><span class="w">    </span><span class="o">.</span><span class="n">Compensar</span><span class="p">(</span>
+<a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a><span class="w">      </span><span class="k">procedure</span>
+<a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a><span class="w">      </span><span class="k">begin</span>
+<a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a><span class="w">        </span><span class="nc">repositorio</span><span class="o">.</span><span class="nf">Deletar</span><span class="p">(</span><span class="n">reserva</span><span class="p">)</span><span class="o">;</span>
+<a id="__codelineno-0-17" name="__codelineno-0-17" href="#__codelineno-0-17"></a><span class="w">      </span><span class="k">end</span><span class="p">)</span><span class="o">;</span>
+<a id="__codelineno-0-18" name="__codelineno-0-18" href="#__codelineno-0-18"></a>
+<a id="__codelineno-0-19" name="__codelineno-0-19" href="#__codelineno-0-19"></a><span class="w">  </span><span class="n">LSaga</span><span class="o">.</span><span class="n">Passo</span>
+<a id="__codelineno-0-20" name="__codelineno-0-20" href="#__codelineno-0-20"></a><span class="w">    </span><span class="o">.</span><span class="n">Nome</span><span class="p">(</span><span class="s">&#39;ProcessarPagamento&#39;</span><span class="p">)</span>
+<a id="__codelineno-0-21" name="__codelineno-0-21" href="#__codelineno-0-21"></a><span class="w">    </span><span class="o">.</span><span class="n">Executar</span><span class="p">(</span>
+<a id="__codelineno-0-22" name="__codelineno-0-22" href="#__codelineno-0-22"></a><span class="w">      </span><span class="k">procedure</span>
+<a id="__codelineno-0-23" name="__codelineno-0-23" href="#__codelineno-0-23"></a><span class="w">      </span><span class="k">begin</span>
+<a id="__codelineno-0-24" name="__codelineno-0-24" href="#__codelineno-0-24"></a><span class="w">        </span><span class="nc">gateway</span><span class="o">.</span><span class="nf">Cobrar</span><span class="p">(</span><span class="n">pedido</span><span class="o">.</span><span class="n">Valor</span><span class="p">)</span><span class="o">;</span>
+<a id="__codelineno-0-25" name="__codelineno-0-25" href="#__codelineno-0-25"></a><span class="w">      </span><span class="k">end</span><span class="p">)</span>
+<a id="__codelineno-0-26" name="__codelineno-0-26" href="#__codelineno-0-26"></a><span class="w">    </span><span class="o">.</span><span class="n">Compensar</span><span class="p">(</span>
+<a id="__codelineno-0-27" name="__codelineno-0-27" href="#__codelineno-0-27"></a><span class="w">      </span><span class="k">procedure</span>
+<a id="__codelineno-0-28" name="__codelineno-0-28" href="#__codelineno-0-28"></a><span class="w">      </span><span class="k">begin</span>
+<a id="__codelineno-0-29" name="__codelineno-0-29" href="#__codelineno-0-29"></a><span class="w">        </span><span class="nc">gateway</span><span class="o">.</span><span class="nf">Estornar</span><span class="p">(</span><span class="n">pedido</span><span class="o">.</span><span class="n">Valor</span><span class="p">)</span><span class="o">;</span>
+<a id="__codelineno-0-30" name="__codelineno-0-30" href="#__codelineno-0-30"></a><span class="w">      </span><span class="k">end</span><span class="p">)</span><span class="o">;</span>
+<a id="__codelineno-0-31" name="__codelineno-0-31" href="#__codelineno-0-31"></a>
+<a id="__codelineno-0-32" name="__codelineno-0-32" href="#__codelineno-0-32"></a><span class="w">  </span><span class="n">LSaga</span><span class="o">.</span><span class="n">Passo</span>
+<a id="__codelineno-0-33" name="__codelineno-0-33" href="#__codelineno-0-33"></a><span class="w">    </span><span class="o">.</span><span class="n">Nome</span><span class="p">(</span><span class="s">&#39;AtualizarPedido&#39;</span><span class="p">)</span>
+<a id="__codelineno-0-34" name="__codelineno-0-34" href="#__codelineno-0-34"></a><span class="w">    </span><span class="o">.</span><span class="n">Executar</span><span class="p">(</span>
+<a id="__codelineno-0-35" name="__codelineno-0-35" href="#__codelineno-0-35"></a><span class="w">      </span><span class="k">procedure</span>
+<a id="__codelineno-0-36" name="__codelineno-0-36" href="#__codelineno-0-36"></a><span class="w">      </span><span class="k">begin</span>
+<a id="__codelineno-0-37" name="__codelineno-0-37" href="#__codelineno-0-37"></a><span class="w">        </span><span class="nc">pedido</span><span class="o">.</span><span class="nf">Status</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="n">psConfirmado</span><span class="o">;</span>
+<a id="__codelineno-0-38" name="__codelineno-0-38" href="#__codelineno-0-38"></a><span class="w">        </span><span class="n">repositorio</span><span class="o">.</span><span class="n">Salvar</span><span class="p">(</span><span class="n">pedido</span><span class="p">)</span><span class="o">;</span>
+<a id="__codelineno-0-39" name="__codelineno-0-39" href="#__codelineno-0-39"></a><span class="w">      </span><span class="k">end</span><span class="p">)</span>
+<a id="__codelineno-0-40" name="__codelineno-0-40" href="#__codelineno-0-40"></a><span class="w">    </span><span class="o">.</span><span class="n">Compensar</span><span class="p">(</span>
+<a id="__codelineno-0-41" name="__codelineno-0-41" href="#__codelineno-0-41"></a><span class="w">      </span><span class="k">procedure</span>
+<a id="__codelineno-0-42" name="__codelineno-0-42" href="#__codelineno-0-42"></a><span class="w">      </span><span class="k">begin</span>
+<a id="__codelineno-0-43" name="__codelineno-0-43" href="#__codelineno-0-43"></a><span class="w">        </span><span class="nc">pedido</span><span class="o">.</span><span class="nf">Status</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="n">psCancelado</span><span class="o">;</span>
+<a id="__codelineno-0-44" name="__codelineno-0-44" href="#__codelineno-0-44"></a><span class="w">        </span><span class="n">repositorio</span><span class="o">.</span><span class="n">Salvar</span><span class="p">(</span><span class="n">pedido</span><span class="p">)</span><span class="o">;</span>
+<a id="__codelineno-0-45" name="__codelineno-0-45" href="#__codelineno-0-45"></a><span class="w">      </span><span class="k">end</span><span class="p">)</span><span class="o">;</span>
+<a id="__codelineno-0-46" name="__codelineno-0-46" href="#__codelineno-0-46"></a>
+<a id="__codelineno-0-47" name="__codelineno-0-47" href="#__codelineno-0-47"></a><span class="w">  </span><span class="n">LSaga</span>
+<a id="__codelineno-0-48" name="__codelineno-0-48" href="#__codelineno-0-48"></a><span class="w">    </span><span class="o">.</span><span class="n">OnComplete</span><span class="p">(</span>
+<a id="__codelineno-0-49" name="__codelineno-0-49" href="#__codelineno-0-49"></a><span class="w">      </span><span class="k">procedure</span>
+<a id="__codelineno-0-50" name="__codelineno-0-50" href="#__codelineno-0-50"></a><span class="w">      </span><span class="k">begin</span>
+<a id="__codelineno-0-51" name="__codelineno-0-51" href="#__codelineno-0-51"></a><span class="w">        </span><span class="nf">WriteLn</span><span class="p">(</span><span class="s">&#39;Pedido fechado com sucesso&#39;</span><span class="p">)</span><span class="o">;</span>
+<a id="__codelineno-0-52" name="__codelineno-0-52" href="#__codelineno-0-52"></a><span class="w">      </span><span class="k">end</span><span class="p">)</span>
+<a id="__codelineno-0-53" name="__codelineno-0-53" href="#__codelineno-0-53"></a><span class="w">    </span><span class="o">.</span><span class="n">OnError</span><span class="p">(</span>
+<a id="__codelineno-0-54" name="__codelineno-0-54" href="#__codelineno-0-54"></a><span class="w">      </span><span class="k">procedure</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">AErro</span><span class="o">:</span><span class="w"> </span><span class="n">Exception</span><span class="p">)</span>
+<a id="__codelineno-0-55" name="__codelineno-0-55" href="#__codelineno-0-55"></a><span class="w">      </span><span class="k">begin</span>
+<a id="__codelineno-0-56" name="__codelineno-0-56" href="#__codelineno-0-56"></a><span class="w">        </span><span class="nb">WriteLn</span><span class="p">(</span><span class="s">&#39;Falha ao fechar pedido: &#39;</span><span class="o">,</span><span class="w"> </span><span class="n">AErro</span><span class="o">.</span><span class="n">Message</span><span class="p">)</span><span class="o">;</span>
+<a id="__codelineno-0-57" name="__codelineno-0-57" href="#__codelineno-0-57"></a><span class="w">      </span><span class="k">end</span><span class="p">)</span>
+<a id="__codelineno-0-58" name="__codelineno-0-58" href="#__codelineno-0-58"></a><span class="w">    </span><span class="o">.</span><span class="n">Iniciar</span><span class="o">;</span>
+<a id="__codelineno-0-59" name="__codelineno-0-59" href="#__codelineno-0-59"></a><span class="k">end</span><span class="o">;</span>
+</code></pre></div>
+<h2 id="padrao-coreografado-vs-orquestrado">Padrão Coreografado vs Orquestrado<a class="headerlink" href="#padrao-coreografado-vs-orquestrado" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Tipo</th>
+<th>Descrição</th>
+<th>Quando usar</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Coreografado</strong></td>
+<td>Cada serviço publica eventos e reage a eventos de outros serviços</td>
+<td>Equipes pequenas, fluxos simples</td>
+</tr>
+<tr>
+<td><strong>Orquestrado</strong></td>
+<td>Um coordenador central gerencia o fluxo (como no exemplo acima)</td>
+<td>Fluxos complexos, visibilidade total</td>
+</tr>
+</tbody>
+</table>
 
 
 
