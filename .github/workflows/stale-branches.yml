@@ -1,0 +1,35 @@
+name: Stale Branches
+
+on:
+  schedule:
+    - cron: '0 6 * * *'
+  workflow_dispatch:
+
+jobs:
+  cleanup:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Delete stale branches (15+ days inactive)
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          $cutoff = (Get-Date).AddDays(-15)
+          $branches = git branch -r --merged origin/main |
+            Where-Object { $_ -match 'origin/(?!main)' } |
+            ForEach-Object { $_.Trim() -replace '^origin/', '' }
+
+          $deleted = 0
+          foreach ($branch in $branches) {
+            $lastCommit = git log -1 --format=%ci "origin/$branch" 2>$null
+            if (-not $lastCommit) { continue }
+            $lastDate = [DateTime]::Parse($lastCommit)
+            if ($lastDate -lt $cutoff) {
+              Write-Host "Deletando $branch (ultimo commit: $lastCommit)"
+              gh api -X DELETE "repos/${{ github.repository }}/git/refs/heads/$branch" --silent
+              $deleted++
+            }
+          }
+          Write-Host "Concluido: $deleted branches inativas deletadas." -ForegroundColor Green
