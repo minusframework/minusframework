@@ -67,35 +67,40 @@ nav:
   - Início: index.md
   - Quick Start: getting-started.md
   - ORM:
-    - orm/index.md
+    - Visão Geral: orm/index.md
     - CRUD Básico: orm/crud.md
     - Mapeamento de Entidades: orm/entities.md
     - Criteria API: orm/criteria.md
     - Unit of Work: orm/unit-of-work.md
     - Providers: orm/providers.md
+    - Docs do Módulo: modules/ORM/index.md
   - CLI:
-    - cli/index.md
+    - Visão Geral: cli/index.md
     - Comandos: cli/commands.md
     - make:entity: cli/make-entity.md
     - new api: cli/new-api.md
   - Migrator:
-    - migrator/index.md
+    - Visão Geral: migrator/index.md
     - CLI Reference: migrator/cli.md
     - DLL Reference: migrator/dll.md
+    - Docs do Módulo: modules/Migrator/index.md
   - Mensageria:
-    - messaging/index.md
+    - Visão Geral: messaging/index.md
     - Configuração: messaging/config.md
     - Sagas: messaging/sagas.md
+    - Docs do Módulo: modules/Messaging/index.md
   - MinusAI:
-    - ai/index.md
+    - Visão Geral: ai/index.md
     - MCP Server: ai/mcp-server.md
     - Ferramentas: ai/tools.md
   - Extensões:
-    - extensions/index.md
+    - Visão Geral: extensions/index.md
     - Soft Delete: extensions/soft-delete.md
     - Auditoria: extensions/audit.md
     - Cache: extensions/cache.md
+    - Docs do Módulo: modules/Extensions/index.md
   - Telemetria: telemetry/index.md
+  - Feature Flags: modules/FeatureFlags/index.md
   - Licenciamento: licensing.md
   - Sobre: about.md
 

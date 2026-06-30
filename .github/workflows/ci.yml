@@ -49,8 +49,6 @@ jobs:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
-          submodules: recursive
-          token: ${{ secrets.GH_PAT }}
       - name: Sync releases across submodules
         env:
           TOKEN: ${{ secrets.GH_PAT }}
@@ -63,11 +61,10 @@ jobs:
     if: false
     steps:
       - uses: actions/checkout@v4
-        with:
-          submodules: recursive
-          token: ${{ secrets.GH_PAT }}
-      - name: Setup
-        run: pwsh ./ci-setup.ps1
+      - name: Setup (clona os 9 repos)
+        env:
+          TOKEN: ${{ secrets.GH_PAT }}
+        run: pwsh ./ci-setup.ps1 -Token "$env:TOKEN"
       - name: Build
         run: |
           & "C:\Program Files (x86)\Embarcadero\Studio\23.0\bin\bds.exe" `
