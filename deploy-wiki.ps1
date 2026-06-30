@@ -43,7 +43,6 @@ New-Item -ItemType Directory -Path $tmpDir -Force | Out-Null
 
 Push-Location $tmpDir
 git init 2>$null | Out-Null
-git checkout -b main 2>$null | Out-Null
 
 foreach ($page in $WikiPages.Keys) {
     Set-Content -Path "$page.md" -Value $WikiPages[$page] -NoNewline
@@ -51,6 +50,8 @@ foreach ($page in $WikiPages.Keys) {
 
 git add -A 2>$null
 git commit --allow-empty -m "docs: initial wiki setup" 2>$null | Out-Null
+
+git branch -M main 2>$null | Out-Null
 
 $repoUrl = "https://GabrielFerreiraMendes:${Token}@github.com/GabrielFerreiraMendes/minusframework-meta.wiki.git"
 git remote add origin $repoUrl 2>$null
