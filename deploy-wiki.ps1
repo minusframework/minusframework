@@ -36,7 +36,8 @@ $WikiPages = @{
     "Contributing"     = "# Contributing`n`nClone with submodules, follow Conventional Commits (feat:, fix:, docs:, refactor:, test:, chore:), submit PRs from feature branches."
 }
 
-$tmpDir = Join-Path $env:TEMP "minusframework-wiki-deploy"
+$tmpBase = if ($env:TEMP) { $env:TEMP } elseif ($env:TMPDIR) { $env:TMPDIR } else { "/tmp" }
+$tmpDir = Join-Path $tmpBase "minusframework-wiki-deploy"
 if (Test-Path $tmpDir) { Remove-Item $tmpDir -Recurse -Force -ErrorAction SilentlyContinue }
 New-Item -ItemType Directory -Path $tmpDir -Force | Out-Null
 
