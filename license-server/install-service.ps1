@@ -60,6 +60,7 @@ if (-not (Test-Path $NssmExe)) {
 
 # --- Instalar servico ---
 & $NssmExe install $ServiceName $NodePath $ServerScript
+& $NssmExe set $ServiceName AppDirectory $ServerDir
 & $NssmExe set $ServiceName AppStdout (Join-Path $ServerDir 'logs\stdout.log')
 & $NssmExe set $ServiceName AppStderr (Join-Path $ServerDir 'logs\stderr.log')
 & $NssmExe set $ServiceName AppRotateFiles 1
