@@ -41,7 +41,7 @@
 
 Baixe o instalador gratuitamente:
 
-[Download Free](https://github.com/GabrielFerreiraMendes/minusframework-meta/releases/latest){ .md-button }
+[Download Free](https://github.com/GabrielFerreiraMendes/minusframework/releases/latest){ .md-button }
 
 ---
 

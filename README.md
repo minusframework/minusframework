@@ -4,86 +4,95 @@
 
 ![Delphi](https://img.shields.io/badge/Delphi-11+-red)
 ![Platform](https://img.shields.io/badge/Platform-Win32%20%7C%20Win64-blue)
-
----
-
-## Sobre
-
-O MinusFrameWork é um ecossistema de bibliotecas Delphi para criar aplicações corporativas. Tudo é fornecido como binários compilados (BPLs, DCPs, DLLs, EXEs) — acompanhados de projetos demonstrativos com código-fonte (.pas) para aprendizado.
+![License](https://img.shields.io/badge/License-MIT%20%7C%20Commercial-yellow)
 
 ---
 
 ## Módulos
 
-| Módulo | Descrição |
-|--------|-----------|
-| **MinusORM** | ORM com RTTI, queries fluentes, Unit of Work, Change Tracking, cache, soft delete, audit — 7 bancos |
-| **MinusMigrator** | Migração versionada de schema via CLI + GUI + DLL |
-| **MinusFeatureFlags** | Feature flags com engine local, providers e REST API |
-| **MinusMessaging** | Message bus multi-provider com retry, circuit breaker, sagas e outbox |
-| **MinusTelemetry** | Tracing e logging estruturado (OpenTelemetry-style) |
-| **MinusExtensions** | Wrappers para Horse, JWT e bibliotecas de terceiros |
-| **MinusAI** | Agentes inteligentes e servidor MCP |
+| Módulo | Descrição | Tier |
+|--------|-----------|------|
+| **MinusORM** | ORM com RTTI, queries fluentes, Unit of Work — SQLite | Free |
+| **MinusORM Pro** | ORM completo — 7 bancos (Firebird, PostgreSQL, MySQL, MariaDB, MSSQL, Oracle, SQLite) | Pro |
+| **MinusMigrator** | Migração versionada de schema via CLI + GUI + DLL | Free |
+| **MinusCLI** | CLI de scaffolding (`make:entity`, `new:api`) | Free |
+| **MinusFeatureFlags** | Feature flags com engine local, providers e REST API | Pro |
+| **MinusMessaging** | Message bus multi-provider com retry, circuit breaker, sagas e outbox | Pro |
+| **MinusExtensions** | Wrappers para Horse, JWT e bibliotecas de terceiros | Pro |
+| **MinusTelemetry** | Tracing e logging estruturado (OpenTelemetry-style) | Enterprise |
+| **MinusAI** | Agentes inteligentes e servidor MCP | Enterprise |
 
 ---
 
-## Planos
+## Planos e Preços
 
-| Recurso | Free |
-|---------|------|
-| Core Runtime | Sim |
-| ORM (DLL) | Limitado |
-| MinusMigrator CLI | Sim |
-| MinusMessaging CLI | Sim |
-| MinusAI | Sim |
-| Projetos demonstrativos (.pas) | Sim |
+### Comparativo com o Mercado
 
-Planos **Pro** e **Enterprise** com módulos completos e suporte estarão disponíveis em breve.
+| Produto | Preço | O que inclui |
+|---------|-------|-------------|
+| **TMS Aurelius** (ORM only) | ~€499 | ORM, 1 dev |
+| **Devart EntityDAC** (ORM only) | ~$299 | ORM, 1 dev |
+| **Rollout.io** (Feature Flags only) | ~$99/mês | Feature Flags SaaS |
+| **Datadog APM** (Telemetry only) | ~$15/mês/host | Tracing + Metrics |
+| **MinusFrameWork Pro** | **R$197/ano** | ORM (7 bancos) + Messaging + Extensions + FeatureFlags |
+| **MinusFrameWork Enterprise** | **R$497/ano** | Pro + Telemetry + AI + Suporte prioritário |
+
+### Tabela de Preços
+
+| | Free | Pro | Enterprise |
+|---|:---:|:---:|:---:|
+| **Preço** | R$ 0 | R$ 197/ano | R$ 497/ano |
+| **Desenvolvedores** | 1 | 1 | até 5 |
+| **Atualizações** | — | 12 meses | Perpétua |
+| **Suporte** | Comunidade | E-mail 48h | Prioritário 12h |
+| **MinusORM** (SQLite) | Sim | Sim | Sim |
+| **MinusORM** (7 bancos) | — | Sim | Sim |
+| **MinusMigrator** | Sim | Sim | Sim |
+| **MinusCLI** | Sim | Sim | Sim |
+| **MinusMessaging** | — | Sim | Sim |
+| **MinusExtensions** | — | Sim | Sim |
+| **MinusFeatureFlags** | — | Sim | Sim |
+| **MinusTelemetry** | — | — | Sim |
+| **MinusAI** | — | — | Sim |
+
+> 💳 **Pix:** `4214aaa8-d6d1-4d01-81c1-7a0835fdc5b2` — sem taxas para doações.
 
 ---
 
 ## Download
 
-**[Baixe o instalador gratuito](https://github.com/GabrielFerreiraMendes/minusframework-meta/releases/latest)**
-
-O instalador Free inclui:
-- BPLs e DCPs do Core Runtime
-- DLL do ORM (funcionalidades limitadas)
-- CLI do MinusMigrator
-- CLI do MinusMessaging
-- Servidor MCP do MinusAI
-- Projetos demonstrativos com código-fonte (.pas/dfm)
-- Documentação
+| Versão | Link |
+|--------|------|
+| **Free (v0.3.0)** | [Baixar Instalador](https://github.com/GabrielFerreiraMendes/minusframework/releases/latest) |
+| **Pro / Enterprise** | [Solicitar Orçamento](mailto:gabriel@minusframework.com.br) |
 
 ---
 
 ## Requisitos
 
-- RAD Studio 11 Alexandria ou superior (Delphi)
+- RAD Studio 11 Alexandria ou superior
 - FireDAC (nativo)
-- Windows (Win32)
+- Windows Win32/Win64
+
+---
+
+## Licenciamento
+
+- **Free** — MIT. ORM SQLite + Migrator + CLI.
+- **Pro** — Comercial. + Messaging + Extensions + FeatureFlags + todos bancos.
+- **Enterprise** — Perpétua. + Telemetry + AI + suporte prioritário.
+
+Validação offline via chave RSA-2048 (Windows CryptoAPI).
 
 ---
 
 ## Suporte
 
-Dúvidas, sugestões ou orçamentos para planos Pro/Enterprise:
-**gabriel@minusframework.com.br**
-
----
-
-## Doação
-
-Se o MinusFrameWork é útil para você, considere apoiar o projeto com uma doação via PIX.
-
-<details>
-<summary><b>&#x1F911; Clique para revelar a chave PIX</b></summary>
-<p>
-
-Chave: <code>4214 aaa8 d6d1 4d01 81c1 7a08 35fd c5b2</code>
-
-</p>
-</details>
+| Canal | Onde |
+|-------|------|
+| Issues | [GitHub Issues](https://github.com/GabrielFerreiraMendes/minusframework/issues) |
+| E-mail | gabriel@minusframework.com.br |
+| Discord | [discord.gg/minusframework](https://discord.gg/minusframework) |
 
 ---
 

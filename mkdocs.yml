@@ -1,8 +1,8 @@
 site_name: MinusFrameWork
 site_description: ORM, Mensageria, Telemetria, Migrator e MCP Server para Delphi
 site_author: MinusFrameWork
-site_url: https://minusframework.com.br
-repo_url: https://github.com/GabrielFerreiraMendes/minusframework-meta
+site_url: https://gabrielferreiramendes.github.io/minusframework
+repo_url: https://github.com/GabrielFerreiraMendes/minusframework
 edit_uri: edit/main/docs/
 
 theme:
@@ -41,7 +41,7 @@ theme:
 extra:
   social:
     - icon: fontawesome/brands/github
-      link: https://github.com/GabrielFerreiraMendes/minusframework-meta
+      link: https://github.com/GabrielFerreiraMendes/minusframework
     - icon: fontawesome/brands/discord
       link: https://discord.gg/minusframework
 

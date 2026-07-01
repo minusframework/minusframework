@@ -2,7 +2,7 @@
 
 ## 1. Instalação (Free)
 
-Baixe o instalador Free da [página de releases](https://github.com/GabrielFerreiraMendes/minusframework-meta/releases/latest) e execute.
+Baixe o instalador Free da [página de releases](https://github.com/GabrielFerreiraMendes/minusframework/releases/latest) e execute.
 
 O instalador copia para `C:\MinusFramework`:
 

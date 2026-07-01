@@ -66,7 +66,7 @@
 
 | Versão | Link |
 |--------|------|
-| **Free (v0.1.0)** | [Baixar Instalador](https://github.com/GabrielFerreiraMendes/minusframework-meta/releases/latest) |
+| **Free (v0.3.0)** | [Baixar Instalador](https://github.com/GabrielFerreiraMendes/minusframework/releases/latest) |
 | **Pro / Enterprise** | [Solicitar Orçamento](mailto:gabriel@minusframework.com.br) |
 
 ---
@@ -75,6 +75,6 @@
 
 | Canal | Onde |
 |-------|------|
-| :material-github: Issues | [GitHub Issues](https://github.com/GabrielFerreiraMendes/minusframework-meta/issues) |
+| :material-github: Issues | [GitHub Issues](https://github.com/GabrielFerreiraMendes/minusframework/issues) |
 | :material-email: E-mail | [gabriel@minusframework.com.br](mailto:gabriel@minusframework.com.br) |
 | :material-discord: Discord | [discord.gg/minusframework](https://discord.gg/minusframework) |

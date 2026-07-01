@@ -18,7 +18,7 @@ Desenvolvido por **Gabriel Ferreira Mendes** e contribuidores da comunidade.
 
 | Módulo | Repositório |
 |--------|-------------|
-| Meta (docs/CI/CD) | [minusframework-meta](https://github.com/GabrielFerreiraMendes/minusframework-meta) |
+| Meta (docs/CI/CD) | [minusframework](https://github.com/GabrielFerreiraMendes/minusframework) |
 | Core | [minusframework-core](https://github.com/GabrielFerreiraMendes/minusframework-core) |
 | ORM | [minusframework-orm](https://github.com/GabrielFerreiraMendes/minusframework-orm) |
 | Migrator | [minusframework-migrator](https://github.com/GabrielFerreiraMendes/minusframework-migrator) |

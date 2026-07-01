@@ -2,7 +2,7 @@ param(
     [string]$FromTag = "",
     [string]$ToTag = "HEAD",
     [string]$OutputFile = "RELEASE_NOTES.md",
-    [string]$RepoUrl = "https://github.com/GabrielFerreiraMendes/minusframework-meta"
+    [string]$RepoUrl = "https://github.com/GabrielFerreiraMendes/minusframework"
 )
 
 $ErrorActionPreference = "Stop"
