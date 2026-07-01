@@ -61,7 +61,7 @@
 | **MinusTelemetry** | — | — | Sim |
 | **MinusAI** | — | — | Sim |
 
-> 💳 **Pix:** `4214aaa8-d6d1-4d01-81c1-7a0835fdc5b2` — sem taxas para doações.
+> 💳 **Pix (copia e cola):** `00020126580014br.gov.bcb.pix01364214aaa8-d6d1-4d01-81c1-7a0835fdc5b25204000053039865802BR5915MENDESGABRIEL986009Sao Paulo610901227-20062230519daqr113812089121688630461AF`
 
 ---
 

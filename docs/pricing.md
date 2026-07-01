@@ -89,10 +89,13 @@ O objetivo é que o projeto se sustente comercialmente pelas licenças **Pro** e
 
 **Pix (sem taxas):**
 
-<!-- Chave Pix aleatória: 4214aaa8-d6d1-4d01-81c1-7a0835fdc5b2 -->
-![QR Code Pix](https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=4214aaa8-d6d1-4d01-81c1-7a0835fdc5b2&bgcolor=ffffff&color=111111)
+<!-- Pix BR Code completo -->
+![QR Code Pix](https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=00020126580014br.gov.bcb.pix01364214aaa8-d6d1-4d01-81c1-7a0835fdc5b25204000053039865802BR5915MENDESGABRIEL986009Sao%20Paulo610901227-20062230519daqr113812089121688630461AF&bgcolor=ffffff&color=111111)
 
-**Chave Pix:** `4214aaa8-d6d1-4d01-81c1-7a0835fdc5b2`
+**Pix (copia e cola):**
+```
+00020126580014br.gov.bcb.pix01364214aaa8-d6d1-4d01-81c1-7a0835fdc5b25204000053039865802BR5915MENDESGABRIEL986009Sao Paulo610901227-20062230519daqr113812089121688630461AF
+```
 
 ---
 
