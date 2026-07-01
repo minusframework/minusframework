@@ -1,86 +1,151 @@
-<p align="center">
-  <img src="assets/images/logo.svg" alt="MinusFrameWork" width="400">
+<div class="hero" markdown>
+
+<p class="hero-tagline">
+  O framework Delphi completo para aplicações corporativas.<br>
+  ORM · Migrator · Mensageria · Feature Flags · Telemetria · IA
 </p>
 
-<p align="center">
-  <b>ORM completo, mensageria, telemetria, feature flags e migrador de banco de dados — para Delphi.</b>
-</p>
+<div class="hero-badges">
+  <img src="https://img.shields.io/badge/Delphi-11+-E2243D?logo=delphi&logoColor=white" alt="Delphi 11+">
+  <img src="https://img.shields.io/badge/Win32%20|%20Win64-0078D4?logo=windows&logoColor=white" alt="Platform">
+  <img src="https://img.shields.io/badge/Licença-MIT%20|%20Pro%20|%20Enterprise-7c3aed" alt="Licença">
+</div>
 
-<p align="center">
-  <img src="https://img.shields.io/badge/Delphi-11+-red" alt="Delphi">
-  <img src="https://img.shields.io/badge/Platform-Win32%20%7C%20Win64-blue" alt="Platform">
-</p>
+<div class="hero-cta">
+  <a href="getting-started/" class="md-button md-button--primary">Começar agora →</a>
+  <a href="pricing/" class="md-button">Ver planos</a>
+</div>
+
+</div>
 
 ---
 
 ## Ecossistema
 
-| Módulo | Descrição | Tier |
-|--------|-----------|------|
-| **MinusORM** | ORM com RTTI, queries fluentes, Unit of Work, Change Tracking — SQLite | Free |
-| **MinusORM Pro** | ORM completo — 7 bancos (Firebird, PostgreSQL, MySQL, MariaDB, MSSQL, Oracle) | Pro |
-| **MinusMigrator** | Migração versionada de schema via CLI + GUI + DLL | Free |
-| **MinusCLI** | CLI de scaffolding (`make:entity`, `new:api`) | Free |
-| **MinusFeatureFlags** | Feature flags com engine local, providers e REST API | Pro |
-| **MinusMessaging** | Message bus multi-provider com retry, circuit breaker, sagas e outbox | Pro |
-| **MinusExtensions** | Wrappers para Horse, JWT e bibliotecas de terceiros | Pro |
-| **MinusTelemetry** | Tracing e logging estruturado (OpenTelemetry-style) | Enterprise |
-| **MinusAI** | Agentes inteligentes e servidor MCP (Model Context Protocol) | Enterprise |
+<div class="module-grid" markdown>
+
+<div class="module-card" markdown>
+
+### :material-database: MinusORM
+ORM completo com RTTI, queries fluentes, Unit of Work e Change Tracking.
+
+<span class="badge badge-free">Free (SQLite)</span>
+<span class="badge badge-pro">Pro (7 bancos)</span>
+
+[Documentação →](orm/){ .md-button .md-button--primary }
+
+</div>
+
+<div class="module-card" markdown>
+
+### :material-arrow-up-bold-box: MinusMigrator
+Migração versionada de schema via CLI, GUI e DLL com suporte a diff automático.
+
+<span class="badge badge-free">Free</span>
+
+[Documentação →](migrator/){ .md-button .md-button--primary }
+
+</div>
+
+<div class="module-card" markdown>
+
+### :material-console: MinusCLI
+CLI de scaffolding para gerar entidades, APIs e projetos em segundos.
+
+<span class="badge badge-free">Free</span>
+
+[Documentação →](cli/){ .md-button .md-button--primary }
+
+</div>
+
+<div class="module-card" markdown>
+
+### :material-toggle-switch: MinusFeatureFlags
+Feature flags com rollout percentual, A/B testing, SSE e REST API.
+
+<span class="badge badge-pro">Pro</span>
+
+[Documentação →](modules/FeatureFlags/){ .md-button .md-button--primary }
+
+</div>
+
+<div class="module-card" markdown>
+
+### :material-message-flash: MinusMessaging
+Message bus multi-provider com retry, circuit breaker, sagas e outbox pattern.
+
+<span class="badge badge-pro">Pro</span>
+
+[Documentação →](messaging/){ .md-button .md-button--primary }
+
+</div>
+
+<div class="module-card" markdown>
+
+### :material-puzzle: MinusExtensions
+Integrações prontas para Horse, JWT e bibliotecas de terceiros.
+
+<span class="badge badge-pro">Pro</span>
+
+[Documentação →](extensions/){ .md-button .md-button--primary }
+
+</div>
+
+<div class="module-card" markdown>
+
+### :material-chart-timeline-variant: MinusTelemetry
+Tracing e logging estruturado no padrão OpenTelemetry.
+
+<span class="badge badge-enterprise">Enterprise</span>
+
+[Documentação →](telemetry/){ .md-button .md-button--primary }
+
+</div>
+
+<div class="module-card" markdown>
+
+### :material-robot: MinusAI
+Agentes inteligentes e servidor MCP (Model Context Protocol) para Delphi.
+
+<span class="badge badge-enterprise">Enterprise</span>
+
+[Documentação →](ai/){ .md-button .md-button--primary }
+
+</div>
+
+</div>
 
 ---
 
-## Comece em 5 Minutos
+## Por que MinusFrameWork?
 
-```bash
-# 1. Baixe o instalador Free
-# 2. Execute e escolha "Instalação Básica"
-# 3. Adicione as BPLs ao RAD Studio
-# 4. Crie seu primeiro projeto com SQLite
-```
-
-👉 [**Guia de Quick Start**](getting-started.md)
-
----
-
-## Comparativo de Tiers
-
-| Funcionalidade | Free | Pro | Enterprise |
-|---------------|------|-----|------------|
-| ORM SQLite | Sim | Sim | Sim |
-| ORM multi-banco | — | Sim | Sim |
-| Migrator | Sim | Sim | Sim |
-| CLI | Sim | Sim | Sim |
-| Messaging | — | Sim | Sim |
-| Feature Flags | — | Sim | Sim |
-| Extensions | — | Sim | Sim |
-| Telemetry | — | — | Sim |
-| AI / MCP | — | — | Sim |
-| Suporte | Comunidade | 12 meses | Prioritário |
-| Licença | MIT | Comercial | Perpétua |
+| | MinusFrameWork | TMS Aurelius | Devart EntityDAC | mORMot |
+|---|:---:|:---:|:---:|:---:|
+| **ORM multi-banco** | :material-check: | :material-check: | :material-check: | :material-check: |
+| **Migração de schema** | :material-check: | :material-close: | :material-close: | :material-close: |
+| **Mensageria integrada** | :material-check: | :material-close: | :material-close: | :material-close: |
+| **Feature Flags** | :material-check: | :material-close: | :material-close: | :material-close: |
+| **Telemetria** | :material-check: | :material-close: | :material-close: | :material-close: |
+| **AI / MCP Server** | :material-check: | :material-close: | :material-close: | :material-close: |
+| **CLI de scaffolding** | :material-check: | :material-close: | :material-close: | :material-close: |
+| **Tier gratuito** | :material-check: | :material-close: | :material-close: | :material-check: |
 
 ---
 
 ## Requisitos
 
-- **RAD Studio 11 Alexandria** ou superior (Delphi)
-- **FireDAC** (nativo)
-- **Windows** (Win32/Win64)
-
----
-
-## Download
-
-| Versão | Link |
-|--------|------|
-| **Free (v0.3.0)** | [Baixar Instalador](https://github.com/GabrielFerreiraMendes/minusframework/releases/latest) |
-| **Pro / Enterprise** | [Solicitar Orçamento](mailto:gabriel@minusframework.com.br) |
+| Requisito | Mínimo |
+|-----------|--------|
+| **IDE** | RAD Studio 11 Alexandria ou superior |
+| **DB Engine** | FireDAC (nativo) |
+| **Plataforma** | Windows (Win32 / Win64) |
 
 ---
 
 ## Suporte
 
-| Canal | Onde |
-|-------|------|
-| :material-github: Issues | [GitHub Issues](https://github.com/GabrielFerreiraMendes/minusframework/issues) |
-| :material-email: E-mail | [gabriel@minusframework.com.br](mailto:gabriel@minusframework.com.br) |
-| :material-discord: Discord | [discord.gg/minusframework](https://discord.gg/minusframework) |
+| Canal | |
+|-------|---|
+| :material-github: GitHub Issues | [Abrir Issue](https://github.com/GabrielFerreiraMendes/minusframework/issues) |
+| :material-email-outline: E-mail | [gabriel@minusframework.com.br](mailto:gabriel@minusframework.com.br) |
+| :material-forum: Discord | [discord.gg/minusframework](https://discord.gg/minusframework) |
