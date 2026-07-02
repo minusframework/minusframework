@@ -21,3 +21,10 @@ Messaging/
 Migrator/
 ORM/
 Telemetry/
+# Node / Docusaurus
+node_modules/
+build/
+.docusaurus/
+.cache-loader/
+# MkDocs backup
+docs-mkdocs/
