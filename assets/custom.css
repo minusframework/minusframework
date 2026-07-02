@@ -13,7 +13,7 @@
 
 /* Oculta o texto do nome ao lado do logo — só a logo aparece */
 .md-header__title {
-  display: none;
+  visibility: hidden;
 }
 
 /* Oculta o título "Início" na página inicial */
