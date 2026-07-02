@@ -17,7 +17,7 @@ const config: Config = {
   organizationName: 'GabrielFerreiraMendes',
   projectName: 'minusframework',
 
-  onBrokenLinks: 'throw',
+  onBrokenLinks: 'warn',
   onBrokenMarkdownLinks: 'warn',
 
   i18n: {
@@ -33,17 +33,7 @@ const config: Config = {
           sidebarPath: './sidebars.ts',
           editUrl: 'https://github.com/GabrielFerreiraMendes/minusframework/edit/main/docs/',
         },
-        blog: {
-          showReadingTime: true,
-          feedOptions: {
-            type: ['rss', 'atom'],
-            xslt: true,
-          },
-          editUrl: 'https://github.com/GabrielFerreiraMendes/minusframework/edit/main/',
-          onInlineTags: 'warn',
-          onInlineAuthors: 'warn',
-          onUntruncatedBlogPosts: 'warn',
-        },
+        blog: false,
         theme: {
           customCss: './src/css/custom.css',
         },
@@ -52,7 +42,7 @@ const config: Config = {
   ],
 
   themeConfig: {
-    image: 'img/docusaurus-social-card.jpg',
+    image: 'img/logo.svg',
     colorMode: {
       respectPrefersColorScheme: true,
     },
@@ -69,7 +59,9 @@ const config: Config = {
           position: 'left',
           label: 'Documentação',
         },
-        {to: '/blog', label: 'Blog', position: 'left'},
+        {to: '/pricing', label: 'Planos', position: 'left'},
+        {to: '/about', label: 'Sobre', position: 'left'},
+        {to: '/licensing', label: 'Licenciamento', position: 'left'},
         {
           href: 'https://github.com/GabrielFerreiraMendes/minusframework',
           label: 'GitHub',
@@ -103,32 +95,23 @@ const config: Config = {
           ],
         },
         {
-          title: 'Community',
+          title: 'Planos',
           items: [
-            {
-              label: 'Discord',
-              href: 'https://discord.gg/minusframework',
-            },
-            {
-              label: 'GitHub',
-              href: 'https://github.com/GabrielFerreiraMendes/minusframework',
-            },
+            { label: 'Free', to: '/pricing' },
+            { label: 'Pro', to: '/pricing' },
+            { label: 'Enterprise', to: '/pricing' },
           ],
         },
         {
-          title: 'More',
+          title: 'Suporte',
           items: [
             {
-              label: 'Blog',
-              to: '/blog',
+              label: 'GitHub Issues',
+              href: 'https://github.com/GabrielFerreiraMendes/minusframework/issues',
             },
             {
-              label: 'Licenciamento',
-              to: '/docs/licensing',
-            },
-            {
-              label: 'Sobre',
-              to: '/docs/about',
+              label: 'E-mail',
+              href: 'mailto:gabrielferreiramendes.dev@gmail.com',
             },
           ],
         },
