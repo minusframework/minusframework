@@ -12,7 +12,17 @@
 }
 
 /* Oculta o texto do nome ao lado do logo — só a logo aparece */
-.md-header__topic {
+.md-header__title {
+  display: none;
+}
+
+/* Oculta o título "Início" na página inicial */
+.md-content__inner h1:first-child {
+  display: none;
+}
+
+/* Oculta a aba "Início" na barra de navegação */
+.md-tabs__list li:first-child {
   display: none;
 }
 
