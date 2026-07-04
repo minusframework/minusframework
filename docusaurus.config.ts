@@ -12,7 +12,7 @@ const config: Config = {
   },
 
   url: 'https://gabrielferreiramendes.github.io',
-  baseUrl: '/minusframework/',
+  baseUrl: process.env.BASE_URL || '/minusframework/',
 
   organizationName: 'GabrielFerreiraMendes',
   projectName: 'minusframework',

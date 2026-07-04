@@ -73,7 +73,8 @@ jobs:
           node-version: '20'
           cache: npm
       - run: npm ci
-      - run: npm run build
+      - name: Build Docusaurus (preview baseUrl)
+        run: BASE_URL=/minusframework/pr-${{ github.event.number }}/ npm run build
       - name: Deploy preview to GitHub Pages (PR)
         uses: peaceiris/actions-gh-pages@v4
         with:
