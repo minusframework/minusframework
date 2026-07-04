@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Página não encontrada — MinusFrameWork</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      background: #F8F4EF;
+      color: #1B1B1E;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      margin: 0;
+    }
+    .container { text-align: center; padding: 2rem; max-width: 480px; }
+    h1 { font-size: 4rem; font-weight: 800; color: #E07A5F; margin-bottom: 0.5rem; }
+    h2 { font-size: 1.25rem; font-weight: 600; margin-bottom: 1rem; }
+    p { color: #666; margin-bottom: 2rem; line-height: 1.5; }
+    .button {
+      display: inline-block;
+      padding: 0.75rem 2rem;
+      background: #E07A5F;
+      color: white;
+      text-decoration: none;
+      border-radius: 2rem;
+      font-weight: 600;
+      transition: background 0.2s;
+    }
+    .button:hover { background: #d96a4c; }
+    @media (prefers-color-scheme: dark) {
+      body { background: #1A1A1D; color: #E0E0E0; }
+      p { color: #999; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>404</h1>
+    <h2>Página não encontrada</h2>
+    <p>A página que você procura não existe ou foi movida.</p>
+    <a class="button" href="/minusframework/">Voltar ao início</a>
+  </div>
+</body>
+</html>
