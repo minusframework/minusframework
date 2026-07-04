@@ -1,11 +1,4 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 50" width="200" height="50">
-  <defs>
-    <linearGradient id="geo" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#E07A5F"/>
-      <stop offset="100%" stop-color="#3D5A80"/>
-    </linearGradient>
-  </defs>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 40 45" width="40" height="45">
   <polygon points="15,5 28,12 28,28 15,35 2,28 2,12" fill="#E07A5F" opacity="0.9"/>
   <polygon points="22,10 35,17 35,33 22,40 9,33 9,17" fill="#3D5A80" opacity="0.7"/>
-  <text x="44" y="28" font-family="Inter, Arial, sans-serif" font-size="20" font-weight="700" fill="#1B1B1E">MinusFrameWork</text>
 </svg>
