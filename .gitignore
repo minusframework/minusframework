@@ -1,3 +1,6 @@
+# Chaves privadas
+*.pem
+
 __history/
 __recovery/
 *.local
@@ -27,6 +30,4 @@ build/
 .docusaurus/
 .cache-loader/
 # MkDocs backup
-docs-mkdocs/
-
 docs-mkdocs/
