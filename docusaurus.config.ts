@@ -4,7 +4,7 @@ import type * as Preset from '@docusaurus/preset-classic';
 
 const config: Config = {
   title: 'MinusFrameWork',
-  tagline: 'Framework Delphi completo — ORM, Migrator, Mensageria, Feature Flags, Telemetria e IA',
+  tagline: 'ORM, Migrator, Mensageria, Feature Flags, Telemetria e IA',
   favicon: 'img/favicon.ico',
 
   future: {
@@ -26,7 +26,11 @@ const config: Config = {
 
   i18n: {
     defaultLocale: 'pt-BR',
-    locales: ['pt-BR'],
+    locales: ['pt-BR', 'en'],
+    localeConfigs: {
+      'pt-BR': { label: 'Português (Brasil)', direction: 'ltr' },
+      en: { label: 'English', direction: 'ltr' },
+    },
   },
 
   presets: [
@@ -36,9 +40,18 @@ const config: Config = {
         docs: {
           sidebarPath: './sidebars.ts',
           editUrl: 'https://github.com/GabrielFerreiraMendes/minusframework/edit/main/docs/',
-
+          breadcrumbs: true,
+          showLastUpdateTime: true,
+          showLastUpdateAuthor: true,
         },
         blog: false,
+        sitemap: {
+          lastmod: 'date',
+          changefreq: 'weekly',
+          priority: 0.5,
+          ignorePatterns: ['/tags/**'],
+          filename: 'sitemap.xml',
+        },
         theme: {
           customCss: './src/css/custom.css',
         },
@@ -48,6 +61,15 @@ const config: Config = {
 
   themeConfig: {
     image: 'img/logo.svg',
+    metadata: [
+      { name: 'keywords', content: 'delphi, framework, orm, delphi framework, minusframework, delphi orm' },
+      { property: 'og:title', content: 'MinusFrameWork — Framework Delphi moderno e modular' },
+      { property: 'og:description', content: 'ORM, Migrator, Mensageria, Feature Flags, Telemetria e IA' },
+      { property: 'og:type', content: 'website' },
+      { name: 'twitter:card', content: 'summary_large_image' },
+      { name: 'twitter:title', content: 'MinusFrameWork' },
+      { name: 'twitter:description', content: 'ORM, Migrator, Mensageria, Feature Flags, Telemetria e IA' },
+    ],
     colorMode: {
       respectPrefersColorScheme: true,
     },

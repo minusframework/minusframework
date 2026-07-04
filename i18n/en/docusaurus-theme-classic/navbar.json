@@ -1,0 +1,26 @@
+{
+  "title": {
+    "message": "MinusFrameWork",
+    "description": "The title in the navbar"
+  },
+  "item.label.Documentação": {
+    "message": "Documentation",
+    "description": "Navbar item with label Documentação"
+  },
+  "item.label.Planos": {
+    "message": "Pricing",
+    "description": "Navbar item with label Planos"
+  },
+  "item.label.Sobre": {
+    "message": "About",
+    "description": "Navbar item with label Sobre"
+  },
+  "item.label.Licenciamento": {
+    "message": "Licensing",
+    "description": "Navbar item with label Licenciamento"
+  },
+  "item.label.GitHub": {
+    "message": "GitHub",
+    "description": "Navbar item with label GitHub"
+  }
+}
