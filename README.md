@@ -35,11 +35,11 @@
 | | Free | Pro | Enterprise |
 |---|:---:|:---:|:---:|
 | **Preço** | R$ 0 | R$ 197/ano | R$ 497/ano |
-| **Licença** | MIT | Perpétua | Perpétua |
+| **Licença** | MIT | Perpétua¹ | Perpétua¹ |
 | **Desenvolvedores** | 1 | 1 | até 5 por bloco |
 | **Atualizações** | — | 12 meses | 12 meses |
 | **Suporte** | Comunidade | E-mail 48h | Prioritário 12h |
-| **Renovação** | — | Anual (opcional) | Anual (opcional) |
+| **Renovação** | — | Anual (opcional)² | Anual (opcional)² |
 | **MinusORM** (SQLite) | Sim | Sim | Sim |
 | **MinusORM** (7 bancos) | — | Sim | Sim |
 | **MinusMigrator** | Sim | Sim | Sim |
@@ -50,6 +50,9 @@
 | **MinusTelemetry** | — | — | Sim |
 | **MinusAI** | — | — | Sim |
 
+> ¹ **Licença perpétua** = você mantém o direito de usar a versão adquirida para sempre, mesmo sem renovação.
+> ² **Renovação anual** = estende atualizações e suporte por mais 12 meses. Sem renovação, o software continua funcionando, mas sem novas versões ou suporte técnico.
+>
 > Pro e Enterprise estão em desenvolvimento. [Assine a lista de espera](mailto:gabrielferreiramendes.dev@gmail.com?subject=Lista%20de%20Espera) para ser avisado quando disponíveis.
 
 ---
@@ -63,8 +66,8 @@
 ## Licenciamento
 
 - **Free** — MIT. ORM SQLite + Migrator + CLI.
-- **Pro** (em breve) — Licença perpétua. + Messaging + Extensions + FeatureFlags + todos bancos.
-- **Enterprise** (em breve) — Licença perpétua. + Telemetry + AI + suporte prioritário.
+- **Pro** (em breve) — Licença perpétua¹. + Messaging + Extensions + FeatureFlags + todos bancos. Inclui 12 meses de suporte e atualizações.
+- **Enterprise** (em breve) — Licença perpétua¹. + Telemetry + AI + suporte prioritário. Inclui 12 meses de suporte e atualizações.
 
 ---
 

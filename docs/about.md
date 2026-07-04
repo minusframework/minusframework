@@ -46,7 +46,7 @@ Desenvolvido por **Gabriel Ferreira Mendes** e contribuidores da comunidade.
 O MinusFrameWork é distribuído em três tiers:
 
 - **Free** (MIT) — ORM SQLite, Migrator, CLI
-- **Pro** (Comercial) — Multi-banco, Messaging, Feature Flags, Extensions
-- **Enterprise** (Perpétua) — Pro + Telemetria, AI, suporte prioritário
+- **Pro** (Comercial) — Multi-banco, Messaging, Feature Flags, Extensions. Licença perpétua + 12 meses de suporte e atualizações.
+- **Enterprise** (Comercial) — Pro + Telemetria, AI, suporte prioritário. Licença perpétua + 12 meses de suporte e atualizações.
 
 Consulte [Licenciamento](licensing.md) e [Planos](/pricing) para detalhes.
