@@ -31,7 +31,7 @@ Tudo do **Free**, mais:
 | MinusExtensions | Sim |
 | MinusFeatureFlags | Sim |
 
-**Licença perpétua.** O software funciona indefinidamente. Inclui atualizações e suporte por 12 meses. Renovação anual opcional.
+**Licença perpétua.** Você mantém o direito de usar a versão adquirida para sempre, mesmo sem renovar. Inclui **12 meses de atualizações e suporte** a partir da compra. Após esse período, o software continua funcionando normalmente, mas novas versões e suporte técnico exigem renovação anual.
 
 ---
 
@@ -46,7 +46,7 @@ Tudo do **Pro**, mais:
 | Suporte prioritário | Sim |
 | Consultoria técnica | Sim |
 
-**Licença perpétua.** Inclui atualizações e suporte por 12 meses. Renovação anual opcional.
+**Licença perpétua.** Você mantém o direito de usar a versão adquirida para sempre. Inclui **12 meses de atualizações e suporte prioritário**. Renovação anual necessária para continuar recebendo novas versões e suporte.
 
 ---
 
