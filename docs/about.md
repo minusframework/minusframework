@@ -1,34 +1,38 @@
-﻿# Sobre o MinusFrameWork
+---
+title: "Sobre o MinusFrameWork"
+---
 
-## MissÃ£o
+# Sobre o MinusFrameWork
 
-> Fornecer um ecossistema coeso de bibliotecas Delphi que acelerem o desenvolvimento de aplicaÃ§Ãµes corporativas â€” sem sacrificar performance, testabilidade ou boas prÃ¡ticas de engenharia de software.
+## Missão
 
-## HistÃ³ria
+> Fornecer um ecossistema coeso de bibliotecas Delphi que acelerem o desenvolvimento de aplicações corporativas — sem sacrificar performance, testabilidade ou boas práticas de engenharia de software.
+
+## História
 
 O MinusFrameWork nasceu da necessidade de um framework Delphi **moderno, modular e bem testado** que pudesse competir com ecossistemas como Spring Boot (Java), NestJS (Node) e Entity Framework (.NET).
 
-Diferente de frameworks monolÃ­ticos, o MinusFrameWork Ã© dividido em **mÃ³dulos independentes** â€” cada um versionado e publicado separadamente â€” permitindo que equipes adotem apenas o que precisam.
+Diferente de frameworks monolíticos, o MinusFrameWork é dividido em **módulos independentes** — cada um versionado e publicado separadamente — permitindo que equipes adotem apenas o que precisam.
 
 ## Arquitetura
 
-O framework segue princÃ­pios de:
+O framework segue princípios de:
 
-- **Clean Architecture** â€” separaÃ§Ã£o clara entre domÃ­nio, infraestrutura e apresentaÃ§Ã£o
-- **SOLID** â€” interfaces segregadas, inversÃ£o de dependÃªncia, responsabilidade Ãºnica
-- **Object Calisthenics** â€” mÃ©todos curtos, baixa complexidade ciclomÃ¡tica
+- **Clean Architecture** — separação clara entre domínio, infraestrutura e apresentação
+- **SOLID** — interfaces segregadas, inversão de dependência, responsabilidade única
+- **Object Calisthenics** — métodos curtos, baixa complexidade ciclomática
 
-## RepositÃ³rios
+## Repositórios
 
-| MÃ³dulo | RepositÃ³rio | DescriÃ§Ã£o |
+| Módulo | Repositório | Descrição |
 |--------|-------------|-----------|
-| **Meta** (docs, CI/CD) | [minusframework](https://github.com/GabrielFerreiraMendes/minusframework) | OrquestraÃ§Ã£o, instalador e documentaÃ§Ã£o |
-| **Core** | [minusframework-core](https://github.com/GabrielFerreiraMendes/minusframework-core) | NÃºcleo compartilhado (conexÃ£o, atributos, tipos) |
-| **ORM** | [minusframework-orm](https://github.com/GabrielFerreiraMendes/minusframework-orm) | RepositÃ³rio genÃ©rico, queries, mapeamento |
-| **Migrator** | [minusframework-migrator](https://github.com/GabrielFerreiraMendes/minusframework-migrator) | MigraÃ§Ã£o versionada de schema |
+| **Meta** (docs, CI/CD) | [minusframework](https://github.com/GabrielFerreiraMendes/minusframework) | Orquestração, instalador e documentação |
+| **Core** | [minusframework-core](https://github.com/GabrielFerreiraMendes/minusframework-core) | Núcleo compartilhado (conexão, atributos, tipos) |
+| **ORM** | [minusframework-orm](https://github.com/GabrielFerreiraMendes/minusframework-orm) | Repositório genérico, queries, mapeamento |
+| **Migrator** | [minusframework-migrator](https://github.com/GabrielFerreiraMendes/minusframework-migrator) | Migração versionada de schema |
 | **Messaging** | [minusframework-messaging](https://github.com/GabrielFerreiraMendes/minusframework-messaging) | Message bus, sagas, outbox |
 | **Feature Flags** | [minusframework-featureflags](https://github.com/GabrielFerreiraMendes/minusframework-featureflags) | Feature toggles, SSE, REST API |
-| **Extensions** | [minusframework-extensions](https://github.com/GabrielFerreiraMendes/minusframework-extensions) | IntegraÃ§Ãµes Horse, JWT |
+| **Extensions** | [minusframework-extensions](https://github.com/GabrielFerreiraMendes/minusframework-extensions) | Integrações Horse, JWT |
 | **Telemetry** | [minusframework-telemetry](https://github.com/GabrielFerreiraMendes/minusframework-telemetry) | Tracing e logging estruturado |
 | **AI** | [minusframework-ai](https://github.com/GabrielFerreiraMendes/minusframework-ai) | MCP Server e agentes inteligentes |
 | **CLI** | [minusframework-cli](https://github.com/GabrielFerreiraMendes/minusframework-cli) | CLI de scaffolding |
@@ -37,12 +41,12 @@ O framework segue princÃ­pios de:
 
 Desenvolvido por **Gabriel Ferreira Mendes** e contribuidores da comunidade.
 
-## LicenÃ§a
+## Licença
 
-O MinusFrameWork Ã© distribuÃ­do em trÃªs tiers:
+O MinusFrameWork é distribuído em três tiers:
 
-- **Free** (MIT) â€” ORM SQLite, Migrator, CLI
-- **Pro** (Comercial) â€” Multi-banco, Messaging, Feature Flags, Extensions
-- **Enterprise** (PerpÃ©tua) â€” Pro + Telemetria, AI, suporte prioritÃ¡rio
+- **Free** (MIT) — ORM SQLite, Migrator, CLI
+- **Pro** (Comercial) — Multi-banco, Messaging, Feature Flags, Extensions
+- **Enterprise** (Perpétua) — Pro + Telemetria, AI, suporte prioritário
 
-Consulte [Licenciamento](licensing.md) e [Planos](pricing.md) para detalhes.
+Consulte [Licenciamento](licensing.md) e [Planos](/pricing) para detalhes.

@@ -1,3 +1,7 @@
+---
+title: "Licensing"
+---
+
 ﻿# Licenciamento
 
 O MinusFrameWork é distribuído em três tiers de licença.

@@ -1,3 +1,7 @@
+---
+title: "Getting Started"
+---
+
 ﻿# Quick Start - O Tour de 5 Minutos
 
 ## 1. Instalacao (Free)
@@ -64,13 +68,13 @@ type
   public
     [ChavePrimaria]
     [AutoIncremento]
-    [Campo('ID')]
+    [Coluna('ID')]
     property Id: Integer read FId write FId;
-    [Campo('NOME', 100)]
+    [Coluna('NOME')]
     property Nome: string read FNome write FNome;
-    [Campo('EMAIL', 150)]
+    [Coluna('EMAIL')]
     property Email: string read FEmail write FEmail;
-    [Campo('DATA_CADASTRO')]
+    [Coluna('DATA_CADASTRO')]
     property DataCadastro: TDateTime read FDataCadastro write FDataCadastro;
   end;
 ```
@@ -125,7 +129,4 @@ end.
 | ORM Completo (Criteria, UoW) | Documentacao ORM |
 | Migracao de Banco | MinusMigrator CLI |
 | CLI de Scaffolding | Comandos do minus.exe |
-
-> Dica: Execute `minus make:entity Pessoa` no terminal para gerar a unit automaticamente.
-
 > Dica: Execute `minus make:entity Pessoa` no terminal para gerar a unit automaticamente.

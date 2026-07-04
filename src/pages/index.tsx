@@ -15,7 +15,6 @@ export default function Home(): React.ReactElement {
             Framework Delphi<br />
             <span style={{color: 'var(--ifm-color-primary)'}}>moderno e modular</span>
           </h1>
-          <p className="hero__subtitle">{siteConfig.tagline}</p>
           <div className="hero__cta">
             <Link className="button button--lg button--primary" to="/docs/getting-started">
               Começar agora →

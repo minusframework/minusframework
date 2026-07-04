@@ -1,4 +1,4 @@
-﻿---
+---
 title: Documentação
 slug: /docs
 ---
