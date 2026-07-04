@@ -27,7 +27,7 @@ const HIGHLIGHTS: HighlightProps[] = [
 
 export default function HighlightCards(): React.ReactElement {
   return (
-    <div style={{display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))', gap: '1rem', margin: '2rem 0'}}>
+    <div style={{display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '1rem', margin: '2rem 0', justifyContent: 'center'}}>
       {HIGHLIGHTS.map((h) => (
         <div key={h.title} className="card">
           <h3 style={{color: 'var(--ifm-color-primary)'}}>{h.title}</h3>
