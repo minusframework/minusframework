@@ -1,107 +1,40 @@
 ---
-title: "Index"
+title: MinusTelemetry
+description: Tracing e logging estruturado no padrão OpenTelemetry
+sidebar_label: MinusTelemetry
 ---
 
-﻿# MinusTelemetry
+<span class="badge badge-enterprise">Enterprise</span>
 
-Sistema de tracing e logging estruturado no estilo OpenTelemetry para aplicacoes Delphi.
-Coleta, processa e exporta spans e logs para analise posterior.
+# MinusTelemetry
 
-## Conceitos
+MinusTelemetry implementa tracing distribuído e logging estruturado seguindo o padrão **OpenTelemetry**.
 
-| Conceito | Descricao |
-|----------|-----------|
-| **Tracer** | Ponto de entrada. Cria spans nomeados. |
-| **Span** | Unidade de trabalho com nome, duracao, atributos e status. |
-| **Contexto** | Propaga trace-id e span-id entre chamadas. |
-| **Exporter** | Envia spans para console, arquivo, HTTP. |
-| **Log** | Evento textual estruturado com timestamp, nivel e atributos. |
+## Recursos
 
-## Fluxo
+- **Tracing** — spans aninhados com context propagation
+- **Logging** — logs estruturados em JSON
+- **Exporters** — console, arquivo, OTLP (OpenTelemetry Protocol)
+- **Integração** — com MinusORM, MinusMessaging e MinusFeatureFlags
 
-````
-Tracer.IniciarSpan('processar-pedido')
-  +-- Span filho: consultar-estoque
-  +-- Span filho: calcular-frete
-  +-- Span filho: salvar-pedido
-````
-
-## Exemplo
+## Exemplo: Tracing
 
 ```pascal
 var
-  LTracer: ITracer;
-  LSpan: ISpan;
+  Tracer: ITracer;
+  Span: ISpan;
 begin
-  LTracer := TTelemetry.CriarTracer('servico-pedidos');
-  LSpan := LTracer.IniciarSpan('processar-pedido');
+  Tracer := TTelemetry.CreateTracer('meu-servico');
+  Span := Tracer.StartSpan('processar-pedido');
   try
-    LSpan.Atribuir('pedido_id', 42);
-    ProcessarPagamento(42);
-    LSpan.DefinirStatus(stOk);
-  except
-    LSpan.DefinirStatus(stError);
-    raise;
+    // ... lógica do negócio
+    Span.SetAttribute('pedido_id', 12345);
   finally
-    LSpan.Finalizar;
+    Span.EndSpan;
   end;
 end;
 ```
 
-### Exportar para console
+## Licenciamento
 
-```pascal
-TTelemetry.Configurar
-  .AdicionarExporter(TExporterConsole.Criar)
-  .Aplicar;
-```
-
-### Exportar para arquivo JSON
-
-```pascal
-TTelemetry.Configurar
-  .AdicionarExporter(
-    TExporterArquivo.Criar
-      .Caminho('C:\Logs\tracing.json')
-      .RotacionarDiariamente
-  )
-  .Aplicar;
-```
-
-### Exportar via HTTP
-
-```pascal
-TTelemetry.Configurar
-  .AdicionarExporter(
-    TExporterHTTP.Criar
-      .Endpoint('http://otel-collector:4318/v1/traces')
-      .Timeout(5000)
-  )
-  .Aplicar;
-```
-
-## Logging Estruturado
-
-```pascal
-TTelemetry.Logger
-  .Info('Pedido criado', ['pedido_id', 42]);
-
-TTelemetry.Logger
-  .Error('Falha ao processar pagamento', ['pedido_id', 42]);
-```
-
-## Exporters Disponiveis
-
-| Exporter | Formato | Uso |
-|----------|---------|-----|
-| Console | Texto | Desenvolvimento |
-| Arquivo | NDJSON | Producao |
-| HTTP | Protobuf/JSON | OTel Collector |
-
-## Boas Praticas
-
-- Finalizar spans no finally
-- Nomear spans: verbo + substantivo
-- Atributos: tipos simples apenas
-- Nao logar dados sensiveis
-- Propagar contexto entre threads
+Disponível apenas no plano **Enterprise**.
