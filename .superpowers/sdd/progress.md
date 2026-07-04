@@ -15,3 +15,23 @@ Task 7: Docs review — complete (clean, one typo fixed)
 Task 8: Installer validation — complete (well-structured, OK)
 Task 9: Security audit — complete (PASS, no secrets found)
 Task 10: CLI readiness — complete (10 discrepancies found, all fixed: [Campo]→[Coluna] in source, docs aligned, non-existent flags removed)
+---
+## Site Revitalization (2026-07-04)
+Task 1: 404.html customizado — complete
+Task 2: CNAME file — complete
+Task 3: CI otimizada (cache, deploy preview, healthcheck) — complete
+Task 4: Badge de status no README — complete
+Task 5: Expandir docs AI/Telemetry/Messaging — complete
+Task 6: Sidebar categorizada — complete
+Task 7: Badges Free/Pro/Enterprise em 24 docs — complete
+Task 8: Breadcrumbs automáticos — complete
+Task 9: i18n pt-BR + en — complete
+Task 10: Refinamento CSS (animações, tipografia, dark mode) — complete
+Task 11: Redesign Homepage (seção Por que MinusFrameWork?) — complete
+Task 12: Redesign Pricing (toggle mensal/anual) — complete
+Task 13: SEO/Performance (meta tags, sitemap, robots) — complete
+Task 14: Lighthouse audit — cancelled (opt-in)
+Task 15: Fix SVG logo (remove redundant text, use pure icon) — complete
+Task 16: Prevent navbar title truncation (flex-shrink: 0) — complete
+Task 17: Adjust navbar vertical padding (0.75rem top/bottom, 0.5rem item padding) — complete
+Build: PASS (pt-BR + en, zero warnings)
