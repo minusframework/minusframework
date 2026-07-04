@@ -10,6 +10,13 @@ on:
 
 permissions:
   contents: write
+  pull-requests: write
+  pages: write
+  id-token: write
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
 
 jobs:
   docs:
@@ -24,15 +31,67 @@ jobs:
           cache: npm
       - name: Install dependencies
         run: npm ci
+      - name: Cache Docusaurus build
+        id: cache-docusaurus
+        uses: actions/cache@v4
+        with:
+          path: |
+            .docusaurus
+            build
+          key: docusaurus-${{ hashFiles('docusaurus.config.ts', 'sidebars.ts', 'src/**/*', 'docs/**/*', 'static/**/*') }}
+          restore-keys: |
+            docusaurus-
       - name: Build Docusaurus
         run: npm run build
+      - name: Upload build artifact (PR preview)
+        if: github.event_name == 'pull_request'
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: build
       - name: Deploy to GitHub Pages
         if: github.event_name == 'push' && github.ref == 'refs/heads/main'
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./build
+          cname: minusframework.dev
+          full_commit_message: "docs: deploy ${{ github.sha }}"
+      - name: Healthcheck post-deploy
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
         run: |
-          git remote set-url origin "https://x-access-token:$GH_TOKEN@github.com/${{ github.repository }}"
-          npx docusaurus deploy
+          sleep 10
+          curl -s -o /dev/null -w "%{http_code}" "https://gabrielferreiramendes.github.io/minusframework/" | grep 200
+          echo "Site is live and returning 200"
+
+  deploy-preview:
+    if: github.event_name == 'pull_request'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: npm
+      - run: npm ci
+      - run: npm run build
+      - name: Deploy preview to GitHub Pages (PR)
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./build
+          destination_dir: pr-${{ github.event.number }}
+      - name: Comment PR with preview link
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const prNumber = context.issue.number;
+            const previewUrl = `https://gabrielferreiramendes.github.io/minusframework/pr-${prNumber}/`;
+            github.rest.issues.createComment({
+              issue_number: prNumber,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: `## Preview disponível\n\nAcesse: ${previewUrl}\n\n> Este preview é atualizado a cada push no PR.`
+            });
 
   wiki:
     runs-on: ubuntu-latest
@@ -63,23 +122,3 @@ jobs:
         run: |
           $tag = "${{ github.ref_name }}"
           pwsh ./release-sync.ps1 -Version $tag -Token "$env:TOKEN"
-
-  build:
-    runs-on: [self-hosted, windows, delphi]
-    if: false
-    steps:
-      - uses: actions/checkout@v5
-      - name: Setup (clona os 9 repos)
-        env:
-          TOKEN: ${{ secrets.GH_PAT }}
-        run: pwsh ./ci-setup.ps1 -Token "$env:TOKEN"
-      - name: Build
-        run: |
-          & "C:\Program Files (x86)\Embarcadero\Studio\23.0\bin\bds.exe" `
-            -p Win64 -r "MinusFramework_Runtime.dproj" -b `
-            --Define:COMMUNITY
-      - name: Run tests
-        run: |
-          Get-ChildItem -Recurse -Filter "run-tests.ps1" | ForEach-Object {
-            & $_.FullName
-          }
