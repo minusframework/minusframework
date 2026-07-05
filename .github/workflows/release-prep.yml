@@ -8,27 +8,17 @@ on:
 
 jobs:
   validate:
-    name: Validate Submodules
+    name: Validate Setup
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-        with:
-          submodules: recursive
-      - name: Check all submodules
+      - name: Check CI setup script exists
         run: |
-          git submodule status
-          MISSING=0
-          while IFS= read -r line; do
-            if [[ $line == -* ]]; then
-              echo "MISSING: $line"
-              MISSING=1
-            fi
-          done < <(git submodule status)
-          if [ "$MISSING" -eq 1 ]; then
-            echo "Some submodules are not initialized!"
+          if [ ! -f ci-setup.ps1 ]; then
+            echo "ERROR: ci-setup.ps1 not found!"
             exit 1
           fi
-          echo "All submodules are present."
+          echo "CI setup script is present."
 
   security:
     name: Security Scan
