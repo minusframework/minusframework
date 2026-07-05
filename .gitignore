@@ -31,3 +31,6 @@ build/
 .cache-loader/
 # MkDocs backup
 docs-mkdocs/
+# Arquivos e diretorios auxiliares do workspace
+git-list.txt
+.github/~

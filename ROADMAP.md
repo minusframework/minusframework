@@ -1,6 +1,6 @@
 # Roadmap
 
-## 🟢 Fase 1 — Community (gratuito) ✅
+## 🟢 Fase 1 — Community (gratuito) [CONCLUIDO] ✅
 - [x] ORM com 7 bancos (Firebird, PostgreSQL, SQLite, MySQL, MariaDB, MSSQL, Oracle)
 - [x] Migrator CLI
 - [x] Mensageria (Horse + JWT)
@@ -10,12 +10,12 @@
 - [x] Meta-repo público como landing page + setup-dev.ps1
 - [x] Licenciamento Community integrado (trial + offline validation)
 
-## 🔵 Fase 2 — Amadurecimento (agora)
-- [ ] Documentação completa (wiki + exemplos)
-- [ ] CLI de scaffolding (`new-project`, `generate-entity`)
+## 🔵 Fase 2 — Amadurecimento [EM ANDAMENTO] 🔄
+- [x] Documentação completa (wiki + exemplos)
+- [x] CLI de scaffolding (`new-project`, `generate-entity`)
 - [ ] Testes automatizados no CI (self-hosted runner com Delphi)
 - [ ] Dashboard de telemetria
-- [ ] Publicação da primeira Release (v0.1.0)
+- [x] Publicação da primeira Release (v0.1.0)
 - [ ] Correção dos bloqueios de compilação (MF.FeatureFlags.Licensing.pas, etc.)
 - [ ] **MinusAI** — Servidor MCP e agentes inteligentes
   - [x] MCP Server base (JSON-RPC 2.0 sobre stdio)
