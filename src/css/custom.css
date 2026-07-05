@@ -227,6 +227,12 @@ h1, h2, h3, h4 {
   border-bottom: 1px solid var(--ifm-toc-border-color);
 }
 
+.footer--dark {
+  --ifm-footer-color: #ffffff;
+  --ifm-footer-link-color: #ffffff;
+  --ifm-footer-title-color: #ffffff;
+}
+
 /* ===== Pricing card improvements ===== */
 .pricing-card {
   transition: transform 0.2s, box-shadow 0.2s;

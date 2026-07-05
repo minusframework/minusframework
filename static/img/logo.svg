@@ -1,4 +1,5 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 40 45" width="40" height="45">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 170 45" width="170" height="45">
   <polygon points="15,5 28,12 28,28 15,35 2,28 2,12" fill="#E07A5F" opacity="0.9"/>
   <polygon points="22,10 35,17 35,33 22,40 9,33 9,17" fill="#3D5A80" opacity="0.7"/>
+  <text x="44" y="28" font-family="Inter, Arial, sans-serif" font-size="20" font-weight="700" fill="currentColor">MinusFrameWork</text>
 </svg>
