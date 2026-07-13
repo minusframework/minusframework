@@ -20,7 +20,7 @@ O MinusFrameWork é distribuído em três tiers de licença.
 
 ---
 
-### Pro (em breve)
+### Pro
 
 Tudo do **Free**, mais:
 
@@ -35,7 +35,7 @@ Tudo do **Free**, mais:
 
 ---
 
-### Enterprise (em breve)
+### Enterprise
 
 Tudo do **Pro**, mais:
 

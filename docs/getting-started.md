@@ -13,7 +13,7 @@ O instalador copia para C:\MinusFramework:
 - **BPLs** - pacotes runtime e design-time
 - **DCPs** - arquivos de cabecalho
 - **DLLs** - ORM (SQLite) e Migrator via C-API
-- **CLIs** - MinusMigrator.exe, minus.exe
+- **CLIs** - MinusMigrator_CLI.exe (alias `mfc`)
 - **Samples** - projetos demonstrativos com codigo-fonte
 
 ### Configuracao no RAD Studio
@@ -128,5 +128,5 @@ end.
 |--------|------|
 | ORM Completo (Criteria, UoW) | Documentacao ORM |
 | Migracao de Banco | MinusMigrator CLI |
-| CLI de Scaffolding | Comandos do minus.exe |
-> Dica: Execute `minus make:entity Pessoa` no terminal para gerar a unit automaticamente.
+| CLI de Scaffolding | Comandos do mfc |
+> Dica: Execute `mfc make:entity Pessoa` no terminal para gerar a unit automaticamente.

@@ -4,7 +4,7 @@ title: "Changelog"
 
 <span class="badge badge-pro">Pro</span>
 
-﻿# Changelog â€” MinusFeatureFlags
+# Changelog - MinusFeatureFlags
 
 ## [1.0.0] - 2026-06-06
 

@@ -11,7 +11,7 @@ Gera uma entidade ORM completa com atributos de mapeamento.
 ## Uso
 
 ```bash
-minus make:entity <NomeEntidade> [opções]
+mfc make:entity <NomeEntidade> [opções]
 ```
 
 ## Opções
@@ -26,13 +26,13 @@ minus make:entity <NomeEntidade> [opções]
 ### Básico
 
 ```bash
-minus make:entity Produto
+mfc make:entity Produto
 ```
 
 ### Com campos personalizados
 
 ```bash
-minus make:entity Produto --fields=Nome:string,Preco:Currency,Estoque:Integer,CategoriaId:Integer
+mfc make:entity Produto --fields=Nome:string,Preco:Currency,Estoque:Integer,CategoriaId:Integer
 ```
 
 ## Saída Gerada

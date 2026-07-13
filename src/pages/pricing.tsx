@@ -150,7 +150,7 @@ export default function Pricing(): React.ReactElement {
         </section>
 
         <section style={{ marginTop: '2rem' }}>
-          <h2>Pro (em breve)</h2>
+          <h2>Pro</h2>
           <p>Inclui ORM multi-banco, Mensageria, Feature Flags e Extensions.</p>
           <ul>
             <li><strong>R$ 197/ano</strong> por desenvolvedor</li>
@@ -161,7 +161,7 @@ export default function Pricing(): React.ReactElement {
         </section>
 
         <section style={{ marginTop: '2rem' }}>
-          <h2>Enterprise (em breve)</h2>
+          <h2>Enterprise</h2>
           <p>Tudo do Pro mais Telemetria, AI/MCP Server e suporte prioritário.</p>
           <ul>
             <li><strong>R$ 497/ano</strong> por bloco de até 5 desenvolvedores</li>

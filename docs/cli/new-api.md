@@ -11,7 +11,7 @@ Cria um projeto REST API completo com servidor Horse + MinusORM.
 ## Uso
 
 ```bash
-minus new api <NomeProjeto> [opções]
+mfc new api <NomeProjeto> [opções]
 ```
 
 ## Opções
@@ -23,7 +23,7 @@ minus new api <NomeProjeto> [opções]
 ## Exemplo
 
 ```bash
-minus new api MeuApp --dir=./meu-app
+mfc new api MeuApp --dir=./meu-app
 ```
 
 ## Estrutura Gerada

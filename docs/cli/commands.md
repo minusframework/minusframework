@@ -6,12 +6,12 @@ title: "CLI — Comandos"
 
 # CLI — Comandos
 
-A CLI `minus.exe` é uma ferramenta de scaffolding que acelera a criação de projetos e entidades.
+A CLI `MinusMigrator_CLI.exe` (alias `mfc`) é uma ferramenta de scaffolding que acelera a criação de projetos e entidades.
 
 ## Uso
 
 ```bash
-minus <comando> [argumentos]
+mfc <comando> [argumentos]
 ```
 
 ## Comandos Disponíveis
@@ -28,7 +28,7 @@ minus <comando> [argumentos]
 Gera um arquivo `.pas` com a entidade mapeada pronta para uso com o MinusORM.
 
 ```bash
-minus make:entity Produto
+mfc make:entity Produto
 ```
 
 ### Exemplo de saída
@@ -77,7 +77,7 @@ end.
 | `--output=src/Entities` | Diretório de saída | `src/Entities` |
 
 ```bash
-minus make:entity Produto --fields=Nome:string,Preco:Currency,Estoque:Integer
+mfc make:entity Produto --fields=Nome:string,Preco:Currency,Estoque:Integer
 ```
 
 ---
@@ -87,7 +87,7 @@ minus make:entity Produto --fields=Nome:string,Preco:Currency,Estoque:Integer
 Cria um projeto REST API completo com servidor Horse.
 
 ```bash
-minus new api MeuApp --dir=./meu-app
+mfc new api MeuApp --dir=./meu-app
 ```
 
 ### Estrutura gerada

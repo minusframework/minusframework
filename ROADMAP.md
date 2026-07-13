@@ -12,7 +12,8 @@
 
 ## 🔵 Fase 2 — Amadurecimento [EM ANDAMENTO] 🔄
 - [x] Documentação completa (wiki + exemplos)
-- [x] CLI de scaffolding (`new-project`, `generate-entity`)
+- [x] Documentação completa dos módulos (instalação, API, exemplos)
+- [x] CLI de scaffolding (`make:entity`, `new api`)
 - [ ] Testes automatizados no CI (self-hosted runner com Delphi)
 - [ ] Dashboard de telemetria
 - [x] Publicação da primeira Release (v0.1.0)
