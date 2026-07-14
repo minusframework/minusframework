@@ -31,6 +31,10 @@ func main() {
     r.GET("/auth/github/callback", authHandler.Callback)
 
     licenseHandler := handler.NewLicenseHandler(db)
+    subHandler := handler.NewSubscriptionHandler(db)
+    webhookHandler := handler.NewWebhookHandler(db)
+
+    r.POST("/stripe/webhook", webhookHandler.HandleStripe)
 
     authorized := r.Group("/", middleware.AuthRequired(os.Getenv("JWT_SECRET")))
     authorized.POST("/licenses/generate", licenseHandler.Generate)
@@ -38,6 +42,10 @@ func main() {
     authorized.POST("/licenses/activate", licenseHandler.Activate)
     authorized.POST("/licenses/deactivate", licenseHandler.Deactivate)
     authorized.GET("/licenses/mine", licenseHandler.ListMine)
+
+    authorized.POST("/subscriptions/create", subHandler.CreateCheckout)
+    authorized.GET("/subscriptions/portal", subHandler.Portal)
+    authorized.GET("/subscriptions/mine", subHandler.ListMine)
 
     r.GET("/health", func(c *gin.Context) {
         c.JSON(http.StatusOK, gin.H{"status": "ok"})

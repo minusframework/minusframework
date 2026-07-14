@@ -2,6 +2,7 @@ package store
 
 import (
     "context"
+    "time"
     "github.com/jackc/pgx/v5/pgxpool"
     "github.com/GabrielFerreiraMendes/minusframework/services/license-server/internal/model"
 )
@@ -99,8 +100,53 @@ func (s *Store) CreateActivation(ctx context.Context, act *model.Activation) err
 }
 
 func (s *Store) DeleteActivation(ctx context.Context, licenseID, deviceID string) error {
-    _, err := s.pool.Exec(ctx,
-        `DELETE FROM license_activations WHERE license_id = $1 AND device_id = $2`,
-        licenseID, deviceID)
-    return err
+	_, err := s.pool.Exec(ctx,
+		`DELETE FROM license_activations WHERE license_id = $1 AND device_id = $2`,
+		licenseID, deviceID)
+	return err
+}
+
+func (s *Store) CreateSubscription(ctx context.Context, sub *model.Subscription) error {
+	return s.pool.QueryRow(ctx,
+		`INSERT INTO subscriptions (user_id, stripe_subscription_id, stripe_customer_id, service_name, plan_tier, status, current_period_start, current_period_end)
+		 VALUES ($1, $2, $3, $4, $5, $6, $7, $8)
+		 RETURNING id, created_at, updated_at`,
+		sub.UserID, sub.StripeSubscriptionID, sub.StripeCustomerID, sub.ServiceName, sub.PlanTier, sub.Status, sub.CurrentPeriodStart, sub.CurrentPeriodEnd,
+	).Scan(&sub.ID, &sub.CreatedAt, &sub.UpdatedAt)
+}
+
+func (s *Store) UpdateSubscriptionStripe(ctx context.Context, subID, stripeSubID, stripeCustomerID string) error {
+	_, err := s.pool.Exec(ctx,
+		`UPDATE subscriptions SET stripe_subscription_id = $2, stripe_customer_id = $3, updated_at = now() WHERE id = $1`,
+		subID, stripeSubID, stripeCustomerID)
+	return err
+}
+
+func (s *Store) UpdateSubscriptionStatus(ctx context.Context, stripeSubID, status string, periodEnd *time.Time) error {
+	_, err := s.pool.Exec(ctx,
+		`UPDATE subscriptions SET status = $2, current_period_end = $3, updated_at = now() WHERE stripe_subscription_id = $1`,
+		stripeSubID, status, periodEnd)
+	return err
+}
+
+func (s *Store) GetUserSubscriptions(ctx context.Context, userID string) ([]*model.Subscription, error) {
+	rows, err := s.pool.Query(ctx,
+		`SELECT id, user_id, stripe_subscription_id, stripe_customer_id, service_name, plan_tier, status, current_period_start, current_period_end, created_at, updated_at
+		 FROM subscriptions WHERE user_id = $1 ORDER BY created_at DESC`, userID)
+	if err != nil {
+		return nil, err
+	}
+	defer rows.Close()
+
+	var subs []*model.Subscription
+	for rows.Next() {
+		sub := &model.Subscription{}
+		if err := rows.Scan(&sub.ID, &sub.UserID, &sub.StripeSubscriptionID, &sub.StripeCustomerID,
+			&sub.ServiceName, &sub.PlanTier, &sub.Status, &sub.CurrentPeriodStart, &sub.CurrentPeriodEnd,
+			&sub.CreatedAt, &sub.UpdatedAt); err != nil {
+			return nil, err
+		}
+		subs = append(subs, sub)
+	}
+	return subs, nil
 }
