@@ -11,7 +11,7 @@ jobs:
     name: Validate Setup
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       - name: Check CI setup script exists
         run: |
           if [ ! -f ci-setup.ps1 ]; then
@@ -24,7 +24,7 @@ jobs:
     name: Security Scan
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       - name: Check for secrets in files
         run: |
           if grep -r "private.pem" --include="*.pem" . 2>/dev/null; then
