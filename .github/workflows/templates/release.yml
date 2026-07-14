@@ -1,0 +1,22 @@
+name: Release
+
+on:
+  workflow_call:
+    secrets:
+      GH_PAT:
+        required: true
+
+jobs:
+  trigger:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Trigger meta-repo build
+        run: |
+          gh workflow run deploy-module.yml \
+            --repo GabrielFerreiraMendes/minusframework \
+            --ref main \
+            --field repo="${{ github.event.repository.name }}" \
+            --field tag="${{ github.ref_name }}"
+        env:
+          GH_TOKEN: ${{ secrets.GH_PAT }}

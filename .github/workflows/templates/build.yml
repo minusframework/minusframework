@@ -1,0 +1,20 @@
+name: Build
+
+on:
+  workflow_call:
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Validate source
+        run: |
+          $files = Get-ChildItem -Recurse -Include *.pas,*.dproj,*.dfm -File
+          if ($files.Count -eq 0) {
+            Write-Host "No Delphi source files found (expected)" -ForegroundColor Yellow
+          } else {
+            Write-Host "Found $($files.Count) Delphi source files" -ForegroundColor Green
+            $files | ForEach-Object { Write-Host "  $_" }
+          }
+        shell: pwsh
