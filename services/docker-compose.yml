@@ -32,5 +32,17 @@ services:
       - postgres
       - redis
 
+  minusai-review:
+    build: ./minusai-review
+    ports:
+      - "8081:8081"
+    environment:
+      DATABASE_URL: postgres://postgres:postgres@postgres:5432/minusframework?sslmode=disable
+      LISTEN_ADDR: ":8081"
+      JWT_SECRET: dev-secret-change-in-production
+      GITHUB_APP_TOKEN: ${GITHUB_APP_TOKEN}
+    depends_on:
+      - postgres
+
 volumes:
   pgdata:
