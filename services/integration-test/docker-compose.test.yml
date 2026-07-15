@@ -38,3 +38,13 @@ services:
       DATABASE_URL: postgres://test:test@postgres:5432/minusframework_test?sslmode=disable
       LISTEN_ADDR: ":8082"
       JWT_SECRET: test-secret
+
+  feature-flags:
+    build: ../feature-flags
+    ports:
+      - "9083:8083"
+    environment:
+      DATABASE_URL: postgres://test:test@postgres:5432/minusframework_test?sslmode=disable
+      LISTEN_ADDR: ":8083"
+      JWT_SECRET: test-secret
+      REDIS_URL: ""
