@@ -4,7 +4,7 @@ param(
 )
 
 $ErrorActionPreference = "Stop"
-$Root = $PSScriptRoot
+$Root = Split-Path -Path (Split-Path -Path (Split-Path -Parent $PSScriptRoot) -Parent) -Parent
 
 $Repos = @(
     @{Name = "minusframework-core";         Dir = "Core"},
@@ -18,14 +18,12 @@ $Repos = @(
     @{Name = "minusframework-cli";          Dir = "Cli"}
 )
 
-$OrgUrl = "https://github.com/GabrielFerreiraMendes"
-
 foreach ($repo in $Repos) {
     $dest = Join-Path $Root $repo.Dir
     $repoUrl = if ($Token) {
-        "https://GabrielFerreiraMendes:$([Uri]::EscapeDataString($Token))@github.com/GabrielFerreiraMendes/$($repo.Name).git"
+        "https://x-access-token:$([Uri]::EscapeDataString($Token))@github.com/minusframework/$($repo.Name).git"
     } else {
-        "$OrgUrl/$($repo.Name).git"
+        "https://github.com/minusframework/$($repo.Name).git"
     }
 
     if (-not (Test-Path (Join-Path $dest ".git"))) {
