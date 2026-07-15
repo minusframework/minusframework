@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Service Map</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <header>
+        <h1>Services</h1>
+        <nav>
+            <a href="/dashboard">Overview</a>
+            <a href="/dashboard/traces">Traces</a>
+            <a href="/dashboard/services" class="active">Services</a>
+        </nav>
+    </header>
+
+    <main>
+        <h2>Active Services (24h)</h2>
+        <div class="service-list">
+            {{ range .services }}
+            <div class="service-card">
+                <strong>{{ .Name }}</strong>
+                <span>{{ .Count }} spans</span>
+            </div>
+            {{ else }}
+            <p>No services active in the last 24 hours.</p>
+            {{ end }}
+        </div>
+    </main>
+</body>
+</html>

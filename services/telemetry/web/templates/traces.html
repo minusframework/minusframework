@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Trace Explorer</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <header>
+        <h1>Trace Explorer</h1>
+        <nav>
+            <a href="/dashboard">Overview</a>
+            <a href="/dashboard/traces" class="active">Traces</a>
+            <a href="/dashboard/services">Services</a>
+        </nav>
+    </header>
+
+    <main>
+        <table>
+            <thead>
+                <tr>
+                    <th>Trace ID</th>
+                    <th>Service</th>
+                    <th>Operation</th>
+                    <th>Duration</th>
+                    <th>Status</th>
+                    <th>Time</th>
+                </tr>
+            </thead>
+            <tbody>
+                {{ range .spans }}
+                <tr class="{{ if eq .Status "error" }}error-row{{ end }}">
+                    <td><code>{{ .TraceID | slice 0 12 }}...</code></td>
+                    <td>{{ .ServiceName }}</td>
+                    <td>{{ .OperationName }}</td>
+                    <td>{{ .DurationMs }}ms</td>
+                    <td><span class="status {{ .Status }}">{{ .Status }}</span></td>
+                    <td>{{ .StartTime.Format "15:04:05" }}</td>
+                </tr>
+                {{ else }}
+                <tr><td colspan="6">No traces found</td></tr>
+                {{ end }}
+            </tbody>
+        </table>
+    </main>
+</body>
+</html>

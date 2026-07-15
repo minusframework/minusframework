@@ -19,6 +19,10 @@ type Span struct {
 	CreatedAt     time.Time         `json:"created_at,omitempty"`
 }
 
+func (s *Span) DurationMs() float64 {
+	return s.EndTime.Sub(s.StartTime).Seconds() * 1000
+}
+
 type SpanEvent struct {
 	Timestamp time.Time         `json:"timestamp"`
 	Name      string            `json:"name"`

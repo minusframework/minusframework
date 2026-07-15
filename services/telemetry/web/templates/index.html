@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Telemetry Dashboard</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <header>
+        <h1>Telemetry</h1>
+        <nav>
+            <a href="/dashboard" class="active">Overview</a>
+            <a href="/dashboard/traces">Traces</a>
+            <a href="/dashboard/services">Services</a>
+        </nav>
+    </header>
+
+    <main>
+        <div class="cards">
+            <div class="card">
+                <h3>Active Services</h3>
+                <p class="value">{{ .summary.active_services }}</p>
+            </div>
+            <div class="card">
+                <h3>Spans (last hour)</h3>
+                <p class="value">{{ .summary.spans_last_hour }}</p>
+            </div>
+            <div class="card">
+                <h3>Error Rate</h3>
+                <p class="value">{{ printf "%.1f" .summary.error_rate }}%</p>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

@@ -25,6 +25,9 @@ func main() {
 	defer db.Close()
 
 	r := gin.Default()
+	r.LoadHTMLGlob("web/templates/*")
+	r.Static("/static", "./web/static")
+
 	r.GET("/health", func(c *gin.Context) {
 		c.JSON(http.StatusOK, gin.H{"status": "ok"})
 	})
@@ -36,6 +39,16 @@ func main() {
 	ingest := r.Group("/v1", middleware.APIKeyRequired(db))
 	ingest.POST("/traces", ingestHandler.IngestTraces)
 	ingest.POST("/metrics", ingestHandler.IngestMetrics)
+
+	jwtSecret := os.Getenv("JWT_SECRET")
+
+	dashboard := r.Group("/dashboard", middleware.JWTAuthRequired(jwtSecret))
+	{
+		dh := handler.NewDashboardHandler(db)
+		dashboard.GET("/", dh.Index)
+		dashboard.GET("/traces", dh.Traces)
+		dashboard.GET("/services", dh.Services)
+	}
 
 	addr := os.Getenv("LISTEN_ADDR")
 	if addr == "" {

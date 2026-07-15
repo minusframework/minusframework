@@ -129,3 +129,7 @@ func (s *Store) GetDashboardSummary(ctx context.Context, licenseKey string) (map
 		"error_rate":      errorRate,
 	}, nil
 }
+
+func (s *Store) Query(ctx context.Context, sql string, args ...interface{}) (pgx.Rows, error) {
+	return s.pool.Query(ctx, sql, args...)
+}

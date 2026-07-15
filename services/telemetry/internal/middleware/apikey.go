@@ -62,6 +62,7 @@ func JWTAuthRequired(jwtSecret string) gin.HandlerFunc {
 
 		c.Set("user_id", claims["user_id"])
 		c.Set("email", claims["email"])
+		c.Set("license_key", claims["license_key"])
 		c.Next()
 	}
 }
