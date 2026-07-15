@@ -4,6 +4,7 @@ import (
 	"context"
 	"github.com/jackc/pgx/v5"
 	"github.com/jackc/pgx/v5/pgxpool"
+	"github.com/GabrielFerreiraMendes/minusframework/services/feature-flags/internal/model"
 )
 
 type Store struct {
@@ -42,4 +43,68 @@ func (s *Store) Exec(ctx context.Context, sql string, args ...interface{}) (int6
 
 func (s *Store) Query(ctx context.Context, sql string, args ...interface{}) (pgx.Rows, error) {
 	return s.pool.Query(ctx, sql, args...)
+}
+
+func (s *Store) ListEnvironments(ctx context.Context, licenseKey string) ([]*model.Environment, error) {
+	rows, err := s.pool.Query(ctx, `SELECT id, license_key, name, created_at, updated_at FROM environments WHERE license_key = $1 ORDER BY name`, licenseKey)
+	if err != nil {
+		return nil, err
+	}
+	defer rows.Close()
+	var envs []*model.Environment
+	for rows.Next() {
+		e := &model.Environment{}
+		rows.Scan(&e.ID, &e.LicenseKey, &e.Name, &e.CreatedAt, &e.UpdatedAt)
+		envs = append(envs, e)
+	}
+	return envs, nil
+}
+
+func (s *Store) CreateEnvironment(ctx context.Context, e *model.Environment) error {
+	return s.pool.QueryRow(ctx, `INSERT INTO environments (license_key, name) VALUES ($1, $2) RETURNING id, created_at, updated_at`, e.LicenseKey, e.Name).Scan(&e.ID, &e.CreatedAt, &e.UpdatedAt)
+}
+
+func (s *Store) DeleteEnvironment(ctx context.Context, id string) error {
+	_, err := s.pool.Exec(ctx, `DELETE FROM environments WHERE id = $1`, id)
+	return err
+}
+
+func (s *Store) ListFlags(ctx context.Context, licenseKey, environmentID string) ([]*model.Flag, error) {
+	rows, err := s.pool.Query(ctx,
+		`SELECT f.id, f.key, f.name, f.description, f.flag_type, f.default_variant, f.created_at, f.updated_at
+		 FROM flags f WHERE f.license_key = $1 ORDER BY f.key`, licenseKey)
+	if err != nil {
+		return nil, err
+	}
+	defer rows.Close()
+	var flags []*model.Flag
+	for rows.Next() {
+		f := &model.Flag{}
+		rows.Scan(&f.ID, &f.Key, &f.Name, &f.Description, &f.FlagType, &f.DefaultVariant, &f.CreatedAt, &f.UpdatedAt)
+		flags = append(flags, f)
+	}
+	return flags, nil
+}
+
+func (s *Store) CreateFlag(ctx context.Context, f *model.Flag) error {
+	return s.pool.QueryRow(ctx, `INSERT INTO flags (license_key, key, name, description, flag_type, default_variant) VALUES ($1,$2,$3,$4,$5,$6) RETURNING id, created_at, updated_at`, f.LicenseKey, f.Key, f.Name, f.Description, f.FlagType, f.DefaultVariant).Scan(&f.ID, &f.CreatedAt, &f.UpdatedAt)
+}
+
+func (s *Store) UpdateFlag(ctx context.Context, f *model.Flag) error {
+	_, err := s.pool.Exec(ctx, `UPDATE flags SET key=$1, name=$2, description=$3, flag_type=$4, default_variant=$5, updated_at=now() WHERE id=$6`, f.Key, f.Name, f.Description, f.FlagType, f.DefaultVariant, f.ID)
+	return err
+}
+
+func (s *Store) DeleteFlag(ctx context.Context, id string) error {
+	_, err := s.pool.Exec(ctx, `DELETE FROM flags WHERE id = $1`, id)
+	return err
+}
+
+func (s *Store) UpsertFlagValue(ctx context.Context, fv *model.FlagValue) error {
+	return s.pool.QueryRow(ctx, `INSERT INTO flag_values (flag_id, environment_id, enabled, variant_value, rollout_percentage) VALUES ($1,$2,$3,$4,$5) ON CONFLICT (flag_id, environment_id) DO UPDATE SET enabled=EXCLUDED.enabled, variant_value=EXCLUDED.variant_value, rollout_percentage=EXCLUDED.rollout_percentage, updated_at=now() RETURNING id, created_at, updated_at`, fv.FlagID, fv.EnvironmentID, fv.Enabled, fv.VariantValue, fv.RolloutPercentage).Scan(&fv.ID, &fv.CreatedAt, &fv.UpdatedAt)
+}
+
+func (s *Store) CreateAuditLog(ctx context.Context, licenseKey string, actorID *string, action, resourceType, resourceID string, oldValue, newValue interface{}) error {
+	_, err := s.pool.Exec(ctx, `INSERT INTO audit_log (license_key, actor_id, action, resource_type, resource_id, old_value, new_value) VALUES ($1,$2,$3,$4,$5,$6,$7)`, licenseKey, actorID, action, resourceType, resourceID, oldValue, newValue)
+	return err
 }
