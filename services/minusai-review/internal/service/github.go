@@ -1,11 +1,14 @@
 package service
 
 import (
-	"encoding/json"
 	"fmt"
+	"io"
 	"net/http"
 	"os"
+	"time"
 )
+
+var httpClient = &http.Client{Timeout: 30 * time.Second}
 
 type GitHubService struct {
 	token string
@@ -20,21 +23,23 @@ func (s *GitHubService) GetPRDiff(repo string, prNumber int) (string, error) {
 	req, _ := http.NewRequest("GET", url, nil)
 	req.Header.Set("Authorization", "Bearer "+s.token)
 	req.Header.Set("Accept", "application/vnd.github.v3.diff")
-	resp, err := http.DefaultClient.Do(req)
+	resp, err := httpClient.Do(req)
 	if err != nil {
-		return "", err
+		return "", fmt.Errorf("failed to fetch diff: %w", err)
 	}
 	defer resp.Body.Close()
-	var diff string
-	json.NewDecoder(resp.Body).Decode(&diff)
-	return diff, nil
+	b, err := io.ReadAll(resp.Body)
+	if err != nil {
+		return "", fmt.Errorf("failed to read diff body: %w", err)
+	}
+	return string(b), nil
 }
 
 func (s *GitHubService) GetPRFiles(repo string, prNumber int) ([]string, error) {
 	url := fmt.Sprintf("https://api.github.com/repos/%s/pulls/%d/files", repo, prNumber)
 	req, _ := http.NewRequest("GET", url, nil)
 	req.Header.Set("Authorization", "Bearer "+s.token)
-	resp, err := http.DefaultClient.Do(req)
+	resp, err := httpClient.Do(req)
 	if err != nil {
 		return nil, err
 	}

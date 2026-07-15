@@ -16,6 +16,8 @@ import (
 	"github.com/GabrielFerreiraMendes/minusframework/services/license-server/internal/store"
 )
 
+var httpClient = &http.Client{Timeout: 15 * time.Second}
+
 type AuthHandler struct {
 	store          *store.Store
 	jwtSecret      string
@@ -61,13 +63,19 @@ func (h *AuthHandler) Callback(c *gin.Context) {
 		return
 	}
 
+	state := c.Query("state")
+	if state == "" {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "missing state parameter"})
+		return
+	}
+
 	tokenURL := fmt.Sprintf(
 		"https://github.com/login/oauth/access_token?client_id=%s&client_secret=%s&code=%s",
 		h.githubClientID, h.githubSecret, code,
 	)
 	req, _ := http.NewRequest("POST", tokenURL, nil)
 	req.Header.Set("Accept", "application/json")
-	resp, err := http.DefaultClient.Do(req)
+	resp, err := httpClient.Do(req)
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": "token exchange failed"})
 		return
@@ -85,7 +93,7 @@ func (h *AuthHandler) Callback(c *gin.Context) {
 
 	userReq, _ := http.NewRequest("GET", "https://api.github.com/user", nil)
 	userReq.Header.Set("Authorization", "Bearer "+tokenResp.AccessToken)
-	userResp, err := http.DefaultClient.Do(userReq)
+	userResp, err := httpClient.Do(userReq)
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": "failed to fetch user"})
 		return

@@ -1,34 +1,34 @@
 package store
 
 import (
-    "context"
-    "time"
-    "github.com/jackc/pgx/v5/pgxpool"
-    "github.com/GabrielFerreiraMendes/minusframework/services/license-server/internal/model"
+	"context"
+	"github.com/GabrielFerreiraMendes/minusframework/services/license-server/internal/model"
+	"github.com/jackc/pgx/v5/pgxpool"
+	"time"
 )
 
 type Store struct {
-    pool *pgxpool.Pool
+	pool *pgxpool.Pool
 }
 
 func NewPostgres(ctx context.Context, dsn string) (*Store, error) {
-    pool, err := pgxpool.New(ctx, dsn)
-    if err != nil {
-        return nil, err
-    }
-    if err := pool.Ping(ctx); err != nil {
-        return nil, err
-    }
-    return &Store{pool: pool}, nil
+	pool, err := pgxpool.New(ctx, dsn)
+	if err != nil {
+		return nil, err
+	}
+	if err := pool.Ping(ctx); err != nil {
+		return nil, err
+	}
+	return &Store{pool: pool}, nil
 }
 
 func (s *Store) Close() {
-    s.pool.Close()
+	s.pool.Close()
 }
 
 func (s *Store) UpsertUser(ctx context.Context, user *model.User) error {
-    return s.pool.QueryRow(ctx,
-        `INSERT INTO users (github_id, email, display_name, avatar_url)
+	return s.pool.QueryRow(ctx,
+		`INSERT INTO users (github_id, email, display_name, avatar_url)
          VALUES ($1, $2, $3, $4)
          ON CONFLICT (github_id) DO UPDATE SET
            email = EXCLUDED.email,
@@ -36,67 +36,67 @@ func (s *Store) UpsertUser(ctx context.Context, user *model.User) error {
            avatar_url = EXCLUDED.avatar_url,
            updated_at = now()
          RETURNING id, created_at, updated_at`,
-        user.GitHubID, user.Email, user.DisplayName, user.AvatarURL,
-    ).Scan(&user.ID, &user.CreatedAt, &user.UpdatedAt)
+		user.GitHubID, user.Email, user.DisplayName, user.AvatarURL,
+	).Scan(&user.ID, &user.CreatedAt, &user.UpdatedAt)
 }
 
 func (s *Store) CreateLicense(ctx context.Context, lic *model.License) error {
-    return s.pool.QueryRow(ctx,
-        `INSERT INTO licenses (user_id, license_key, license_type, max_activations, expires_at)
+	return s.pool.QueryRow(ctx,
+		`INSERT INTO licenses (user_id, license_key, license_type, max_activations, expires_at)
          VALUES ($1, $2, $3, $4, $5)
          RETURNING id, status, created_at, updated_at`,
-        lic.UserID, lic.LicenseKey, lic.LicenseType, lic.MaxActivations, lic.ExpiresAt,
-    ).Scan(&lic.ID, &lic.Status, &lic.CreatedAt, &lic.UpdatedAt)
+		lic.UserID, lic.LicenseKey, lic.LicenseType, lic.MaxActivations, lic.ExpiresAt,
+	).Scan(&lic.ID, &lic.Status, &lic.CreatedAt, &lic.UpdatedAt)
 }
 
 func (s *Store) GetLicenseByKey(ctx context.Context, key string) (*model.License, error) {
-    lic := &model.License{}
-    err := s.pool.QueryRow(ctx,
-        `SELECT id, user_id, license_key, license_type, status, max_activations, expires_at, created_at, updated_at
+	lic := &model.License{}
+	err := s.pool.QueryRow(ctx,
+		`SELECT id, user_id, license_key, license_type, status, max_activations, expires_at, created_at, updated_at
          FROM licenses WHERE license_key = $1`, key,
-    ).Scan(&lic.ID, &lic.UserID, &lic.LicenseKey, &lic.LicenseType, &lic.Status,
-        &lic.MaxActivations, &lic.ExpiresAt, &lic.CreatedAt, &lic.UpdatedAt)
-    if err != nil {
-        return nil, err
-    }
-    return lic, nil
+	).Scan(&lic.ID, &lic.UserID, &lic.LicenseKey, &lic.LicenseType, &lic.Status,
+		&lic.MaxActivations, &lic.ExpiresAt, &lic.CreatedAt, &lic.UpdatedAt)
+	if err != nil {
+		return nil, err
+	}
+	return lic, nil
 }
 
 func (s *Store) GetUserLicenses(ctx context.Context, userID string) ([]*model.License, error) {
-    rows, err := s.pool.Query(ctx,
-        `SELECT id, user_id, license_key, license_type, status, max_activations, expires_at, created_at, updated_at
+	rows, err := s.pool.Query(ctx,
+		`SELECT id, user_id, license_key, license_type, status, max_activations, expires_at, created_at, updated_at
          FROM licenses WHERE user_id = $1 ORDER BY created_at DESC`, userID)
-    if err != nil {
-        return nil, err
-    }
-    defer rows.Close()
+	if err != nil {
+		return nil, err
+	}
+	defer rows.Close()
 
-    var licenses []*model.License
-    for rows.Next() {
-        lic := &model.License{}
-        if err := rows.Scan(&lic.ID, &lic.UserID, &lic.LicenseKey, &lic.LicenseType,
-            &lic.Status, &lic.MaxActivations, &lic.ExpiresAt, &lic.CreatedAt, &lic.UpdatedAt); err != nil {
-            return nil, err
-        }
-        licenses = append(licenses, lic)
-    }
-    return licenses, nil
+	var licenses []*model.License
+	for rows.Next() {
+		lic := &model.License{}
+		if err := rows.Scan(&lic.ID, &lic.UserID, &lic.LicenseKey, &lic.LicenseType,
+			&lic.Status, &lic.MaxActivations, &lic.ExpiresAt, &lic.CreatedAt, &lic.UpdatedAt); err != nil {
+			return nil, err
+		}
+		licenses = append(licenses, lic)
+	}
+	return licenses, nil
 }
 
 func (s *Store) CountActivations(ctx context.Context, licenseID string) (int, error) {
-    var count int
-    err := s.pool.QueryRow(ctx,
-        `SELECT COUNT(*) FROM license_activations WHERE license_id = $1`, licenseID).Scan(&count)
-    return count, err
+	var count int
+	err := s.pool.QueryRow(ctx,
+		`SELECT COUNT(*) FROM license_activations WHERE license_id = $1`, licenseID).Scan(&count)
+	return count, err
 }
 
 func (s *Store) CreateActivation(ctx context.Context, act *model.Activation) error {
-    return s.pool.QueryRow(ctx,
-        `INSERT INTO license_activations (license_id, device_id, device_name, ip_address)
+	return s.pool.QueryRow(ctx,
+		`INSERT INTO license_activations (license_id, device_id, device_name, ip_address)
          VALUES ($1, $2, $3, $4)
          RETURNING id, activated_at, last_seen_at`,
-        act.LicenseID, act.DeviceID, act.DeviceName, act.IPAddress,
-    ).Scan(&act.ID, &act.ActivatedAt, &act.LastSeenAt)
+		act.LicenseID, act.DeviceID, act.DeviceName, act.IPAddress,
+	).Scan(&act.ID, &act.ActivatedAt, &act.LastSeenAt)
 }
 
 func (s *Store) DeleteActivation(ctx context.Context, licenseID, deviceID string) error {

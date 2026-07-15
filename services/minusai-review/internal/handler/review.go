@@ -29,7 +29,12 @@ func (h *ReviewHandler) GetByID(c *gin.Context) {
 func (h *ReviewHandler) List(c *gin.Context) {
 	repo := c.Query("repo")
 	if repo == "" {
-		c.JSON(http.StatusBadRequest, gin.H{"error": "repo query parameter is required"})
+		reviews, err := h.store.ListAll(c.Request.Context())
+		if err != nil {
+			c.JSON(http.StatusInternalServerError, gin.H{"error": "failed to list reviews"})
+			return
+		}
+		c.JSON(http.StatusOK, reviews)
 		return
 	}
 	reviews, err := h.store.ListReviews(c.Request.Context(), repo)

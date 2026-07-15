@@ -7,7 +7,10 @@ import (
 	"net/http"
 	"os"
 	"strings"
+	"time"
 )
+
+var llmHTTPClient = &http.Client{Timeout: 30 * time.Second}
 
 type LLMService struct {
 	apiKey string
@@ -97,7 +100,7 @@ Return a JSON object with:
 	httpReq.Header.Set("Content-Type", "application/json")
 	httpReq.Header.Set("Authorization", "Bearer "+s.apiKey)
 
-	resp, err := http.DefaultClient.Do(httpReq)
+	resp, err := llmHTTPClient.Do(httpReq)
 	if err != nil {
 		return nil, fmt.Errorf("LLM API call failed: %w", err)
 	}

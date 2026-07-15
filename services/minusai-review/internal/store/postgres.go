@@ -27,6 +27,27 @@ func NewPostgres(ctx context.Context, dsn string) (*Store, error) {
 
 func (s *Store) Close() { s.pool.Close() }
 
+func (s *Store) ListAll(ctx context.Context) ([]*model.Review, error) {
+	rows, err := s.pool.Query(ctx,
+		`SELECT id, repo_full_name, pr_number, pr_title, pr_author, commit_sha,
+		        status, created_at, completed_at
+		 FROM reviews ORDER BY created_at DESC LIMIT 50`)
+	if err != nil {
+		return nil, err
+	}
+	defer rows.Close()
+	var reviews []*model.Review
+	for rows.Next() {
+		r := &model.Review{}
+		if err := rows.Scan(&r.ID, &r.RepoFullName, &r.PRNumber, &r.PRTitle,
+			&r.PRAuthor, &r.CommitSHA, &r.Status, &r.CreatedAt, &r.CompletedAt); err != nil {
+			return nil, err
+		}
+		reviews = append(reviews, r)
+	}
+	return reviews, nil
+}
+
 func (s *Store) CreateReview(ctx context.Context, r *model.Review) error {
 	return s.pool.QueryRow(ctx,
 		`INSERT INTO reviews (repo_full_name, pr_number, pr_title, pr_author, commit_sha, status)

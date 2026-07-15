@@ -12,6 +12,8 @@ import (
 	"github.com/GabrielFerreiraMendes/minusframework/services/license-server/internal/store"
 )
 
+var httpClient = &http.Client{Timeout: 15 * time.Second}
+
 type LicenseHandler struct {
 	store *store.Store
 }

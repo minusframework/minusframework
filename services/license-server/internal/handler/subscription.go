@@ -6,8 +6,8 @@ import (
 
 	"github.com/gin-gonic/gin"
 	"github.com/stripe/stripe-go/v76"
-	checkoutsession "github.com/stripe/stripe-go/v76/checkout/session"
 	portalsession "github.com/stripe/stripe-go/v76/billingportal/session"
+	checkoutsession "github.com/stripe/stripe-go/v76/checkout/session"
 
 	"github.com/GabrielFerreiraMendes/minusframework/services/license-server/internal/store"
 )

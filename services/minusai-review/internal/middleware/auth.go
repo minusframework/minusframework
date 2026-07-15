@@ -36,10 +36,14 @@ func AuthRequired(secret string) gin.HandlerFunc {
 			return
 		}
 
-		if sub, ok := claims["sub"].(string); ok {
-			c.Set("user_id", sub)
+		userID, _ := claims["user_id"].(string)
+		email, _ := claims["email"].(string)
+		if userID == "" {
+			c.AbortWithStatusJSON(http.StatusUnauthorized, gin.H{"error": "invalid token: missing user_id"})
+			return
 		}
-		if email, ok := claims["email"].(string); ok {
+		c.Set("user_id", userID)
+		if email != "" {
 			c.Set("email", email)
 		}
 

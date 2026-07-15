@@ -11,7 +11,7 @@
         <h1>MinusAI Review</h1>
         <div class="user-info">
             <span>{{ .email }}</span>
-            <a href="/logout">Logout</a>
+            <a href="/">Logout</a>
         </div>
     </header>
     <main>
@@ -19,7 +19,7 @@
         <div id="reviews-list"><p>Loading...</p></div>
     </main>
     <script>
-        fetch('/api/reviews?repo=*')
+        fetch('/api/reviews')
             .then(r => r.json())
             .then(reviews => {
                 const list = document.getElementById('reviews-list');
