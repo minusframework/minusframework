@@ -130,6 +130,15 @@ func (s *Store) GetDashboardSummary(ctx context.Context, licenseKey string) (map
 	}, nil
 }
 
+func (s *Store) GetLicenseKeyByUserID(ctx context.Context, userID string) (string, error) {
+	var licenseKey string
+	err := s.pool.QueryRow(ctx,
+		`SELECT license_key FROM licenses WHERE user_id = $1 AND status = 'active' LIMIT 1`,
+		userID,
+	).Scan(&licenseKey)
+	return licenseKey, err
+}
+
 func (s *Store) Query(ctx context.Context, sql string, args ...interface{}) (pgx.Rows, error) {
 	return s.pool.Query(ctx, sql, args...)
 }

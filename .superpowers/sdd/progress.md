@@ -35,3 +35,7 @@ Task 15: Fix SVG logo (remove redundant text, use pure icon) — complete
 Task 16: Prevent navbar title truncation (flex-shrink: 0) — complete
 Task 17: Adjust navbar vertical padding (0.75rem top/bottom, 0.5rem item padding) — complete
 Build: PASS (pt-BR + en, zero warnings)
+---
+## Phase 2 — Telemetry Cloud Service
+Task 1: complete (commits 3316a7d5..d6ad5ce5, review clean after fix)
+Task 2: complete (commits d6ad5ce5..bc59639f, review clean after fix)

@@ -1,0 +1,284 @@
+# Review package: 3316a7d5..HEAD
+
+## Commits
+d6ad5ce5 fix: align go.mod version with Dockerfile builder image (go 1.22)
+f9c198b3 feat: scaffold Telemetry service with PostgreSQL schema
+
+## Files changed
+ services/docker-compose.yml                   | 11 +++++++
+ services/telemetry/Dockerfile                 | 12 ++++++++
+ services/telemetry/Makefile                   | 11 +++++++
+ services/telemetry/cmd/server/main.go         | 36 +++++++++++++++++++++++
+ services/telemetry/go.mod                     | 41 +++++++++++++++++++++++++++
+ services/telemetry/internal/store/postgres.go | 35 +++++++++++++++++++++++
+ services/telemetry/migrations/001_spans.sql   | 37 ++++++++++++++++++++++++
+ services/telemetry/migrations/002_metrics.sql | 24 ++++++++++++++++
+ 8 files changed, 207 insertions(+)
+
+## Diff
+diff --git a/services/docker-compose.yml b/services/docker-compose.yml
+index 24ecd3d8..9518886c 100644
+--- a/services/docker-compose.yml
++++ b/services/docker-compose.yml
+@@ -37,12 +37,23 @@ services:
+     ports:
+       - "8081:8081"
+     environment:
+       DATABASE_URL: postgres://postgres:postgres@postgres:5432/minusframework?sslmode=disable
+       LISTEN_ADDR: ":8081"
+       JWT_SECRET: dev-secret-change-in-production
+       GITHUB_APP_TOKEN: ${GITHUB_APP_TOKEN}
+     depends_on:
+       - postgres
+ 
++  telemetry:
++    build: ./telemetry
++    ports:
++      - "8082:8082"
++    environment:
++      DATABASE_URL: postgres://postgres:postgres@postgres:5432/minusframework?sslmode=disable
++      LISTEN_ADDR: ":8082"
++      JWT_SECRET: ${JWT_SECRET}
++    depends_on:
++      - postgres
++
+ volumes:
+   pgdata:
+diff --git a/services/telemetry/Dockerfile b/services/telemetry/Dockerfile
+new file mode 100644
+index 00000000..b3225e4f
+--- /dev/null
++++ b/services/telemetry/Dockerfile
+@@ -0,0 +1,12 @@
++FROM golang:1.22-alpine AS builder
++WORKDIR /app
++COPY go.mod go.sum ./
++RUN go mod download
++COPY . .
++RUN CGO_ENABLED=0 GOOS=linux go build -o /server ./cmd/server
++
++FROM alpine:3.19
++RUN apk add --no-cache ca-certificates
++COPY --from=builder /server /server
++EXPOSE 8082
++CMD ["/server"]
+diff --git a/services/telemetry/Makefile b/services/telemetry/Makefile
+new file mode 100644
+index 00000000..0869407c
+--- /dev/null
++++ b/services/telemetry/Makefile
+@@ -0,0 +1,11 @@
++.PHONY: run test migrate
++
++run:
++	go run ./cmd/server
++
++test:
++	go test ./...
++
++migrate:
++	psql "$(DATABASE_URL)" -f migrations/001_spans.sql
++	psql "$(DATABASE_URL)" -f migrations/002_metrics.sql
+diff --git a/services/telemetry/cmd/server/main.go b/services/telemetry/cmd/server/main.go
+new file mode 100644
+index 00000000..a27da3cc
+--- /dev/null
++++ b/services/telemetry/cmd/server/main.go
+@@ -0,0 +1,36 @@
++package main
++
++import (
++	"context"
++	"log"
++	"net/http"
++	"os"
++	"github.com/gin-gonic/gin"
++	"github.com/GabrielFerreiraMendes/minusframework/services/telemetry/internal/store"
++)
++
++func main() {
++	dsn := os.Getenv("DATABASE_URL")
++	if dsn == "" {
++		log.Fatal("DATABASE_URL is required")
++	}
++
++	ctx := context.Background()
++	db, err := store.NewPostgres(ctx, dsn)
++	if err != nil {
++		log.Fatalf("failed to connect to database: %v", err)
++	}
++	defer db.Close()
++
++	r := gin.Default()
++	r.GET("/health", func(c *gin.Context) {
++		c.JSON(http.StatusOK, gin.H{"status": "ok"})
++	})
++
++	addr := os.Getenv("LISTEN_ADDR")
++	if addr == "" {
++		addr = ":8082"
++	}
++	log.Printf("Telemetry API listening on %s", addr)
++	r.Run(addr)
++}
+diff --git a/services/telemetry/go.mod b/services/telemetry/go.mod
+new file mode 100644
+index 00000000..e062217d
+--- /dev/null
++++ b/services/telemetry/go.mod
+@@ -0,0 +1,41 @@
++module github.com/GabrielFerreiraMendes/minusframework/services/telemetry
++
++go 1.22
++
++require (
++	github.com/gin-gonic/gin v1.12.0
++	github.com/golang-jwt/jwt/v5 v5.3.1
++	github.com/jackc/pgx/v5 v5.10.0
++)
++
++require (
++	github.com/bytedance/gopkg v0.1.3 // indirect
++	github.com/bytedance/sonic v1.15.0 // indirect
++	github.com/bytedance/sonic/loader v0.5.0 // indirect
++	github.com/cloudwego/base64x v0.1.6 // indirect
++	github.com/gabriel-vasile/mimetype v1.4.12 // indirect
++	github.com/gin-contrib/sse v1.1.0 // indirect
++	github.com/go-playground/locales v0.14.1 // indirect
++	github.com/go-playground/universal-translator v0.18.1 // indirect
++	github.com/go-playground/validator/v10 v10.30.1 // indirect
++	github.com/goccy/go-json v0.10.5 // indirect
++	github.com/jackc/pgpassfile v1.0.0 // indirect
++	github.com/jackc/pgservicefile v0.0.0-20240606120523-5a60cdf6a761 // indirect
++	github.com/jackc/puddle/v2 v2.2.2 // indirect
++	github.com/json-iterator/go v1.1.12 // indirect
++	github.com/klauspost/cpuid/v2 v2.3.0 // indirect
++	github.com/leodido/go-urn v1.4.0 // indirect
++	github.com/mattn/go-isatty v0.0.20 // indirect
++	github.com/modern-go/concurrent v0.0.0-20180306012644-bacd9c7ef1dd // indirect
++	github.com/modern-go/reflect2 v1.0.2 // indirect
++	github.com/pelletier/go-toml/v2 v2.2.4 // indirect
++	github.com/twitchyliquid64/golang-asm v0.15.1 // indirect
++	github.com/ugorji/go/codec v1.3.1 // indirect
++	golang.org/x/arch v0.22.0 // indirect
++	golang.org/x/crypto v0.48.0 // indirect
++	golang.org/x/net v0.51.0 // indirect
++	golang.org/x/sync v0.19.0 // indirect
++	golang.org/x/sys v0.41.0 // indirect
++	golang.org/x/text v0.34.0 // indirect
++	google.golang.org/protobuf v1.36.10 // indirect
++)
+diff --git a/services/telemetry/internal/store/postgres.go b/services/telemetry/internal/store/postgres.go
+new file mode 100644
+index 00000000..b69bff1e
+--- /dev/null
++++ b/services/telemetry/internal/store/postgres.go
+@@ -0,0 +1,35 @@
++package store
++
++import (
++	"context"
++	"github.com/jackc/pgx/v5/pgxpool"
++)
++
++type Store struct {
++	pool *pgxpool.Pool
++}
++
++func NewPostgres(ctx context.Context, dsn string) (*Store, error) {
++	pool, err := pgxpool.New(ctx, dsn)
++	if err != nil {
++		return nil, err
++	}
++	if err := pool.Ping(ctx); err != nil {
++		pool.Close()
++		return nil, err
++	}
++	return &Store{pool: pool}, nil
++}
++
++func (s *Store) Close() {
++	s.pool.Close()
++}
++
++func (s *Store) ValidateLicenseKey(ctx context.Context, licenseKey string) (bool, error) {
++	var exists bool
++	err := s.pool.QueryRow(ctx,
++		`SELECT EXISTS(SELECT 1 FROM licenses WHERE license_key = $1 AND status = 'active')`,
++		licenseKey,
++	).Scan(&exists)
++	return exists, err
++}
+diff --git a/services/telemetry/migrations/001_spans.sql b/services/telemetry/migrations/001_spans.sql
+new file mode 100644
+index 00000000..30b5e7cb
+--- /dev/null
++++ b/services/telemetry/migrations/001_spans.sql
+@@ -0,0 +1,37 @@
++CREATE EXTENSION IF NOT EXISTS "pgcrypto";
++
++CREATE TABLE spans (
++    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
++    license_key TEXT NOT NULL,
++    trace_id TEXT NOT NULL,
++    span_id TEXT NOT NULL,
++    parent_span_id TEXT,
++    operation_name TEXT NOT NULL,
++    service_name TEXT NOT NULL,
++    span_kind TEXT NOT NULL,
++    start_time TIMESTAMPTZ NOT NULL,
++    end_time TIMESTAMPTZ NOT NULL,
++    duration_ms NUMERIC GENERATED ALWAYS AS (
++        EXTRACT(EPOCH FROM (end_time - start_time)) * 1000
++    ) STORED,
++    status TEXT NOT NULL DEFAULT 'ok',
++    tags JSONB DEFAULT '{}',
++    events JSONB DEFAULT '[]',
++    created_at TIMESTAMPTZ NOT NULL DEFAULT now()
++);
++
++CREATE TABLE spans_hourly (
++    hour TIMESTAMPTZ NOT NULL,
++    license_key TEXT NOT NULL,
++    service_name TEXT NOT NULL,
++    operation_name TEXT NOT NULL,
++    count INT NOT NULL DEFAULT 0,
++    error_count INT NOT NULL DEFAULT 0,
++    p50_ms NUMERIC,
++    p95_ms NUMERIC,
++    p99_ms NUMERIC
++);
++
++CREATE INDEX idx_spans_trace ON spans(license_key, trace_id);
++CREATE INDEX idx_spans_time ON spans(license_key, start_time DESC);
++CREATE INDEX idx_spans_errors ON spans(license_key, status) WHERE status = 'error';
+diff --git a/services/telemetry/migrations/002_metrics.sql b/services/telemetry/migrations/002_metrics.sql
+new file mode 100644
+index 00000000..202e5734
+--- /dev/null
++++ b/services/telemetry/migrations/002_metrics.sql
+@@ -0,0 +1,24 @@
++CREATE TABLE metrics (
++    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
++    license_key TEXT NOT NULL,
++    metric_name TEXT NOT NULL,
++    metric_type TEXT NOT NULL,
++    value NUMERIC NOT NULL,
++    tags JSONB DEFAULT '{}',
++    timestamp TIMESTAMPTZ NOT NULL,
++    created_at TIMESTAMPTZ NOT NULL DEFAULT now()
++);
++
++CREATE TABLE metrics_hourly (
++    hour TIMESTAMPTZ NOT NULL,
++    license_key TEXT NOT NULL,
++    metric_name TEXT NOT NULL,
++    metric_type TEXT NOT NULL,
++    sum NUMERIC NOT NULL,
++    count INT NOT NULL DEFAULT 0,
++    min NUMERIC,
++    max NUMERIC,
++    avg NUMERIC
++);
++
++CREATE INDEX idx_metrics_time ON metrics(license_key, metric_name, timestamp DESC);
