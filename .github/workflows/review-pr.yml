@@ -12,18 +12,21 @@ jobs:
   review:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout main repo
+      - name: Auth and clone main repo
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
+          gh auth setup-git
           gh repo clone ${{ github.repository }} . -- --depth=50
           git fetch origin ${{ github.event.pull_request.head.sha }}
           git checkout ${{ github.event.pull_request.head.sha }}
 
-      - name: Checkout review action
+      - name: Auth and clone review action
         env:
           GH_TOKEN: ${{ secrets.GH_PAT }}
-        run: gh repo clone minusframework/minusframework-ai _reviewer -- --depth=1
+        run: |
+          gh auth setup-git
+          gh repo clone minusframework/minusframework-ai _reviewer -- --depth=1
 
       - name: MinusAI Code Review
         uses: ./_reviewer/.github/actions/review-pr
