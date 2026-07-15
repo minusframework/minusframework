@@ -11,10 +11,10 @@ const config: Config = {
     v4: true,
   },
 
-  url: 'https://gabrielferreiramendes.github.io',
+  url: 'https://minusframework.github.io',
   baseUrl: process.env.BASE_URL || '/minusframework/',
 
-  organizationName: 'GabrielFerreiraMendes',
+  organizationName: 'minusframework',
   projectName: 'minusframework',
 
   onBrokenLinks: 'warn',
@@ -74,9 +74,8 @@ const config: Config = {
       respectPrefersColorScheme: true,
     },
     navbar: {
-      title: 'MinusFrameWork',
       logo: {
-        alt: 'MinusFrameWork Logo',
+        alt: 'MinusFrameWork',
         src: 'img/logo.svg',
       },
       items: [
