@@ -35,9 +35,16 @@
   --ifm-card-background-color: #252529;
 }
 
-.navbar__brand { gap: 0.0rem; }
+.navbar__brand { gap: 0.5rem; }
 .navbar__logo img { height: 2rem; }
-.navbar__title { flex-shrink: 0; }
+.navbar__title { flex-shrink: 1; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.navbar__items--left { flex-wrap: nowrap; }
+@media (max-width: 1200px) {
+  .navbar__title { max-width: 180px; }
+}
+@media (max-width: 1024px) {
+  .navbar__title { max-width: 120px; }
+}
 
 .card {
   border: 1px solid var(--ifm-toc-border-color);
