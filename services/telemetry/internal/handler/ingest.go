@@ -28,9 +28,18 @@ func (h *IngestHandler) IngestTraces(c *gin.Context) {
 		return
 	}
 
-	licenseKey, _ := c.Get("license_key")
+	licenseKey, ok := c.Get("license_key")
+	if !ok {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": "missing license key"})
+		return
+	}
+	licenseStr, ok := licenseKey.(string)
+	if !ok {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": "invalid license key"})
+		return
+	}
 	for i := range req.Spans {
-		req.Spans[i].LicenseKey = licenseKey.(string)
+		req.Spans[i].LicenseKey = licenseStr
 	}
 
 	if err := h.store.BatchInsertSpans(c.Request.Context(), req.Spans); err != nil {
@@ -48,8 +57,17 @@ func (h *IngestHandler) IngestMetrics(c *gin.Context) {
 		return
 	}
 
-	licenseKey, _ := c.Get("license_key")
-	req.LicenseKey = licenseKey.(string)
+	licenseKey, ok := c.Get("license_key")
+	if !ok {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": "missing license key"})
+		return
+	}
+	licenseStr, ok := licenseKey.(string)
+	if !ok {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": "invalid license key"})
+		return
+	}
+	req.LicenseKey = licenseStr
 
 	if err := h.store.InsertMetric(c.Request.Context(), &req); err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": "failed to store metric"})

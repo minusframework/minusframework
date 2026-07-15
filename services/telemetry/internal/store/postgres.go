@@ -102,26 +102,32 @@ func (s *Store) GetDashboardSummary(ctx context.Context, licenseKey string) (map
 	var spansLastHour int
 	var errorRate float64
 
-	s.pool.QueryRow(ctx,
+	if err := s.pool.QueryRow(ctx,
 		`SELECT COUNT(DISTINCT service_name) FROM spans
          WHERE license_key = $1 AND start_time > now() - interval '1 hour'`,
 		licenseKey,
-	).Scan(&activeServices)
+	).Scan(&activeServices); err != nil {
+		return nil, err
+	}
 
-	s.pool.QueryRow(ctx,
+	if err := s.pool.QueryRow(ctx,
 		`SELECT COUNT(*) FROM spans
          WHERE license_key = $1 AND start_time > now() - interval '1 hour'`,
 		licenseKey,
-	).Scan(&spansLastHour)
+	).Scan(&spansLastHour); err != nil {
+		return nil, err
+	}
 
-	s.pool.QueryRow(ctx,
+	if err := s.pool.QueryRow(ctx,
 		`SELECT COALESCE(
             (SELECT COUNT(*) FILTER (WHERE status = 'error')::float / NULLIF(COUNT(*), 0) * 100
              FROM spans
              WHERE license_key = $1 AND start_time > now() - interval '1 hour'),
          0)`,
 		licenseKey,
-	).Scan(&errorRate)
+	).Scan(&errorRate); err != nil {
+		return nil, err
+	}
 
 	return map[string]interface{}{
 		"active_services": activeServices,
