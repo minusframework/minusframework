@@ -4,11 +4,11 @@ param(
 )
 
 $ErrorActionPreference = "Stop"
-$RootDir = Split-Path -Parent $PSScriptRoot
-$StagingDir = Join-Path $PSScriptRoot "Staging"
+$RootDir = Split-Path -Parent (Split-Path -Parent $PSScriptRoot)
+$StagingDir = Join-Path $RootDir "Staging"
 $DistDir = Join-Path $RootDir "Dist"
 
-$Owner = "GabrielFerreiraMendes"
+$Owner = "minusframework"
 $ApiBase = "https://api.github.com/repos/$Owner"
 
 $Modules = @(
@@ -160,7 +160,7 @@ if (-not (Test-Path $InnoSetup)) {
 
 New-Item -ItemType Directory -Force -Path $DistDir | Out-Null
 
-$issFile = Join-Path $PSScriptRoot "MinusFramework.iss"
+$issFile = Join-Path $RootDir "Installer" "MinusFramework.iss"
 & $InnoSetup "/O$DistDir" "/FMinusFramework-$Version-Setup" $issFile
 
 if ($LASTEXITCODE -eq 0) {
