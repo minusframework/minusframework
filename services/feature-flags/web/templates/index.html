@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Feature Flags Dashboard</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <header>
+        <h1>Feature Flags</h1>
+        <nav>
+            <a href="/dashboard/" class="active">Overview</a>
+            <a href="/dashboard/flags">Flags</a>
+            <a href="/dashboard/audit">Audit Log</a>
+        </nav>
+    </header>
+
+    <main>
+        <div class="cards">
+            {{ range .environments }}
+            <div class="card">
+                <h3>{{ .Name }}</h3>
+                <a href="/dashboard/flags?environment_id={{ .ID }}" class="btn">Manage Flags</a>
+            </div>
+            {{ else }}
+            <div class="card">
+                <h3>No environments yet</h3>
+                <p>Create an environment via the API to get started.</p>
+            </div>
+            {{ end }}
+        </div>
+    </main>
+</body>
+</html>

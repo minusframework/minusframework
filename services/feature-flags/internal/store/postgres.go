@@ -3,6 +3,7 @@ package store
 import (
 	"context"
 	"encoding/json"
+	"time"
 
 	"github.com/jackc/pgx/v5"
 	"github.com/jackc/pgx/v5/pgxpool"
@@ -151,4 +152,31 @@ func (s *Store) UpsertFlagValue(ctx context.Context, fv *model.FlagValue) error 
 func (s *Store) CreateAuditLog(ctx context.Context, licenseKey string, actorID *string, action, resourceType, resourceID string, oldValue, newValue interface{}) error {
 	_, err := s.pool.Exec(ctx, `INSERT INTO audit_log (license_key, actor_id, action, resource_type, resource_id, old_value, new_value) VALUES ($1,$2,$3,$4,$5,$6,$7)`, licenseKey, actorID, action, resourceType, resourceID, oldValue, newValue)
 	return err
+}
+
+type AuditEntry struct {
+	ID           string    `json:"id"`
+	ActorID      *string   `json:"actor_id"`
+	Action       string    `json:"action"`
+	ResourceType string    `json:"resource_type"`
+	ResourceID   string    `json:"resource_id"`
+	CreatedAt    time.Time `json:"created_at"`
+}
+
+func (s *Store) QueryAuditLog(ctx context.Context, licenseKey string, limit int) ([]*AuditEntry, error) {
+	rows, err := s.pool.Query(ctx,
+		`SELECT id, actor_id, action, resource_type, resource_id, created_at
+         FROM audit_log WHERE license_key = $1 ORDER BY created_at DESC LIMIT $2`,
+		licenseKey, limit)
+	if err != nil {
+		return nil, err
+	}
+	defer rows.Close()
+	var logs []*AuditEntry
+	for rows.Next() {
+		e := &AuditEntry{}
+		rows.Scan(&e.ID, &e.ActorID, &e.Action, &e.ResourceType, &e.ResourceID, &e.CreatedAt)
+		logs = append(logs, e)
+	}
+	return logs, nil
 }

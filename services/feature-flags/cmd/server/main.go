@@ -64,6 +64,17 @@ func main() {
 		api.PUT("/flags/:id/toggle", flagHandler.Toggle)
 	}
 
+	r.LoadHTMLGlob("web/templates/*")
+	r.Static("/static", "./web/static")
+
+	dashboard := r.Group("/dashboard", middleware.JWTAuthRequired(jwtSecret))
+	{
+		dh := handler.NewDashboardHandler(db)
+		dashboard.GET("/", dh.Index)
+		dashboard.GET("/flags", dh.Flags)
+		dashboard.GET("/audit", dh.AuditLog)
+	}
+
 	log.Printf("Feature Flags API listening on %s", addr)
 	r.Run(addr)
 }

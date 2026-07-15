@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Audit Log</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <header>
+        <h1>Feature Flags</h1>
+        <nav>
+            <a href="/dashboard/">Overview</a>
+            <a href="/dashboard/flags">Flags</a>
+            <a href="/dashboard/audit" class="active">Audit Log</a>
+        </nav>
+    </header>
+
+    <main>
+        <table>
+            <thead>
+                <tr>
+                    <th>Time</th>
+                    <th>Action</th>
+                    <th>Resource Type</th>
+                    <th>Resource ID</th>
+                </tr>
+            </thead>
+            <tbody>
+                {{ range .logs }}
+                <tr>
+                    <td>{{ .CreatedAt.Format "2006-01-02 15:04:05" }}</td>
+                    <td>{{ .Action }}</td>
+                    <td>{{ .ResourceType }}</td>
+                    <td><code>{{ slice .ResourceID 0 8 }}</code></td>
+                </tr>
+                {{ else }}
+                <tr><td colspan="4">No audit log entries</td></tr>
+                {{ end }}
+            </tbody>
+        </table>
+    </main>
+</body>
+</html>

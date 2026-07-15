@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Feature Flags</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <header>
+        <h1>Feature Flags</h1>
+        <nav>
+            <a href="/dashboard/">Overview</a>
+            <a href="/dashboard/flags" class="active">Flags</a>
+            <a href="/dashboard/audit">Audit Log</a>
+        </nav>
+    </header>
+
+    <main>
+        <form method="GET" action="/dashboard/flags" style="margin-bottom: 1rem;">
+            <label for="environment_id">Environment:</label>
+            <select name="environment_id" id="environment_id" onchange="this.form.submit()">
+                <option value="">All</option>
+                {{ range .environments }}
+                <option value="{{ .ID }}" {{ if eq .ID $.current_env }}selected{{ end }}>{{ .Name }}</option>
+                {{ end }}
+            </select>
+        </form>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Key</th>
+                    <th>Name</th>
+                    <th>Type</th>
+                    <th>Status</th>
+                    <th>Rollout</th>
+                </tr>
+            </thead>
+            <tbody>
+                {{ range .flags }}
+                <tr>
+                    <td><code>{{ .Key }}</code></td>
+                    <td>{{ .Name }}</td>
+                    <td>{{ .FlagType }}</td>
+                    <td><span class="status inactive">disabled</span></td>
+                    <td>&mdash;</td>
+                </tr>
+                {{ else }}
+                <tr><td colspan="5">No flags found</td></tr>
+                {{ end }}
+            </tbody>
+        </table>
+    </main>
+</body>
+</html>
