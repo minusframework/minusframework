@@ -51,3 +51,27 @@ Could not run `go build` or `go test` — Go is not installed on this machine (`
 
 - The `JWTAuthRequired` middleware previously did not set `license_key`. Had to add `c.Set("license_key", claims["license_key"])` — this assumes JWT tokens carry a `license_key` claim. If the token issuer doesn't include this claim, dashboard pages will fail with a nil pointer assertion on `licenseKey.(string)`.
 - Template `traces.html` references `.DurationMs` on Span model — added a `DurationMs()` method to Span.
+
+---
+
+## Fix Round (Commit `6b0bedd1`)
+
+### Issue 1 — JWT `license_key` nil panic (Critical)
+
+**Problem:** `JWTAuthRequired` middleware set `c.Set("license_key", claims["license_key"])`, but the License Server JWT has no `license_key` claim. `licenseKey.(string)` panics on nil.
+
+**Fix:**
+- `internal/middleware/apikey.go` — removed `c.Set("license_key", claims["license_key"])` (line 65 deleted)
+- `internal/store/postgres.go` — added `GetLicenseKeyByUserID(ctx, userID)` method that queries `licenses` table using `user_id`
+- `internal/handler/dashboard.go` — all three handlers (`Index`, `Traces`, `Services`) now extract `user_id` from JWT, call `getLicenseKey(c)` → `h.store.GetLicenseKeyByUserID(...)`, then use the resolved license key for downstream queries. If lookup fails, defaults are returned instead of panic.
+
+### Issue 2 — Dockerfile missing web files
+
+**Problem:** Docker image had no `web/` directory; `LoadHTMLGlob` and `Static` would fail at runtime.
+
+**Fix:** Added `COPY web web` to Dockerfile between the binary copy and `EXPOSE`.
+
+### Verification
+
+- Go toolchain not available on this machine — tests could not be run.
+- All changes are consistent with the existing codebase interfaces and patterns.

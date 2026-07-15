@@ -2,6 +2,8 @@ package store
 
 import (
 	"context"
+	"encoding/json"
+
 	"github.com/jackc/pgx/v5"
 	"github.com/jackc/pgx/v5/pgxpool"
 	"github.com/GabrielFerreiraMendes/minusframework/services/feature-flags/internal/model"
@@ -69,10 +71,31 @@ func (s *Store) DeleteEnvironment(ctx context.Context, id string) error {
 	return err
 }
 
+func (s *Store) GetLicenseKeyByUserID(ctx context.Context, userID string) (string, error) {
+	var licenseKey string
+	err := s.pool.QueryRow(ctx,
+		`SELECT license_key FROM licenses WHERE user_id = $1 AND status = 'active' LIMIT 1`,
+		userID,
+	).Scan(&licenseKey)
+	return licenseKey, err
+}
+
 func (s *Store) ListFlags(ctx context.Context, licenseKey, environmentID string) ([]*model.Flag, error) {
-	rows, err := s.pool.Query(ctx,
-		`SELECT f.id, f.key, f.name, f.description, f.flag_type, f.default_variant, f.created_at, f.updated_at
-		 FROM flags f WHERE f.license_key = $1 ORDER BY f.key`, licenseKey)
+	var rows pgx.Rows
+	var err error
+	if environmentID != "" {
+		rows, err = s.pool.Query(ctx,
+			`SELECT f.id, f.key, f.name, f.description, f.flag_type, f.default_variant, f.created_at, f.updated_at,
+                    fv.id, fv.enabled, fv.variant_value, fv.rollout_percentage
+             FROM flags f
+             LEFT JOIN flag_values fv ON fv.flag_id = f.id AND fv.environment_id = $2
+             WHERE f.license_key = $1
+             ORDER BY f.key`, licenseKey, environmentID)
+	} else {
+		rows, err = s.pool.Query(ctx,
+			`SELECT f.id, f.key, f.name, f.description, f.flag_type, f.default_variant, f.created_at, f.updated_at
+			 FROM flags f WHERE f.license_key = $1 ORDER BY f.key`, licenseKey)
+	}
 	if err != nil {
 		return nil, err
 	}
@@ -80,7 +103,16 @@ func (s *Store) ListFlags(ctx context.Context, licenseKey, environmentID string)
 	var flags []*model.Flag
 	for rows.Next() {
 		f := &model.Flag{}
-		rows.Scan(&f.ID, &f.Key, &f.Name, &f.Description, &f.FlagType, &f.DefaultVariant, &f.CreatedAt, &f.UpdatedAt)
+		if environmentID != "" {
+			var fvID *string
+			var enabled *bool
+			var variantValue *json.RawMessage
+			var rollout *int
+			rows.Scan(&f.ID, &f.Key, &f.Name, &f.Description, &f.FlagType, &f.DefaultVariant, &f.CreatedAt, &f.UpdatedAt,
+				&fvID, &enabled, &variantValue, &rollout)
+		} else {
+			rows.Scan(&f.ID, &f.Key, &f.Name, &f.Description, &f.FlagType, &f.DefaultVariant, &f.CreatedAt, &f.UpdatedAt)
+		}
 		flags = append(flags, f)
 	}
 	return flags, nil

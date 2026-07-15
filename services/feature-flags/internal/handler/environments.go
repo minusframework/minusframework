@@ -17,8 +17,13 @@ func NewEnvironmentHandler(s *store.Store) *EnvironmentHandler {
 }
 
 func (h *EnvironmentHandler) List(c *gin.Context) {
-	licenseKey, _ := c.Get("license_key")
-	envs, err := h.store.ListEnvironments(c.Request.Context(), licenseKey.(string))
+	userID, _ := c.Get("user_id")
+	licenseKey, err := h.store.GetLicenseKeyByUserID(c.Request.Context(), userID.(string))
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": "failed to resolve license key"})
+		return
+	}
+	envs, err := h.store.ListEnvironments(c.Request.Context(), licenseKey)
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": "failed to list environments"})
 		return
@@ -34,8 +39,13 @@ func (h *EnvironmentHandler) Create(c *gin.Context) {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
-	licenseKey, _ := c.Get("license_key")
-	env := &model.Environment{LicenseKey: licenseKey.(string), Name: req.Name}
+	userID, _ := c.Get("user_id")
+	licenseKey, err := h.store.GetLicenseKeyByUserID(c.Request.Context(), userID.(string))
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": "failed to resolve license key"})
+		return
+	}
+	env := &model.Environment{LicenseKey: licenseKey, Name: req.Name}
 	if err := h.store.CreateEnvironment(c.Request.Context(), env); err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": "failed to create environment"})
 		return

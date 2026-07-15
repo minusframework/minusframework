@@ -17,9 +17,14 @@ func NewFlagHandler(s *store.Store) *FlagHandler {
 }
 
 func (h *FlagHandler) List(c *gin.Context) {
-	licenseKey, _ := c.Get("license_key")
+	userID, _ := c.Get("user_id")
+	licenseKey, err := h.store.GetLicenseKeyByUserID(c.Request.Context(), userID.(string))
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": "failed to resolve license key"})
+		return
+	}
 	envID := c.Query("environment_id")
-	flags, err := h.store.ListFlags(c.Request.Context(), licenseKey.(string), envID)
+	flags, err := h.store.ListFlags(c.Request.Context(), licenseKey, envID)
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": "failed to list flags"})
 		return
@@ -33,9 +38,14 @@ func (h *FlagHandler) Create(c *gin.Context) {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
-	licenseKey, _ := c.Get("license_key")
+	userID, _ := c.Get("user_id")
+	licenseKey, err := h.store.GetLicenseKeyByUserID(c.Request.Context(), userID.(string))
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": "failed to resolve license key"})
+		return
+	}
 	flag := &model.Flag{
-		LicenseKey: licenseKey.(string),
+		LicenseKey: licenseKey,
 		Key: req.Key, Name: req.Name, Description: req.Description,
 		FlagType: req.FlagType, DefaultVariant: req.DefaultVariant,
 	}
@@ -43,7 +53,7 @@ func (h *FlagHandler) Create(c *gin.Context) {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": "failed to create flag"})
 		return
 	}
-	h.store.CreateAuditLog(c.Request.Context(), licenseKey.(string), nil, "flag.created", "flag", flag.ID, nil, flag)
+	h.store.CreateAuditLog(c.Request.Context(), licenseKey, nil, "flag.created", "flag", flag.ID, nil, flag)
 	c.JSON(http.StatusCreated, flag)
 }
 
@@ -64,12 +74,17 @@ func (h *FlagHandler) Update(c *gin.Context) {
 
 func (h *FlagHandler) Delete(c *gin.Context) {
 	id := c.Param("id")
-	licenseKey, _ := c.Get("license_key")
+	userID, _ := c.Get("user_id")
+	licenseKey, err := h.store.GetLicenseKeyByUserID(c.Request.Context(), userID.(string))
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": "failed to resolve license key"})
+		return
+	}
 	if err := h.store.DeleteFlag(c.Request.Context(), id); err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": "failed to delete flag"})
 		return
 	}
-	h.store.CreateAuditLog(c.Request.Context(), licenseKey.(string), nil, "flag.deleted", "flag", id, nil, nil)
+	h.store.CreateAuditLog(c.Request.Context(), licenseKey, nil, "flag.deleted", "flag", id, nil, nil)
 	c.JSON(http.StatusOK, gin.H{"status": "deleted"})
 }
 
@@ -86,7 +101,12 @@ func (h *FlagHandler) Toggle(c *gin.Context) {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
-	licenseKey, _ := c.Get("license_key")
+	userID, _ := c.Get("user_id")
+	licenseKey, err := h.store.GetLicenseKeyByUserID(c.Request.Context(), userID.(string))
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": "failed to resolve license key"})
+		return
+	}
 	rollout := 100
 	if req.RolloutPercentage != nil {
 		rollout = *req.RolloutPercentage
@@ -96,6 +116,6 @@ func (h *FlagHandler) Toggle(c *gin.Context) {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": "failed to update flag value"})
 		return
 	}
-	h.store.CreateAuditLog(c.Request.Context(), licenseKey.(string), nil, "flag.toggled", "flag_value", value.ID, nil, value)
+	h.store.CreateAuditLog(c.Request.Context(), licenseKey, nil, "flag.toggled", "flag_value", value.ID, nil, value)
 	c.JSON(http.StatusOK, value)
 }
