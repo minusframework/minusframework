@@ -1,3 +1,0 @@
-User-agent: *
-Allow: /
-Sitemap: https://gabrielferreiramendes.github.io/minusframework/sitemap.xml
