@@ -24,7 +24,7 @@ $headers = @{
     "User-Agent"    = "PowerShell"
     "Accept"        = "application/vnd.github+json"
 }
-$apiBase = "https://api.github.com/repos/GabrielFerreiraMendes/$Module"
+$apiBase = "https://api.github.com/repos/minusframework/$Module"
 
 function Invoke-GitHub {
     param([string]$Method, [string]$Uri, $Body)
