@@ -61,7 +61,7 @@ jobs:
         run: |
           sleep 30
           for i in 1 2 3; do
-            code=$(curl -s -o /dev/null -w "%{http_code}" "https://minusframework.dev" 2>/dev/null || echo "000")
+            code=$(curl -s -o /dev/null -w "%{http_code}" "https://minusframework.github.io/minusframework/" 2>/dev/null || echo "000")
             if [ "$code" = "200" ]; then echo "Site is live"; exit 0; fi
             echo "Attempt $i: HTTP $code, retrying..."
             sleep 10
